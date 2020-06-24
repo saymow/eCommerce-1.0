@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { ShoppingBag } from "styled-icons/remix-fill";
 
-export const Container = styled.div`
+export const Container = styled.header`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 6rem;
   padding: 0 1.5rem;
+  z-index: 99;
 
   background-color: var(--primary);
   color: var(--background);
@@ -32,14 +33,15 @@ export const LogoContainer = styled.div`
   cursor: pointer;
 
   > strong {
+    line-height: 3rem;
     margin-left: 0.5rem;
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 `;
 
 export const LogoIcon = styled(ShoppingBag)`
-  height: 3.6rem;
-  width: 3.6rem;
+  height: 4.2rem;
+  width: 4.2rem;
 `;
 
 export const ItemList = styled.div`
@@ -49,7 +51,8 @@ export const ItemList = styled.div`
 `;
 
 export const ListItem = styled.div`
-  font-size: 2.5rem;
+  position: relative;
+  font-size: 2.2rem;
   margin-left: 2rem;
 
   &::after {
@@ -64,3 +67,4 @@ export const ListItem = styled.div`
     width: 100%;
   }
 `;
+

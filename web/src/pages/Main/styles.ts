@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 import backgroundImage from "../../assets/background.jpeg";
+import { Transitions } from "../../styles/globalStyles";
 
-export const Container = styled.div`
+export const Container = styled(Transitions)`
   width: 100%;
   margin: auto;
   max-width: 1360px;

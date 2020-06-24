@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { ShoppingCart } from "styled-icons/evaicons-solid";
+import { ShoppingBags } from "@styled-icons/boxicons-solid";
 
-export const Container = styled.div`
-  position: relative;
-`;
+export const Container = styled.div``;
 
 export const ShoppingIcon = styled(ShoppingCart)`
   height: 3.4rem;
@@ -37,6 +36,7 @@ export const Cart = styled.div`
   width: 320px;
   border-radius: 0 0 0.5rem 0.5rem;
   padding: 1rem 1rem 1rem 0.5rem;
+  box-shadow: 1px 1px 3px var(--primary);
 
   background-color: var(--background);
 
@@ -48,7 +48,7 @@ export const Cart = styled.div`
 `;
 
 export const ListItem = styled.div`
-  max-height: 40vh;
+  height: 35vh;
   overflow: auto;
 
   padding: 0 2rem 1rem 0;
@@ -67,19 +67,24 @@ export const Item = styled.div`
   margin-top: 1rem;
   position: relative;
 
-  padding: 0.2rem;
   border: 1px solid var(--primary);
   display: flex;
   align-items: flex-start;
 
+  height: 62px;
+
   color: #000;
+
+  div:last-child {
+    padding: 0.5rem;
+  }
 
   strong {
     margin-right: 0.3rem;
   }
 
   > div > img {
-    width: 60px;
+    width: 80px;
     height: 60px;
   }
 
@@ -99,9 +104,16 @@ export const Item = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const Checkout = styled.div`
   margin-top: 1rem;
 
+  > strong {
+    font-size: 1.6rem;
+    color: var(--primary);
+  }
+`;
+
+export const Button = styled.button`
   font-size: 1.6rem;
   width: 305px;
   padding: 0.8rem;
@@ -118,4 +130,23 @@ export const Button = styled.button`
     background-color: var(--background);
     border-color: var(--primary);
   }
+`;
+
+export const EmptyBag = styled.div`
+  height: 20vh;
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  p {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+`;
+
+export const EmptyBagIcon = styled(ShoppingBags)`
+  height: 30px;
+  width: 30px;
 `;

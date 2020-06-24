@@ -25,7 +25,9 @@ const Header: React.FC = () => {
         </div>
 
         <ItemList>
-          <ListItem onClick={() => history.push("/products")}>Products</ListItem>
+          <ListItem onClick={() => history.push("/products")}>
+            Products          
+          </ListItem>
 
           <ListItem>
             <ShoppingCart />
