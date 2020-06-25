@@ -48,7 +48,7 @@ export const Cart = styled.div`
 `;
 
 export const ListItem = styled.div`
-  height: 35vh;
+  height: 30vh;
   overflow: auto;
 
   padding: 0 2rem 1rem 0;
@@ -105,7 +105,7 @@ export const Item = styled.div`
 `;
 
 export const Checkout = styled.div`
-  margin-top: 1rem;
+  margin-top: .5rem;
 
   > strong {
     font-size: 1.6rem;

@@ -1,12 +1,13 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface ContextData {
-  cartManager: {
-    totalCart: number;
-    setTotalCart: (total: number) => void;
-    cart: Product[];
-    addProductToCart: (product: Product) => void;
-  };
+  cartManager: CartManager;
+}
+
+interface CartManager {
+  totalCart: string;
+  cart: Product[];
+  addProductToCart: (product: Product) => void;
 }
 
 interface Product {
@@ -21,14 +22,45 @@ const authContext = createContext<ContextData>({
   cartManager: {
     cart: [],
     addProductToCart: () => null,
-    totalCart: 0,
-    setTotalCart: () => null,
+    totalCart: "",
   },
 });
 
 const AppContext: React.FC = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
-  const [totalCart, setTotalCart] = useState(0);
+  const [totalCart, setTotalCart] = useState("");
+
+  useEffect(() => {
+    function loadData() {
+      let cartManaager = localStorage.getItem("@cartData");
+
+      if (cartManaager) {
+        let cartParsed: CartManager = JSON.parse(cartManaager);
+        if (cartParsed.cart) setCart(cartParsed.cart);
+      }
+    }
+    loadData();
+  }, []);
+
+  function saveData() {
+    localStorage.setItem(
+      "@cartData",
+      JSON.stringify({
+        cart,
+        totalCart,
+      })
+    );
+  }
+
+  useEffect(() => {
+    let total = cart.reduce((accumulator, item) => {
+      let priceParsed = item.price.replace(",", ".");
+      return (
+        accumulator + parseFloat(priceParsed) * (item.qntd ? item.qntd : 1)
+      );
+    }, 0.0).toFixed(2);
+    setTotalCart(total);
+  }, [cart]);
 
   function addProductToCart(product: Product) {
     const productAlreadyInCart = cart.some((item) => item.id === product.id);
@@ -48,7 +80,7 @@ const AppContext: React.FC = ({ children }) => {
   return (
     <authContext.Provider
       value={{
-        cartManager: { cart, addProductToCart, totalCart, setTotalCart },
+        cartManager: { cart, addProductToCart, totalCart },
       }}
     >
       {children}

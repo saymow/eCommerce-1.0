@@ -18,20 +18,8 @@ import {
 
 const ShoppingCart: React.FC = () => {
   const history = useHistory();
-  const { cartManager: {cart, totalCart, setTotalCart} } = useGlobalState();
+  const { cartManager: {cart, totalCart} } = useGlobalState();
   const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    let total = cart.reduce((accumulator, item) => {
-      let priceParsed = item.price.replace(",", ".");
-      return (
-        accumulator + parseFloat(priceParsed) * (item.qntd ? item.qntd : 1)
-      );
-    }, 0.0);
-
-
-    setTotalCart(total);
-  }, [cart, setTotalCart]);
 
   return (
     <Container>

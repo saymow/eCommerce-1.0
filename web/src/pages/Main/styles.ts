@@ -4,10 +4,11 @@ import backgroundImage from "../../assets/background.jpeg";
 import { Transitions } from "../../styles/globalStyles";
 
 export const Container = styled(Transitions)`
-  width: 100%;
-  margin: auto;
-  max-width: 1360px;
-  padding: 1.5rem;
+  z-index: -1;
+  background-image: url(${backgroundImage});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 export const MainContent = styled.div`
@@ -15,27 +16,16 @@ export const MainContent = styled.div`
   align-items: center;
   height: 100vh;
   width: 100%;
-`;
-
-export const Img = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-
-  background-image: url(${backgroundImage});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  filter: brightness(40%);
+  max-width: 1360px;
+  padding: 1.5rem;
+  margin: auto;
 `;
 
 export const Content = styled.div`
   max-width: 75rem;
 
-  h1, p {
+  h1,
+  p {
     text-shadow: 2px 2px #000;
     color: var(--background);
   }
@@ -52,4 +42,39 @@ export const Content = styled.div`
 `;
 
 export const AditionalContent = styled.div`
+  width: 100%;
+`;
+
+export const ContentWrapper = styled.div`
+  padding: 15rem 0;
+  width: 100%;
+  background-color: #fff;
+`;
+
+export const ContentElement = styled.div`
+  width: 100%;
+  max-width: 1360px;
+  margin: auto;
+  padding: 0 5rem;
+`;
+
+export const Separetor = styled.div`
+  height: 20rem;
+  background-color: transparent;
+`;
+
+export const AboutUs = styled.section`
+  width: 100%;
+  max-width: 560px;
+  color: var(--secondary);
+
+  h2 {
+    margin-bottom: 2rem;
+    font-size: 4rem;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 1.6rem;
+  }
 `;
