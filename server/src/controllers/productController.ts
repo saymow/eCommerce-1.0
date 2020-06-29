@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import connection from "../database/connection";
 
-interface queryList {
+interface QueryList {
   page?: number;
   limit?: number;
 }
@@ -23,7 +23,7 @@ class productManager {
   }
 
   async list(req: Request, res: Response) {
-    const { page = 1, limit = 1 }: queryList = req.query;
+    const { page = 0, limit = 999 } : QueryList = req.query;
 
     const products = await connection("products")
       .select("id", "name", "price", "qntd", "image")
@@ -32,13 +32,15 @@ class productManager {
 
     const serializedProducts = products.map((product) => ({
       ...product,
-      image: `http://localhost:3333/images/${product.image}`,
+      image: `http://localhost:3333/images/${product.image}.jpg`,
     }));
 
     if (page == 1) {
       const [count] = await connection("products").count();
       res.setHeader("X-Total-Count", count["count(*)"]);
     }
+
+    console.log(serializedProducts);
 
     return res.json(serializedProducts);
   }

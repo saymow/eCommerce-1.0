@@ -1,8 +1,33 @@
 import styled from "styled-components";
 import { ShoppingCart } from "styled-icons/evaicons-solid";
 import { ShoppingBags } from "@styled-icons/boxicons-solid";
+import { DeleteBack2 } from "@styled-icons/remix-line";
 
-export const Container = styled.div``;
+interface ShoppingProps {
+  qntd: number;
+}
+
+export const Container = styled.div<ShoppingProps>`
+  position: relative;
+
+  &::after {
+    display: ${props => props.qntd > 0 ? "inline" : "none"};
+    content: "${props => props.qntd}";
+    position: absolute;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    padding: .1rem;
+    top: 12px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    color: #fff;
+    background-color: #f00;
+  }
+`;
 
 export const ShoppingIcon = styled(ShoppingCart)`
   height: 3.4rem;
@@ -27,6 +52,7 @@ export const BackDrop = styled.div`
 `;
 
 export const Cart = styled.div`
+  cursor: default;
   display: none;
   position: absolute;
   z-index: 3;
@@ -104,8 +130,17 @@ export const Item = styled.div`
   }
 `;
 
+export const DeleteIcon = styled(DeleteBack2)`
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 16px;
+  height: 16px;
+`;
+
 export const Checkout = styled.div`
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 
   > strong {
     font-size: 1.6rem;

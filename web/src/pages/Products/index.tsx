@@ -11,10 +11,13 @@ interface Product {
   name: string;
   price: string;
   image: string;
+  qntd: number;
 }
 
 const Products: React.FC = () => {
-  const { cartManager: { addProductToCart } } = useGlobalState();
+  const {
+    cartManager: { addProductToCart },
+  } = useGlobalState();
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -26,9 +29,12 @@ const Products: React.FC = () => {
   }, []);
 
   function handleInsertIntoCart(id: number) {
-    const selectedProduct = products.find(product => product.id === id);
-    
-    if (selectedProduct) addProductToCart(selectedProduct);
+    const selectedProduct = products.find((product) => product.id === id);
+
+    if (selectedProduct) {
+      selectedProduct["qntd"] = 1;
+      addProductToCart(selectedProduct);
+    }
   }
 
   return (
@@ -37,13 +43,10 @@ const Products: React.FC = () => {
         <ProductList>
           {products.map((product) => (
             <Product key={product.id}>
-              <img
-                src={product.image}
-                alt={product.name}
-              />
+              <img src={product.image} alt={product.name} />
               <strong>{product.name}</strong>
               <span>R${product.price}</span>
-              <CartAdd onClick={() => handleInsertIntoCart(product.id)}/>
+              <CartAdd onClick={() => handleInsertIntoCart(product.id)} />
             </Product>
           ))}
         </ProductList>

@@ -8,6 +8,7 @@ interface CartManager {
   totalCart: string;
   cart: Product[];
   addProductToCart: (product: Product) => void;
+  handleDeleteCartItem: (id: number) => void;
 }
 
 interface Product {
@@ -15,13 +16,14 @@ interface Product {
   name: string;
   image: string;
   price: string;
-  qntd?: number;
+  qntd: number;
 }
 
 const authContext = createContext<ContextData>({
   cartManager: {
     cart: [],
     addProductToCart: () => null,
+    handleDeleteCartItem: () => null,
     totalCart: "",
   },
 });
@@ -53,12 +55,14 @@ const AppContext: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
-    let total = cart.reduce((accumulator, item) => {
-      let priceParsed = item.price.replace(",", ".");
-      return (
-        accumulator + parseFloat(priceParsed) * (item.qntd ? item.qntd : 1)
-      );
-    }, 0.0).toFixed(2);
+    let total = cart
+      .reduce((accumulator, item) => {
+        let priceParsed = item.price.replace(",", ".");
+        return (
+          accumulator + parseFloat(priceParsed) * (item.qntd ? item.qntd : 1)
+        );
+      }, 0.0)
+      .toFixed(2);
     setTotalCart(total);
   }, [cart]);
 
@@ -67,20 +71,44 @@ const AppContext: React.FC = ({ children }) => {
 
     if (productAlreadyInCart) {
       const newCart = cart.map((item) =>
-        item.id !== product.id
-          ? item
-          : { ...item, qntd: item.qntd ? item.qntd + 1 : 1 }
+        item.id !== product.id ? item : { ...item, qntd: item.qntd + 1 }
       );
 
       return setCart(newCart);
     }
-    setCart([...cart, { ...product, qntd: 1 }]);
+    setCart([...cart, { ...product }]);
+  }
+
+  function handleDeleteCartItem(id: number) {
+    const newCart = cart.reduce((accumulator: Product[], item) => {
+      if (item.id !== id) return [...accumulator, item];
+
+      if (item.qntd > 1) {
+        return [
+          ...accumulator,
+          {
+            ...item,
+            qntd: item.qntd - 1,
+          },
+        ];
+      }
+
+      return accumulator;
+
+    }, []);
+
+    setCart(newCart);
   }
 
   return (
     <authContext.Provider
       value={{
-        cartManager: { cart, addProductToCart, totalCart },
+        cartManager: {
+          cart,
+          totalCart,
+          addProductToCart,
+          handleDeleteCartItem,
+        },
       }}
     >
       {children}

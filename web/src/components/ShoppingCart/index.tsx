@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../context/index";
@@ -14,15 +14,24 @@ import {
   ListItem,
   EmptyBag,
   EmptyBagIcon,
+  DeleteIcon,
 } from "./styles";
 
 const ShoppingCart: React.FC = () => {
   const history = useHistory();
-  const { cartManager: {cart, totalCart} } = useGlobalState();
+  const {
+    cartManager: { cart, totalCart, handleDeleteCartItem },
+  } = useGlobalState();
   const [show, setShow] = useState(false);
 
+  const qntdItems = useMemo(() => {
+    return cart.reduce((accumulator, item) => {
+      return accumulator + (item.qntd ? item.qntd : 1);
+    }, 0);
+  }, [cart]);
+
   return (
-    <Container>
+    <Container qntd={qntdItems}>
       <ShoppingIcon onClick={() => setShow((value) => !value)} />
       <BackDrop className={show ? "show" : ""} onClick={() => setShow(false)} />
 
@@ -47,6 +56,7 @@ const ShoppingCart: React.FC = () => {
                       {product.name}
                     </p>
                     <span>R${product.price}</span>
+                    <DeleteIcon onClick={() => handleDeleteCartItem(product.id)} />
                   </div>
                 </Item>
               ))}
@@ -54,7 +64,9 @@ const ShoppingCart: React.FC = () => {
             <Checkout>
               <strong>Total: R${totalCart}</strong>
 
-              <Button onClick={() => history.push("checkout")}>Check out</Button>
+              <Button onClick={() => history.push("checkout")}>
+                Check out
+              </Button>
             </Checkout>
           </>
         )}
