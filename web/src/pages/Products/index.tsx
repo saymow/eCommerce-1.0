@@ -17,7 +17,7 @@ interface Product {
 
 const Products: React.FC = () => {
   const {
-    cartManager: { addProductToCart },
+    cartManager: { dispatch },
   } = useGlobalState();
   const [products, setProducts] = useState<Product[]>([]);
   const history = useHistory();
@@ -35,7 +35,10 @@ const Products: React.FC = () => {
 
     if (selectedProduct) {
       selectedProduct["qntd"] = 1;
-      addProductToCart(selectedProduct);
+      dispatch({
+        type:"add-product",
+        payload: selectedProduct
+      });
     }
   }
 

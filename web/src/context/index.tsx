@@ -1,14 +1,16 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 
 interface ContextData {
   cartManager: CartManager;
 }
 
-interface CartManager {
+interface CartData {
   totalCart: string;
   cart: Product[];
-  addProductToCart: (product: Product) => void;
-  handleDeleteCartItem: (id: number) => void;
+}
+
+interface CartManager extends CartData {
+  dispatch: (arg0: Action) => void;
 }
 
 interface Product {
@@ -21,93 +23,94 @@ interface Product {
 
 const authContext = createContext<ContextData>({
   cartManager: {
-    cart: [],
-    addProductToCart: () => null,
-    handleDeleteCartItem: () => null,
     totalCart: "",
+    cart: [],
+    dispatch: (Action) => null,
   },
 });
 
-const AppContext: React.FC = ({ children }) => {
-  const [cart, setCart] = useState<Product[]>([]);
-  const [totalCart, setTotalCart] = useState("");
+type Action =
+  | { type: "add-product"; payload: Product }
+  | { type: "delete-product"; payload: { id: number } }
+  | { type: "refresh-totalCart" };
 
-  useEffect(() => {
-    function loadData() {
-      let cartManaager = localStorage.getItem("@cartData");
-
-      if (cartManaager) {
-        let cartParsed: CartManager = JSON.parse(cartManaager);
-        if (cartParsed.cart) setCart(cartParsed.cart);
-      }
-    }
-    loadData();
-  }, []);
-
-  function saveData() {
-    localStorage.setItem(
-      "@cartData",
-      JSON.stringify({
-        cart,
-        totalCart,
-      })
-    );
-  }
-
-  useEffect(() => {
-    let total = cart
-      .reduce((accumulator, item) => {
-        let priceParsed = item.price.replace(",", ".");
-        return (
-          accumulator + parseFloat(priceParsed) * (item.qntd ? item.qntd : 1)
-        );
-      }, 0.0)
-      .toFixed(2);
-    setTotalCart(total);
-  }, [cart]);
-
-  function addProductToCart(product: Product) {
-    const productAlreadyInCart = cart.some((item) => item.id === product.id);
-
-    if (productAlreadyInCart) {
-      const newCart = cart.map((item) =>
-        item.id !== product.id ? item : { ...item, qntd: item.qntd + 1 }
+function action(state: CartData, action: Action): CartData {
+  switch (action.type) {
+    case "add-product":
+      const productAlreadyInCart = state.cart.some(
+        (item) => item.id === action.payload.id
       );
 
-      return setCart(newCart);
-    }
-    setCart([...cart, { ...product }]);
-  }
+      if (productAlreadyInCart) {
+        const newCart = state.cart.map((item) =>
+          item.id !== action.payload.id
+            ? item
+            : { ...item, qntd: item.qntd + 1 }
+        );
 
-  function handleDeleteCartItem(id: number) {
-    const newCart = cart.reduce((accumulator: Product[], item) => {
-      if (item.id !== id) return [...accumulator, item];
-
-      if (item.qntd > 1) {
-        return [
-          ...accumulator,
-          {
-            ...item,
-            qntd: item.qntd - 1,
-          },
-        ];
+        return { ...state, cart: newCart };
       }
 
-      return accumulator;
+      return { ...state, cart: [...state.cart, action.payload] };
 
-    }, []);
+    case "delete-product":
+      const newCart = state.cart.reduce((accumulator: Product[], item) => {
+        if (item.id !== action.payload.id) return [...accumulator, item];
 
-    setCart(newCart);
+        if (item.qntd > 1) {
+          return [
+            ...accumulator,
+            {
+              ...item,
+              qntd: item.qntd - 1,
+            },
+          ];
+        }
+
+        return accumulator;
+      }, []);
+
+      return {
+        ...state,
+        cart: newCart,
+      };
+
+    case "refresh-totalCart":
+      let total = state.cart
+        .reduce((accumulator, item) => {
+          let priceParsed = item.price.replace(",", ".");
+          return (
+            accumulator + parseFloat(priceParsed) * (item.qntd ? item.qntd : 1)
+          );
+        }, 0.0)
+        .toFixed(2);
+
+      return { ...state, totalCart: total };
+
+    default:
+      return state;
   }
+}
+
+const AppContext: React.FC = ({ children }) => {
+  const [cartData, dispatch] = useReducer(action, {
+    totalCart: "",
+    cart: [],
+  });
+
+  useEffect(() => {
+    dispatch({
+      type: "refresh-totalCart",
+    });
+  }, [cartData.cart]);
 
   return (
     <authContext.Provider
       value={{
         cartManager: {
-          cart,
-          totalCart,
-          addProductToCart,
-          handleDeleteCartItem,
+          cart: cartData.cart,
+          totalCart: cartData.totalCart,
+          dispatch,
         },
       }}
     >

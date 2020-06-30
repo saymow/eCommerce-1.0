@@ -20,7 +20,7 @@ import {
 const ShoppingCart: React.FC = () => {
   const history = useHistory();
   const {
-    cartManager: { cart, totalCart, handleDeleteCartItem },
+    cartManager: { totalCart, cart, dispatch },
   } = useGlobalState();
   const [show, setShow] = useState(false);
 
@@ -29,6 +29,15 @@ const ShoppingCart: React.FC = () => {
       return accumulator + (item.qntd ? item.qntd : 1);
     }, 0);
   }, [cart]);
+
+  function handleDeleteCartItem(id: number) {
+    dispatch({
+      type: "delete-product",
+      payload: {
+        id
+      },
+    })
+  }
 
   return (
     <Container qntd={qntdItems}>
