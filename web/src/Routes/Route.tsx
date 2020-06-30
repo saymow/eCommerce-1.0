@@ -9,6 +9,7 @@ import Products from "../pages/Products";
 import Checkout from "../pages/Checkout";
 import Product from "../pages/Product";
 
+import CartModal from "../components/CartModal";
 // import { Container } from "./styles";
 
 const Routes: React.FC = () => {
@@ -29,6 +30,7 @@ const Routes: React.FC = () => {
           </TransitionGroup>
         )}
       />
+      <CartModal />
       <Footer />
     </BrowserRouter>
   );

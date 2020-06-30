@@ -1,7 +1,17 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useReducer,
+} from "react";
 
 interface ContextData {
   cartManager: CartManager;
+  cartModalController: {
+    showCartModal: boolean;
+    setShowCartModal: (prevState: boolean) => void;
+  }
 }
 
 interface CartData {
@@ -27,12 +37,71 @@ const authContext = createContext<ContextData>({
     cart: [],
     dispatch: (Action) => null,
   },
+  cartModalController: {
+    showCartModal: false,
+    setShowCartModal: (prevState) => false,
+  }
 });
 
 type Action =
   | { type: "add-product"; payload: Product }
   | { type: "delete-product"; payload: { id: number } }
   | { type: "refresh-totalCart" };
+
+const AppContext: React.FC = ({ children }) => {
+  const [cartData, dispatch] = useReducer(
+    action,
+    {
+      totalCart: "",
+      cart: [],
+    },
+    loadStoragedData
+  );
+  const [showCartModal, setShowCartModal] = useState(false);
+
+  useEffect(() => {
+    dispatch({
+      type: "refresh-totalCart",
+    });
+  }, [cartData.cart]);
+
+  useEffect(() => {
+    const { cart, totalCart } = cartData;
+    localStorage.setItem(
+      "@CartData:",
+      JSON.stringify({
+        cart,
+        totalCart,
+      })
+    );
+  }, [cartData]);
+
+  return (
+    <authContext.Provider
+      value={{
+        cartModalController: {
+          showCartModal,
+          setShowCartModal
+        },
+        cartManager: {
+          cart: cartData.cart,
+          totalCart: cartData.totalCart,
+          dispatch,
+        },
+      }}
+    >
+      {children}
+    </authContext.Provider>
+  );
+};
+
+export function useGlobalState() {
+  const context = useContext(authContext);
+
+  return context;
+}
+
+export default AppContext;
 
 function action(state: CartData, action: Action): CartData {
   switch (action.type) {
@@ -111,53 +180,3 @@ function loadStoragedData() {
     };
   }
 }
-
-const AppContext: React.FC = ({ children }) => {
-  const [cartData, dispatch] = useReducer(
-    action,
-    {
-      totalCart: "",
-      cart: [],
-    },
-    loadStoragedData
-  );
-
-  useEffect(() => {
-    dispatch({
-      type: "refresh-totalCart",
-    });
-  }, [cartData.cart]);
-
-  useEffect(() => {
-    const { cart, totalCart } = cartData;
-    localStorage.setItem(
-      "@CartData:",
-      JSON.stringify({
-        cart,
-        totalCart,
-      })
-    );
-  }, [cartData]);
-
-  return (
-    <authContext.Provider
-      value={{
-        cartManager: {
-          cart: cartData.cart,
-          totalCart: cartData.totalCart,
-          dispatch,
-        },
-      }}
-    >
-      {children}
-    </authContext.Provider>
-  );
-};
-
-export function useGlobalState() {
-  const context = useContext(authContext);
-
-  return context;
-}
-
-export default AppContext;

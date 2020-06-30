@@ -35,13 +35,15 @@ export const ProductContainer = styled.div`
   }
 `;
 
-export const ImageFigure = styled.figure<FigureParams>`
+export const ImageFigure = styled.figure.attrs(({image, position}: FigureParams) => ({
+  style: {
+    backgroundImage: `url(${image})`,
+    backgroundPosition: position
+  }
+}))<FigureParams>`
   cursor: move;
   width: 100%;
-
-  background-image: url(${(props) => props.image});
-  background-position: ${(props) => props.position};
-
+  
   > img {
     width: 100%;
   }

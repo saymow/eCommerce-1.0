@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, MouseEvent } from "react";
+import React, { useEffect, useState, useRef ,MouseEvent } from "react";
 import { useLocation } from "react-router-dom";
 
 import Api from "../../services/api";
@@ -21,7 +21,7 @@ interface DetailedProduct {
   qntd: number;
 }
 
-const Product: React.FC = (props) => {
+const Product: React.FC = () => {
   const {
     state: { id },
   } = useLocation();
@@ -44,31 +44,34 @@ const Product: React.FC = (props) => {
     setImgZoomState(`${x}% ${y}%`);
   }
 
-  return (
+  function handleBuy() {
+  }
+
+  return !product ? null : (
     <Container>
       <ProductContainer>
         <ImageFigure
           ref={imgRef}
           onMouseMove={handleMouseMove}
-          image={product ? product.image : "none"}
+          image={product.image}
           position={imgZoomState}
         >
-          <img src={product ? product.image : "none"} alt={product?.name} />
+          <img src={product.image} alt={product.name} />
         </ImageFigure>
         <ProductInfo>
           <div>
-            <h1>{product?.name}</h1>
-            <p>{product?.description}</p>
+            <h1>{product.name}</h1>
+            <p>{product.description}</p>
           </div>
           <ProductInputs>
             <p>Qntd:</p>
             <select>
-              {[...Array(product ? product.qntd : 0)].map((item, index) => (
+              {[...Array(product.qntd)].map((item, index) => (
                 <option value={index + 1}>{index + 1}</option>
               ))}
             </select>
-            <Button>Buy</Button>
-            <span>{product?.qntd} items restantes.</span>
+            <Button onClick={handleBuy}>Buy</Button>
+            <span>{product.qntd} items restantes.</span>
           </ProductInputs>
         </ProductInfo>
       </ProductContainer>

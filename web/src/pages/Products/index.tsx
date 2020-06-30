@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { CartAdd } from "@styled-icons/boxicons-solid";
 
-import { useGlobalState } from "../../context/index";
+import { useGlobalState } from "../../context/";
 import Api from "../../services/api";
 
 import { Container, ProductsWrapper, ProductList, Product } from "./styles";
