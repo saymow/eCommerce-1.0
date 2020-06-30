@@ -92,17 +92,52 @@ function action(state: CartData, action: Action): CartData {
   }
 }
 
+function loadStoragedData() {
+  try {
+    const loadedStorage = localStorage.getItem("@CartData:");
+    if (!loadedStorage) {
+      throw new Error("empty local storage");
+    }
+    const data: CartData = JSON.parse(loadedStorage);
+    if (!(data.cart && data.totalCart)) {
+      localStorage.clear();
+      throw new Error("malformated local storage");
+    }
+    return data;
+  } catch {
+    return {
+      totalCart: "",
+      cart: [],
+    };
+  }
+}
+
 const AppContext: React.FC = ({ children }) => {
-  const [cartData, dispatch] = useReducer(action, {
-    totalCart: "",
-    cart: [],
-  });
+  const [cartData, dispatch] = useReducer(
+    action,
+    {
+      totalCart: "",
+      cart: [],
+    },
+    loadStoragedData
+  );
 
   useEffect(() => {
     dispatch({
       type: "refresh-totalCart",
     });
   }, [cartData.cart]);
+
+  useEffect(() => {
+    const { cart, totalCart } = cartData;
+    localStorage.setItem(
+      "@CartData:",
+      JSON.stringify({
+        cart,
+        totalCart,
+      })
+    );
+  }, [cartData]);
 
   return (
     <authContext.Provider
