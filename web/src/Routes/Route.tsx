@@ -7,8 +7,9 @@ import Footer from "../components/Footer";
 import Main from "../pages/Main";
 import Products from "../pages/Products";
 import Checkout from "../pages/Checkout";
+import Product from "../pages/Product";
 
-import { Container } from "./styles";
+// import { Container } from "./styles";
 
 const Routes: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const Routes: React.FC = () => {
                 <Route path="/" exact component={Main} />
                 <Route path="/products" component={Products} />
                 <Route path="/checkout" component={Checkout} />
+                <Route path="/product/:name" component={Product} />
               </Switch>
             </CSSTransition>
           </TransitionGroup>

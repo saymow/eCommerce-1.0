@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { CartAdd } from "@styled-icons/boxicons-solid";
 
 import { useGlobalState } from "../../context/index";
@@ -19,6 +20,7 @@ const Products: React.FC = () => {
     cartManager: { addProductToCart },
   } = useGlobalState();
   const [products, setProducts] = useState<Product[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
     Api.get("/").then((response) => {
@@ -43,7 +45,13 @@ const Products: React.FC = () => {
         <ProductList>
           {products.map((product) => (
             <Product key={product.id}>
-              <img src={product.image} alt={product.name} />
+              <img
+                src={product.image}
+                alt={product.name}
+                onClick={() =>
+                  history.push(`product/${product.name}`, { id: product.id })
+                }
+              />
               <strong>{product.name}</strong>
               <span>R${product.price}</span>
               <CartAdd onClick={() => handleInsertIntoCart(product.id)} />
