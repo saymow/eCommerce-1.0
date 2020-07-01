@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
 
@@ -12,6 +12,7 @@ import {
   ModalOptions,
   ButtonsContainer,
   Button,
+  DeleteIcon
 } from "./styles";
 
 import { Modal } from "../../Types/modalRelated_types";
@@ -32,6 +33,15 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
     setShowModal(false);
   }
 
+  function handleDeleteProduct(id: number) {
+    dispatch({
+      type: "delete-product",
+      payload: {
+        id
+      }
+    })
+  }
+
   return (
     <ModalMockup setShowModal={() => setShowModal(false)}>
       <Container>
@@ -39,7 +49,16 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
           {cart.map((item) => (
             <CartProduct key={item.name}>
               <div>
-                <img src={item.image} alt={item.name} />
+                <Link 
+                onClick={() => setShowModal(false)}
+                to={{
+                  pathname: `product/${item.name}`,
+                  state: {
+                    id: item.id
+                  }
+                }}>
+                  <img src={item.image} alt={item.name} />
+                </Link>
               </div>
               <div>
                 <p>
@@ -47,6 +66,8 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
                   {item.name}
                 </p>
                 <span>R${item.price}</span>
+
+                <DeleteIcon onClick={() => handleDeleteProduct(item.id)}/>
               </div>
             </CartProduct>
           ))}

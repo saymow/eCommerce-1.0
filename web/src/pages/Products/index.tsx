@@ -4,8 +4,9 @@ import { CartAdd } from "@styled-icons/boxicons-solid";
 
 import { useGlobalState } from "../../Context/";
 import Api from "../../Services/api";
+import Loading from "../../Components/Loading";
 
-import { Product } from '../../Types/cartRelated_types';
+import { Product } from "../../Types/cartRelated_types";
 
 import { Container, ProductsWrapper, ProductList, ProductSelf } from "./styles";
 
@@ -30,13 +31,15 @@ const Products: React.FC = () => {
     if (selectedProduct) {
       selectedProduct["qntd"] = 1;
       dispatch({
-        type:"add-product",
-        payload: selectedProduct
+        type: "add-product",
+        payload: selectedProduct,
       });
     }
   }
 
-  return (
+  return products.length === 0 ? (
+    <Loading />
+  ) : (
     <Container>
       <ProductsWrapper>
         <ProductList>

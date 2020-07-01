@@ -34,6 +34,7 @@ export const Section = styled.section`
     grid-template-columns: 2fr 3fr;
 
     div > img {
+      display: block;
       height: 100%;
       width: 100%;
     }

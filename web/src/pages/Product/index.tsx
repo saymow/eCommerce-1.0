@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
 import Api from "../../Services/api";
+import Loading from "../../Components/Loading";
 
 import {
   Container,
@@ -46,21 +47,25 @@ const Product: React.FC = () => {
   function handleBuy() {
     if (!product) return;
     if (qntd > product?.qntd)
-      return alert(`There are only ${product?.qntd} ${product?.name} available.`);
+      return alert(
+        `There are only ${product?.qntd} ${product?.name} available.`
+      );
 
     console.log(qntd);
-    
+
     dispatch({
       type: "add-product",
       payload: {
         ...product,
-        qntd
-      },  
-    })
+        qntd,
+      },
+    });
     setShowModal("cart");
   }
 
-  return !product ? null : (
+  return !product ? (
+    <Loading />
+  ) : (
     <Container>
       <ProductContainer>
         <ImageFigure

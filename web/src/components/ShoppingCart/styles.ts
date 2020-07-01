@@ -109,7 +109,7 @@ export const Item = styled.div`
     margin-right: 0.3rem;
   }
 
-  > div > img {
+  > div > a > img {
     width: 80px;
     height: 60px;
   }

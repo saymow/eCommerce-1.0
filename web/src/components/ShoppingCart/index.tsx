@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
 
@@ -57,7 +57,14 @@ const ShoppingCart: React.FC = () => {
               {cart.map((product) => (
                 <Item key={product.id}>
                   <div>
-                    <img src={product.image} alt={product.name} />
+                    <Link to={{
+                      pathname: `/product/${product.image}`,
+                      state: {
+                        id: product.id
+                      }
+                    }}>
+                      <img src={product.image} alt={product.name} />
+                    </Link>
                   </div>
                   <div>
                     <p>
@@ -73,7 +80,7 @@ const ShoppingCart: React.FC = () => {
             <Checkout>
               <strong>Total: R${totalCart}</strong>
 
-              <Button onClick={() => history.push("checkout")}>
+              <Button onClick={() => history.push("/checkout")}>
                 Check out
               </Button>
             </Checkout>

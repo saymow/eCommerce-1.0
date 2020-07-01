@@ -24,9 +24,6 @@ export const ModalBox = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-height: 15vh;
-  max-width: 100%;
-  min-width: 320px;
   overflow-y: auto;
   background-color: var(--background);
   box-shadow: 5px 5px 50px rgba(0,0,0, .25);

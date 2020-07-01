@@ -1,13 +1,13 @@
 import styled from "styled-components";
+import { DeleteBack2 } from "@styled-icons/remix-line";
 
 
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   grid-gap: 1rem;
-  max-width: 960px;
-  min-height: 35vh;
-  width: 100%;
+  height: 420px;
+  width: 620px;
 `;
 
 export const CartProducts = styled.div`
@@ -15,7 +15,6 @@ export const CartProducts = styled.div`
   flex-direction: column;
   align-items: flex-start;
   overflow: auto;
-  max-height: 60vh;
   padding-right: 1rem;
 
   border-right: 1px solid var(--primary);
@@ -38,18 +37,18 @@ export const CartProduct = styled.div`
 
   border: 1px solid var(--primary);
 
-  div > img {
+  div > a > img {
     display: block;
     max-height: 80px;
     height: 100%;
     width: 100%;
   }
 
-  div > p {
+  div:last-child > p {
     font-size: 1.6rem;
   } 
 
-  div > span {
+  div:last-child > span {
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -94,4 +93,13 @@ export const Button = styled.button`
     background-color: #fff;
     color: var(--primary);
   }
+`;
+
+export const DeleteIcon = styled(DeleteBack2)`
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
 `;
