@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Transitions } from "../../styles/globalStyles";
+import { Transitions } from "../../Styles/globalStyles";
 
 interface FigureParams {
   image: string;
@@ -94,13 +94,18 @@ export const ProductInputs = styled.div`
 `;
 
 export const Button = styled.button`
+  font-weight: bold;
   cursor: pointer;
   background-color: var(--primary);
   color: #fff;
+  border: 1px solid var(--primary);
   padding: 1rem;
   width: 200px;
 
+  transition: all 200ms ease;
+
   &:hover {
-    filter: brightness(80%);
+    background-color: transparent;
+    color: var(--primary);
   }
 `;

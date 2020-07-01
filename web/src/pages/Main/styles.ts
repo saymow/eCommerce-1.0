@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import backgroundImage from "../../assets/background.jpeg";
-import { Transitions } from "../../styles/globalStyles";
+import backgroundImage from "../../Assets/background.jpeg";
+import { Transitions } from "../../Styles/globalStyles";
 
 export const Container = styled(Transitions)`
   z-index: -1;

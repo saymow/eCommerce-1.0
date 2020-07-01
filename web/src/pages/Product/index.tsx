@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef ,MouseEvent } from "react";
+import React, { useEffect, useState, useRef, MouseEvent } from "react";
 import { useLocation } from "react-router-dom";
 
-import Api from "../../services/api";
+import { useGlobalState } from "../../Context";
+import Api from "../../Services/api";
 
 import {
   Container,
@@ -12,22 +13,20 @@ import {
   Button,
 } from "./styles";
 
-interface DetailedProduct {
-  id: number;
-  name: string;
-  price: string;
-  image: string;
-  description: string;
-  qntd: number;
-}
+import { DetailedProduct } from "../../Types/cartRelated_types";
 
 const Product: React.FC = () => {
+  const {
+    cartManager: { dispatch },
+    modalController: { setShowModal },
+  } = useGlobalState();
   const {
     state: { id },
   } = useLocation();
   const imgRef = useRef<HTMLDivElement>(null);
   const [product, setProduct] = useState<DetailedProduct | undefined>();
   const [imgZoomState, setImgZoomState] = useState("0% 0%");
+  const [qntd, setQntd] = useState(1);
 
   useEffect(() => {
     Api.get(`product/${id}`).then((response) => {
@@ -45,6 +44,20 @@ const Product: React.FC = () => {
   }
 
   function handleBuy() {
+    if (!product) return;
+    if (qntd > product?.qntd)
+      return alert(`There are only ${product?.qntd} ${product?.name} available.`);
+
+    console.log(qntd);
+    
+    dispatch({
+      type: "add-product",
+      payload: {
+        ...product,
+        qntd
+      },  
+    })
+    setShowModal("cart");
   }
 
   return !product ? null : (
@@ -65,9 +78,14 @@ const Product: React.FC = () => {
           </div>
           <ProductInputs>
             <p>Qntd:</p>
-            <select>
+            <select
+              value={qntd}
+              onChange={(event) => setQntd(Number(event.target.value))}
+            >
               {[...Array(product.qntd)].map((item, index) => (
-                <option value={index + 1}>{index + 1}</option>
+                <option key={index} value={index + 1}>
+                  {index + 1}
+                </option>
               ))}
             </select>
             <Button onClick={handleBuy}>Buy</Button>

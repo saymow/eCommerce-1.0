@@ -2,15 +2,14 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Main from "../pages/Main";
-import Products from "../pages/Products";
-import Checkout from "../pages/Checkout";
-import Product from "../pages/Product";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+import Main from "../Pages/Main";
+import Products from "../Pages/Products";
+import Checkout from "../Pages/Checkout";
+import Product from "../Pages/Product";
 
-import CartModal from "../components/CartModal";
-// import { Container } from "./styles";
+import ModalManager from "../Components/ModalManager";
 
 const Routes: React.FC = () => {
   return (
@@ -30,7 +29,7 @@ const Routes: React.FC = () => {
           </TransitionGroup>
         )}
       />
-      <CartModal />
+      <ModalManager />
       <Footer />
     </BrowserRouter>
   );

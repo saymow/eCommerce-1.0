@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Transitions } from "../../styles/globalStyles";
+import { Transitions } from "../../Styles/globalStyles";
 
 export const Container = styled(Transitions)`
   margin-top: 6rem;
@@ -21,7 +21,7 @@ export const ProductList = styled.div`
   grid-gap: 5rem;
 `;
 
-export const Product = styled.div`
+export const ProductSelf = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;

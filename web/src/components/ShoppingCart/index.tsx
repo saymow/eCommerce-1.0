@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useHistory } from "react-router-dom";
 
-import { useGlobalState } from "../../context/index";
+import { useGlobalState } from "../../Context/index";
 
 import {
   Container,

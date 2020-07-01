@@ -2,18 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { CartAdd } from "@styled-icons/boxicons-solid";
 
-import { useGlobalState } from "../../context/";
-import Api from "../../services/api";
+import { useGlobalState } from "../../Context/";
+import Api from "../../Services/api";
 
-import { Container, ProductsWrapper, ProductList, Product } from "./styles";
+import { Product } from '../../Types/cartRelated_types';
 
-interface Product {
-  id: number;
-  name: string;
-  price: string;
-  image: string;
-  qntd: number;
-}
+import { Container, ProductsWrapper, ProductList, ProductSelf } from "./styles";
 
 const Products: React.FC = () => {
   const {
@@ -47,7 +41,7 @@ const Products: React.FC = () => {
       <ProductsWrapper>
         <ProductList>
           {products.map((product) => (
-            <Product key={product.id}>
+            <ProductSelf key={product.id}>
               <img
                 src={product.image}
                 alt={product.name}
@@ -58,7 +52,7 @@ const Products: React.FC = () => {
               <strong>{product.name}</strong>
               <span>R${product.price}</span>
               <CartAdd onClick={() => handleInsertIntoCart(product.id)} />
-            </Product>
+            </ProductSelf>
           ))}
         </ProductList>
       </ProductsWrapper>

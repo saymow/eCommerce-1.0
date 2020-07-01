@@ -1,9 +1,9 @@
 import React from "react";
 
-import Context from "./context";
+import Context from "./Context";
 import Routes from "./Routes/Route";
 
-import GlobalStyles from "./styles/globalStyles";
+import GlobalStyles from "./Styles/globalStyles";
 
 function App() {
   return (

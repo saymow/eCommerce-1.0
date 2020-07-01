@@ -1,6 +1,6 @@
 import React from "react";
 
-import Grid from "../../components/Grid";
+import Grid from "../../Components/Grid";
 
 import {
   Container,
