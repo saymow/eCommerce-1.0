@@ -4,8 +4,9 @@ import {
   CartData,
   Action,
   Product,
-  ContextData,
 } from "../Types/cartRelated_types";
+
+import { ContextData } from "../Types/contextRelated_types";
 
 export function action(state: CartData, action: Action): CartData {
   switch (action.type) {
@@ -103,6 +104,10 @@ export function updatePrice(dispatch: Dispatch<Action>) {
 }
 
 export const InitialContext: ContextData = {
+  userController: {
+    loggedIn: false,
+    user: undefined
+  },
   cartManager: {
     totalCart: "",
     cart: [],

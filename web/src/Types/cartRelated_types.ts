@@ -19,14 +19,6 @@ export interface DetailedProduct extends Product{
   description: string;
 }
 
-export interface ContextData {
-  cartManager: CartManager;
-  modalController: {
-    showModal: string | boolean;
-    setShowModal: (prevState: boolean | string) => void;
-  };
-}
-
 export type Action =
   | { type: "add-product"; payload: Product }
   | { type: "delete-product"; payload: { id: number } }
