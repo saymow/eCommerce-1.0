@@ -23,26 +23,3 @@ export default createGlobalStyle`
   }
 `;
 
-export const Transitions = styled.div`
-  &.fade-appear,
-  &.fade-enter {
-    opacity: 0;
-    z-index: 1;
-  }
-
-  &.fader-appear-active,
-  &.fade-enter,
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 600ms linear 300ms;
-  }
-
-  &.fade-exit {
-    opacity: 1;
-  }
-
-  &.fade-exit.fade-exit-active {
-    opacity: 0;
-    transition: opacity 300ms linear;
-  }
-`;

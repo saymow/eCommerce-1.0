@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import { Transitions } from "../../Styles/globalStyles";
-
-export const Container = styled(Transitions)`
+export const Container = styled.div`
   margin-top: 6rem;
 `;
 

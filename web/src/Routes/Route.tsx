@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { BrowserRouter, Switch, Route,  } from "react-router-dom";
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -15,20 +14,12 @@ const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Route
-        render={({ location }) => (
-          <TransitionGroup>
-            <CSSTransition key={location.key} timeout={450} classNames="fade">
-              <Switch location={location}>
-                <Route path="/" exact component={Main} />
-                <Route path="/products" component={Products} />
-                <Route path="/checkout" component={Checkout} />
-                <Route path="/product/:name" component={Product} />
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        )}
-      />
+      <Switch>
+        <Route path="/" exact component={Main} />
+        <Route path="/product/:name" component={Product} />
+        <Route path="/products" component={Products} />
+        <Route path="/checkout" component={Checkout} />
+      </Switch>
       <ModalManager />
       <Footer />
     </BrowserRouter>

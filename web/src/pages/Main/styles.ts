@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 import backgroundImage from "../../Assets/background.jpeg";
-import { Transitions } from "../../Styles/globalStyles";
 
-export const Container = styled(Transitions)`
+export const Container = styled.div`
   z-index: -1;
   background-image: url(${backgroundImage});
   background-repeat: no-repeat;

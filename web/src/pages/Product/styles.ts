@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
-import { Transitions } from "../../Styles/globalStyles";
-
 interface FigureParams {
   image: string;
   position: string;
 }
 
-export const Container = styled(Transitions)`
+export const Container = styled.div`
   margin: auto;
   width: 100%;
   max-width: 1360px;

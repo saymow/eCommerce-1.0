@@ -26,9 +26,9 @@ export default class DeliveryManager {
     };
 
     let args = Object.keys(Services).map(service => ({
-        ...arg,
-        nCdServico: Services[service as Services]
-      }
+      ...arg,
+      nCdServico: Services[service as Services]
+    }
     ))
 
     const data: DeliveryResponse[] = await Promise.all(args.map(arg => {
