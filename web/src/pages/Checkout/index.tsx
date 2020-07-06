@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
 
-import CepSearcherComponennt from "../../Components/CepSearcher";
+import BuyingFlowManager from "../../Components/BuyingFlowManager";
 
 import {
   Container,
@@ -66,7 +66,7 @@ const Checkout: React.FC = () => {
           </TotalPrice>
         </ProductRelated>
         <Information>
-          <CepSearcherComponennt />
+          <BuyingFlowManager />
         </Information>
       </CheckoutConainer>
     </Container>

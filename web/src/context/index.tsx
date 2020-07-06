@@ -39,7 +39,7 @@ const AppContext: React.FC = ({ children }) => {
     <authContext.Provider
       value={{
         userController: {
-          loggedIn: false,
+          loggedIn: true,
           user: undefined,
         },
         modalController: {

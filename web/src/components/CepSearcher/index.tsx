@@ -72,26 +72,28 @@ const CepSearcher: React.FC = () => {
           <Button>Calculate shipping</Button>
         </div>
       </Form>
-      <Shipping>
-        {shippmentMethods?.map((item) => (
-          <ShippingSelf
-            key={item.Codigo}
-            onClick={() => setMethodChoosed(item.Codigo)}
-            selected={item.Codigo === methodChoosed ? true : false}
-          >
-            <ShippingIcon />
-            <h3>{item.Metodo}</h3>
-            <strong>R${item.Valor}</strong>
-            <p>
-              Prazo: <strong>{item.PrazoEntrega}</strong> dias úteis.
-            </p>
-          </ShippingSelf>
-        ))}
-      </Shipping>
       {shippmentMethods && (
-        <Continue trigger={methodChoosed ? true : false}>
-          <Button>Continue</Button>
-        </Continue>
+        <>
+          <Shipping>
+            {shippmentMethods?.map((item) => (
+              <ShippingSelf
+                key={item.Codigo}
+                onClick={() => setMethodChoosed(item.Codigo)}
+                selected={item.Codigo === methodChoosed ? true : false}
+              >
+                <ShippingIcon />
+                <h3>{item.Metodo}</h3>
+                <strong>R${item.Valor}</strong>
+                <p>
+                  Prazo: <strong>{item.PrazoEntrega}</strong> dias úteis.
+                </p>
+              </ShippingSelf>
+            ))}
+          </Shipping>
+          <Continue trigger={methodChoosed ? true : false}>
+            <Button>Continue</Button>
+          </Continue>
+        </>
       )}
     </Container>
   );

@@ -10,24 +10,24 @@ interface ShippingSelf {
 }
 
 export const Container = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: space-evenly;
-
-  > div > h1 {
-    text-align: center;
-    margin: 2rem 0;
-    font-size: 3rem;
-  }
-
+  justify-content: space-between;
+  height: 100%;
+  transition: all 2000ms ease;
 `;
 
 export const TitleDiv = styled.div<ShowOptions>`
-  height: 30%;
-  transform: scale(${(props) => (props.trigger ? "0" : "1")});
-  transition: transform 200ms ease;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+
+  height: ${(props) => (props.trigger ? "0" : "unset")};
+  flex-grow: ${(props) => (props.trigger ? "0" : "1")};
+  visibility: ${(props) => (props.trigger ? "hidden" : "visible")};
+  transform: scaleY(${(props) => (props.trigger ? "0" : "1")});
+  transition: all 200ms ease;
 `;
 
 export const Form = styled.form<ShowOptions>`
@@ -35,8 +35,6 @@ export const Form = styled.form<ShowOptions>`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: ${(props) => (props.trigger ? "0" : "auto")};
-  margin-bottom: 3rem;
 
   > div:first-child {
     margin-top: 2rem;
@@ -94,7 +92,8 @@ export const ShippingSelf = styled.div<ShippingSelf>`
   font-size: 1.4rem;
 
   border: 1px solid ${(props) => (props.selected ? "#0f0" : "var(--primary)")};
-  transform: scale(${(props) => (props.selected ? 1.1 : 1)});
+  transform: translateY(${(props) => (props.selected ? "-3px" : "0px")});
+  transform: scale(${(props) => (props.selected ? 1.02 : 1)});
 
   strong {
     color: ${(props) => (props.selected ? "#57a873" : "inherit")};
@@ -112,9 +111,8 @@ export const ShippingIcon = styled(LocalShipping)`
 
 export const Continue = styled.div<ShowOptions>`
   width: 70%;
-  margin: 3rem 0;
-
-  transform: scale(${(props) => (props.trigger ? 1 : 0)});
+  
+  transform: scaleY(${props => props.trigger ? 1 : 0});
 
   transition: transform 200ms ease;
 `;

@@ -93,4 +93,6 @@ export const DeleteIcon = styled(DeleteBack2)`
   top: 5px;
 `;
 
-export const Information = styled.div``;
+export const Information = styled.div`
+  padding: 0 0 1rem 1rem;
+`;
