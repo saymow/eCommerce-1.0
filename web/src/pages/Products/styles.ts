@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-top: 6rem;
+  margin-top: 10rem;
+  min-height: 100vh;
 `;
 
 export const ProductsWrapper = styled.div`
-  margin: 8rem 0;
+  margin: 8rem auto;
   width: 100%;
   max-width: 1360px;
 `;

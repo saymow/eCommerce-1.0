@@ -1,5 +1,7 @@
 import React, { useState, FormEvent } from "react";
 
+import { useGlobalState } from "../../Context";
+
 import DeliveryManager from "../../Helper/deliveryRelated_helper";
 
 import {
@@ -16,15 +18,24 @@ import {
 
 import { DeliveryResponse } from "../../Types/deliveryRelated_types";
 
-const CepSearcher: React.FC = () => {
-  const Api = new DeliveryManager();
+interface FlowChildProps {
+  next: () => void;
+}
 
+const CepSearcher: React.FC<FlowChildProps> = ({ next }) => {
+  const Api = new DeliveryManager();
+  
+  const {
+    buyingController: { dispatch },
+  } = useGlobalState();
   const [cep, setCep] = useState("");
   const [lastCepSearched, setlastCepSearched] = useState("");
   const [shippmentMethods, setshippmentMethods] = useState<
     DeliveryResponse[] | undefined
   >(undefined);
-  const [methodChoosed, setMethodChoosed] = useState("");
+  const [methodChoosed, setMethodChoosed] = useState<
+    DeliveryResponse | undefined
+  >(undefined);
 
   function handleCepUpdate(value: string) {
     let text = value.replace(/^(\d{5})(\d{1,3})/, "$1-$2");
@@ -46,8 +57,32 @@ const CepSearcher: React.FC = () => {
 
     if (options.find((option) => option.MsgErro)) return alert("Error");
 
-    setshippmentMethods(options);
+    const serializedOptions = options.map(item => ({
+      ...item,
+      Valor: item.Valor.replace(",", "."),
+    }))
+
+    setshippmentMethods(serializedOptions);
   }
+
+  function handleCepChoosed() {
+    if (!methodChoosed) return;
+
+    const { Codigo, Metodo, PrazoEntrega, Valor } = methodChoosed;
+
+    dispatch({
+      type: "set-delivery",
+      payload: {
+        Codigo,
+        Metodo,
+        PrazoEntrega,
+        Valor,
+      },
+    });
+
+    next();
+  }
+
   return (
     <Container>
       <TitleDiv trigger={shippmentMethods ? true : false}>
@@ -78,8 +113,8 @@ const CepSearcher: React.FC = () => {
             {shippmentMethods?.map((item) => (
               <ShippingSelf
                 key={item.Codigo}
-                onClick={() => setMethodChoosed(item.Codigo)}
-                selected={item.Codigo === methodChoosed ? true : false}
+                onClick={() => setMethodChoosed(item)}
+                selected={item.Codigo === methodChoosed?.Codigo ? true : false}
               >
                 <ShippingIcon />
                 <h3>{item.Metodo}</h3>
@@ -91,7 +126,7 @@ const CepSearcher: React.FC = () => {
             ))}
           </Shipping>
           <Continue trigger={methodChoosed ? true : false}>
-            <Button>Continue</Button>
+            <Button onClick={handleCepChoosed}>Continue</Button>
           </Continue>
         </>
       )}

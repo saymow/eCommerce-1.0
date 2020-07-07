@@ -43,6 +43,7 @@ export const ImageFigure = styled.figure.attrs(({image, position}: FigureParams)
   width: 100%;
   
   > img {
+    display: block;
     width: 100%;
   }
 
@@ -92,13 +93,14 @@ export const ProductInputs = styled.div`
 `;
 
 export const Button = styled.button`
-  font-weight: bold;
   cursor: pointer;
+  width: 200px;
   background-color: var(--primary);
   color: #fff;
   border: 1px solid var(--primary);
+  border-radius: .5rem;
+  font-weight: bold;
   padding: 1rem;
-  width: 200px;
 
   transition: all 200ms ease;
 

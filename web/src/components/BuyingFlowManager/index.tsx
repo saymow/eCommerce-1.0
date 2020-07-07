@@ -1,7 +1,12 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useMemo } from "react";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
+
+import {
+  getStepWhenLoggedIn,
+  getStepWhenNotLoggedIn,
+} from "../../Helper/buyingStepsRelated_helper";
 
 import Authenticate from "../Authenticate";
 import CepSearcher from "../CepSearcher";
@@ -16,6 +21,8 @@ import {
 } from "./styles";
 
 const BuyingFlowManager: React.FC = () => {
+  const { pathname } = useLocation();
+  const history = useHistory();
   const {
     userController: { loggedIn },
   } = useGlobalState();
@@ -29,26 +36,46 @@ const BuyingFlowManager: React.FC = () => {
         "completed",
       ];
 
+  let currentStep = useMemo(() => {
+    let serializedPath = pathname.replace(/\/checkout/, "");
+
+    return loggedIn
+      ? getStepWhenLoggedIn(serializedPath)
+      : getStepWhenNotLoggedIn(serializedPath);
+  }, [pathname, loggedIn]);
+
   return (
     <Container>
-      <ProgressMock steps={steps} stepsLen={steps.length}>
+      <ProgressMock>
         <Progress>
-          <ProgressMade />
+          <ProgressMade position={currentStep} stepsTotal={steps.length} />
           {steps.map((step, index) => (
             <Step
               key={step}
               position={index}
               stepsTotal={steps.length}
-              reached={true}
+              reached={currentStep > index}
             >
-              <div></div>
+              <div/>
               <p>{step}</p>
             </Step>
           ))}
         </Progress>
       </ProgressMock>
       <Switch>
-        <Route exact path="/checkout/" component={CepSearcher} />
+        <Route
+          exact
+          path="/checkout"
+          component={() => (
+            <CepSearcher
+              next={() =>
+                history.push(
+                  loggedIn ? "/checkout/address" : "/checkout/authenticate"
+                )
+              }
+            />
+          )}
+        />
         {!loggedIn && (
           <Route path="/checkout/authenticate" component={Authenticate} />
         )}

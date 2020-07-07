@@ -111,8 +111,8 @@ export const ShippingIcon = styled(LocalShipping)`
 
 export const Continue = styled.div<ShowOptions>`
   width: 70%;
-  
-  transform: scaleY(${props => props.trigger ? 1 : 0});
+
+  transform: scaleY(${(props) => (props.trigger ? 1 : 0)});
 
   transition: transform 200ms ease;
 `;

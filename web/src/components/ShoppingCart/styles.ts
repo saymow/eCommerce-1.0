@@ -157,6 +157,7 @@ export const Button = styled.button`
   background-color: var(--primary);
   color: var(--background);
   border: 1px solid var(--background);
+  border-radius: .5rem;
 
   transition: all 200ms ease-in-out;
 

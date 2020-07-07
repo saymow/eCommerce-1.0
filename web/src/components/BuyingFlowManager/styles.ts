@@ -5,9 +5,12 @@ interface ProgressMockProps {
   stepsLen: number;
 }
 
-interface StepProps {
+interface ProgressMadeProps {
   position: number;
   stepsTotal: number;
+}
+
+interface StepProps extends ProgressMadeProps {
   reached: Boolean;
 }
 
@@ -17,15 +20,11 @@ export const Container = styled.div`
   height: 100%;
 `;
 
-export const ProgressMock = styled.div.attrs(
-  ({ steps, stepsLen }: ProgressMockProps) => {
-    return;
-  }
-)<ProgressMockProps>`
+export const ProgressMock = styled.div`
   width: 100%;
   height: 12%;
   padding: 0 5%;
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid var(--secondary);
 `;
 
 export const Progress = styled.div`
@@ -36,9 +35,16 @@ export const Progress = styled.div`
   background-color: rgba(0, 255, 0, 0.1);
 `;
 
-export const ProgressMade = styled.div`
+export const ProgressMade = styled.div.attrs(
+  ({ position, stepsTotal }: ProgressMadeProps) => ({
+    style: {
+      width: `${position * (100 / stepsTotal)}%`,
+    },
+  })
+)<ProgressMadeProps>`
+
+  transition: width 200ms ease;
   height: 100%;
-  width: 25%;
   background-color: #0f0;
 `;
 
@@ -55,7 +61,7 @@ export const Step = styled.span.attrs(
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   > div {
     margin-top: 3px;
     height: 10px;

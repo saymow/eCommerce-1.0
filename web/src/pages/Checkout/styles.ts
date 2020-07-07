@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import { DeleteBack2 } from "@styled-icons/remix-line";
 
+interface CheckoutAnimationProps {
+  onlyRightSide: boolean;
+}
+
 export const Container = styled.div`
-  margin: 6rem auto 0 auto;
+  margin: 10rem auto 0 auto;
   width: 100%;
   max-width: 1360px;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
-export const CheckoutConainer = styled.div`
+export const CheckoutConainer = styled.div<CheckoutAnimationProps>`
   margin: 8rem auto;
   background-color: rgb(245, 245, 245);
   width: 100%;
@@ -16,7 +20,7 @@ export const CheckoutConainer = styled.div`
   height: 540px;
   border-radius: 0.5rem;
   display: grid;
-  grid-template-columns: 9fr 11fr;
+  grid-template-columns: ${props => props.onlyRightSide ? "1fr 3fr" : "9fr 11fr"};
   padding: 1rem;
   color: var(--primary);
 `;
@@ -24,7 +28,6 @@ export const CheckoutConainer = styled.div`
 export const ProductRelated = styled.div`
   display: grid;
   grid-template-rows: 9fr 1fr;
-  overflow: auto;
 `;
 
 export const TotalPrice = styled.div`
@@ -48,10 +51,12 @@ export const Products = styled.div`
   }
 `;
 
-export const Product = styled.div`
+export const Product = styled.div<CheckoutAnimationProps>`
   position: relative;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  font-size: ${props => props.onlyRightSide ? "1.2rem" : "2rem"};
+  
 
   border: 1px solid var(--primary);
   margin-bottom: 1.5rem;
@@ -71,11 +76,8 @@ export const Product = styled.div`
     margin-right: 0.2rem;
   }
 
-  div:last-child > p {
-    font-size: 2rem;
-  }
-
   div:last-child span {
+    font-size: .7em;
     position: absolute;
     bottom: 5px;
     right: 5px;

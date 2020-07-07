@@ -1,8 +1,15 @@
 export interface DeliveryMethods {
-  type: string;
+  Codigo: string;
+  PrazoEntrega: string;
+  Valor: string;
+  Metodo: string | undefined;
+}
+
+interface DeliveryState {
   code: string;
+  deadline: string;
   price: string;
-  deadline: number;
+  type?: string;
 }
 
 export interface Address {
@@ -13,18 +20,18 @@ export interface Address {
   street: string;
 }
 
-export type Steps = 1 |   2 | 3 | 4;
+export type Steps = 1 | 2 | 3 | 4;
 
 export interface BuyingFlowState {
   step: Steps;
-  deliveryMethod?: DeliveryMethods;
+  deliveryMethod?: DeliveryState;
   address?: Address;
 }
 
-export interface BuyingFlow extends BuyingFlowState{
-  dispatch: (arg0: Action) => void; 
+export interface BuyingFlow extends BuyingFlowState {
+  dispatch: (arg0: Action) => void;
 }
 
 export type Action =
-  | { type: "go-to-step2"; payload: DeliveryMethods }
-  | { type: "go-to-step3"; payload: Address }
+  | { type: "set-delivery"; payload: DeliveryMethods }
+  | { type: "set-address"; payload: Address };

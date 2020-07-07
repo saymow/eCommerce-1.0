@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
 
@@ -16,12 +16,13 @@ import {
   Information,
 } from "./styles";
 
-
 const Checkout: React.FC = () => {
+  const { pathname } = useLocation();
   const {
     cartManager: { cart, totalCart, dispatch },
+    buyingController: { deliveryMethod },
   } = useGlobalState();
-  
+
   function handleDeleteProduct(id: number) {
     dispatch({
       type: "delete-product",
@@ -31,13 +32,19 @@ const Checkout: React.FC = () => {
     });
   }
 
+  let onlyRightSide = useMemo(() => {
+    let routes = ["/checkout/address"];
+
+    return routes.includes(pathname);
+  }, [pathname]);
+
   return (
     <Container>
-      <CheckoutConainer>
+      <CheckoutConainer onlyRightSide={onlyRightSide}>
         <ProductRelated>
           <Products>
             {cart.map((product) => (
-              <Product key={product.id}>
+              <Product key={product.id} onlyRightSide={onlyRightSide}>
                 <div>
                   <Link
                     to={{
@@ -62,7 +69,18 @@ const Checkout: React.FC = () => {
             ))}
           </Products>
           <TotalPrice>
-            <h1>Total: R${totalCart}</h1>
+            <div>
+              <p>Price: R${totalCart}</p>
+              <p>Delivery: {deliveryMethod && `R$${deliveryMethod.price}`}</p>
+              <h3>
+                Total: R$
+                {deliveryMethod
+                  ? (Number(totalCart) + Number(deliveryMethod?.price)).toFixed(
+                      2
+                    )
+                  : totalCart}
+              </h3>
+            </div>
           </TotalPrice>
         </ProductRelated>
         <Information>

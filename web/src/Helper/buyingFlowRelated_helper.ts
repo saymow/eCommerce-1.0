@@ -5,20 +5,20 @@ export function flowAction(
   action: Action
 ): BuyingFlowState {
   switch (action.type) {
-    case "go-to-step2":
-      const { code, deadline, price, type } = action.payload;
+    case "set-delivery":
+      const { Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
       return {
         ...state,
         step: 2,
         deliveryMethod: {
-          code,
-          deadline,
-          price,
-          type,
+          code: Codigo,
+          deadline: PrazoEntrega,
+          price: Valor,
+          type: Metodo,
         },
       };
 
-    case "go-to-step3":
+    case "set-address":
       const { cep, city, number, street } = action.payload;
       const Lstate = action.payload.state;
 
