@@ -31,7 +31,7 @@ export const InitialContext: ContextData = {
     address: undefined,
     deliveryMethod: undefined,
     dispatch: (Action: FlowAction) => null,
-  }
+  },
 };
 
 export const InitalCart = {
@@ -39,13 +39,13 @@ export const InitalCart = {
   cart: [],
 };
 
-let firstStep: Steps = 1
+let firstStep: Steps = 1;
 
 export const InitialFlow = {
   step: firstStep,
   deliveryMethod: undefined,
   address: undefined,
-}
+};
 
 export {
   cartAction,

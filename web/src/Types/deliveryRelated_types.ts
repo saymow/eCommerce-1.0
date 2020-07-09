@@ -7,4 +7,5 @@ export interface DeliveryResponse {
   Erro: number;
   MsgErro?: string;
   Metodo: string | undefined;
+  message?: string; 
 }

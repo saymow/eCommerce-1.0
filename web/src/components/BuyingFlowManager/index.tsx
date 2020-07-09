@@ -1,12 +1,9 @@
-import React, { useMemo } from "react";
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
 
-import {
-  getStepWhenLoggedIn,
-  getStepWhenNotLoggedIn,
-} from "../../Helper/buyingStepsRelated_helper";
+import RestrictedRoute from "../RestrictedRoute";
 
 import Authenticate from "../Authenticate";
 import CepSearcher from "../CepSearcher";
@@ -21,10 +18,10 @@ import {
 } from "./styles";
 
 const BuyingFlowManager: React.FC = () => {
-  const { pathname } = useLocation();
   const history = useHistory();
   const {
     userController: { loggedIn },
+    buyingController: { step: currentStep, dispatch },
   } = useGlobalState();
   const steps = loggedIn
     ? ["Shippment method", "Address filled", "Finish Buy", "completed"]
@@ -36,13 +33,9 @@ const BuyingFlowManager: React.FC = () => {
         "completed",
       ];
 
-  let currentStep = useMemo(() => {
-    let serializedPath = pathname.replace(/\/checkout/, "");
-
-    return loggedIn
-      ? getStepWhenLoggedIn(serializedPath)
-      : getStepWhenNotLoggedIn(serializedPath);
-  }, [pathname, loggedIn]);
+  useEffect(() => {
+    return () => dispatch({ type: "set-reset-flow" });
+  }, [dispatch]);
 
   return (
     <Container>
@@ -56,14 +49,16 @@ const BuyingFlowManager: React.FC = () => {
               stepsTotal={steps.length}
               reached={currentStep > index}
             >
-              <div/>
+              <div />
               <p>{step}</p>
             </Step>
           ))}
         </Progress>
       </ProgressMock>
       <Switch>
-        <Route
+        <RestrictedRoute
+          currentStep={currentStep}
+          expectedStep={1}
           exact
           path="/checkout"
           component={() => (
@@ -77,9 +72,19 @@ const BuyingFlowManager: React.FC = () => {
           )}
         />
         {!loggedIn && (
-          <Route path="/checkout/authenticate" component={Authenticate} />
+          <RestrictedRoute
+            expectedStep={2}
+            currentStep={currentStep}
+            path="/checkout/authenticate"
+            component={Authenticate}
+          />
         )}
-        <Route path="/checkout/address" component={AddressForm} />
+        <RestrictedRoute
+          expectedStep={loggedIn ? 3 : 2}
+          currentStep={currentStep}
+          path="/checkout/address"
+          component={AddressForm}
+        />
       </Switch>
     </Container>
   );

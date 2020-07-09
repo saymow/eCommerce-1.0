@@ -20,7 +20,7 @@ const Checkout: React.FC = () => {
   const { pathname } = useLocation();
   const {
     cartManager: { cart, totalCart, dispatch },
-    buyingController: { deliveryMethod },
+    buyingController: { deliveryMethod, step },
   } = useGlobalState();
 
   function handleDeleteProduct(id: number) {
@@ -63,7 +63,11 @@ const Checkout: React.FC = () => {
                     {product.name}
                   </p>
                   <span>R${product.price}</span>
-                  <DeleteIcon onClick={() => handleDeleteProduct(product.id)} />
+                  {step === 1 && (
+                    <DeleteIcon
+                      onClick={() => handleDeleteProduct(product.id)}
+                    />
+                  )}
                 </div>
               </Product>
             ))}

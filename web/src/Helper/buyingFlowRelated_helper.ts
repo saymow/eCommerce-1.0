@@ -1,15 +1,24 @@
-import { BuyingFlowState, Action } from "../Types/buyingFlowRelated_types";
+import {
+  BuyingFlowState,
+  Action,
+  Steps,
+} from "../Types/buyingFlowRelated_types";
 
 export function flowAction(
   state: BuyingFlowState,
   action: Action
 ): BuyingFlowState {
+  if (state.step > 4 || state.step < 1) return state;
+
+  let step = (state.step + 1) as Steps;
+
   switch (action.type) {
     case "set-delivery":
       const { Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
+
       return {
         ...state,
-        step: 2,
+        step,
         deliveryMethod: {
           code: Codigo,
           deadline: PrazoEntrega,
@@ -24,14 +33,20 @@ export function flowAction(
 
       return {
         ...state,
-        step: 3,
+        step,
         address: {
           number,
           street,
           cep,
           city,
-          state: Lstate
+          state: Lstate,
         },
+      };
+
+    case "set-reset-flow":
+      return {
+        ...state,
+        step: 1,
       };
 
     default:

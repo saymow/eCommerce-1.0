@@ -24,9 +24,10 @@ interface FlowChildProps {
 
 const CepSearcher: React.FC<FlowChildProps> = ({ next }) => {
   const Api = new DeliveryManager();
-  
+
   const {
     buyingController: { dispatch },
+    cartManager: { cart },
   } = useGlobalState();
   const [cep, setCep] = useState("");
   const [lastCepSearched, setlastCepSearched] = useState("");
@@ -53,16 +54,18 @@ const CepSearcher: React.FC<FlowChildProps> = ({ next }) => {
 
     setlastCepSearched(cep);
 
-    const options = await Api.calcDelivery(cep);
+    let qntdProducts = cart.reduce(
+      (accumulator, item) => accumulator + item.qntd,
+      0
+    );
 
-    if (options.find((option) => option.MsgErro)) return alert("Error");
+    const options = await Api.calcDelivery(cep, qntdProducts);
 
-    const serializedOptions = options.map(item => ({
-      ...item,
-      Valor: item.Valor.replace(",", "."),
-    }))
+    if (!options) {
+      return alert("Error");
+    }
 
-    setshippmentMethods(serializedOptions);
+    setshippmentMethods(options);
   }
 
   function handleCepChoosed() {

@@ -1,6 +1,6 @@
 import { CorreiosBrasil } from "correios-brasil";
 
-import { Services, DeliveryResponse} from "../Types/deliveryRelated_types";
+import { Services, DeliveryResponse } from "../Types/deliveryRelated_types";
 
 export default class DeliveryManager {
   Delivery: any;
@@ -8,7 +8,10 @@ export default class DeliveryManager {
     this.Delivery = new CorreiosBrasil();
   }
 
-  async calcDelivery(cep: string): Promise<DeliveryResponse[]> {
+  async calcDelivery(
+    cep: string,
+    qntd: number
+  ): Promise<DeliveryResponse[] | undefined> {
     let Services = {
       Sedex: "04014",
       Pac: "04510",
@@ -17,7 +20,7 @@ export default class DeliveryManager {
     let arg = {
       sCepOrigem: "02513010",
       sCepDestino: cep,
-      nVlPeso: "0.2",
+      nVlPeso: (0.2 * qntd).toString(),
       nCdFormato: "3",
       nVlComprimento: "20",
       nVlAltura: "3",
@@ -25,20 +28,32 @@ export default class DeliveryManager {
       nVlDiametro: "0",
     };
 
-    let args = Object.keys(Services).map(service => ({
+    let args = Object.keys(Services).map((service) => ({
       ...arg,
-      nCdServico: Services[service as Services]
+      nCdServico: Services[service as Services],
+    }));
+
+    const data: DeliveryResponse[] = await Promise.all(
+      args.map((arg) => {
+        return this.Delivery.calcPrecoPrazo(arg);
+      })
+    );
+
+    if (
+      data.find(
+        (option) => option.MsgErro || option?.message === "Failed to fetch"
+      )
+    ) {
+      return;
     }
-    ))
 
-    const data: DeliveryResponse[] = await Promise.all(args.map(arg => {
-      return this.Delivery.calcPrecoPrazo(arg);
-    }))
-
-    const serializedData = data.map(option => ({
+    const serializedData = data.map((option) => ({
       ...option,
-      Metodo: Object.keys(Services).find(service => Services[service as Services] === option.Codigo)
-    }))
+      Metodo: Object.keys(Services).find(
+        (service) => Services[service as Services] === option.Codigo
+      ),
+      Valor: option.Valor.replace(",", "."),
+    }));
 
     return serializedData;
   }

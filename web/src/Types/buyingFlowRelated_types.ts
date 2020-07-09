@@ -20,7 +20,7 @@ export interface Address {
   street: string;
 }
 
-export type Steps = 1 | 2 | 3 | 4;
+export type Steps = 1 | 2 | 3 | 4 | 5;
 
 export interface BuyingFlowState {
   step: Steps;
@@ -34,4 +34,5 @@ export interface BuyingFlow extends BuyingFlowState {
 
 export type Action =
   | { type: "set-delivery"; payload: DeliveryMethods }
-  | { type: "set-address"; payload: Address };
+  | { type: "set-address"; payload: Address }
+  | { type: "set-reset-flow";};

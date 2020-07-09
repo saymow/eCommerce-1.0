@@ -21,6 +21,7 @@ const ShoppingCart: React.FC = () => {
   const history = useHistory();
   const {
     cartManager: { totalCart, cart, dispatch },
+    buyingController: { step },
   } = useGlobalState();
   const [show, setShow] = useState(false);
 
@@ -34,9 +35,9 @@ const ShoppingCart: React.FC = () => {
     dispatch({
       type: "delete-product",
       payload: {
-        id
+        id,
       },
-    })
+    });
   }
 
   return (
@@ -57,12 +58,14 @@ const ShoppingCart: React.FC = () => {
               {cart.map((product) => (
                 <Item key={product.id}>
                   <div>
-                    <Link to={{
-                      pathname: `/product/${product.image}`,
-                      state: {
-                        id: product.id
-                      }
-                    }}>
+                    <Link
+                      to={{
+                        pathname: `/product/${product.image}`,
+                        state: {
+                          id: product.id,
+                        },
+                      }}
+                    >
                       <img src={product.image} alt={product.name} />
                     </Link>
                   </div>
@@ -72,7 +75,11 @@ const ShoppingCart: React.FC = () => {
                       {product.name}
                     </p>
                     <span>R${product.price}</span>
-                    <DeleteIcon onClick={() => handleDeleteCartItem(product.id)} />
+                    {step === 1 && (
+                      <DeleteIcon
+                        onClick={() => handleDeleteCartItem(product.id)}
+                      />
+                    )}
                   </div>
                 </Item>
               ))}
