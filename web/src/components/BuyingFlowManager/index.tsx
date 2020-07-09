@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
 
@@ -16,6 +16,8 @@ import {
   ProgressMade,
   Step,
 } from "./styles";
+
+import { Steps } from "../../Types/buyingFlowRelated_types";
 
 const BuyingFlowManager: React.FC = () => {
   const history = useHistory();
@@ -73,14 +75,14 @@ const BuyingFlowManager: React.FC = () => {
         />
         {!loggedIn && (
           <RestrictedRoute
-            expectedStep={2}
+            expectedStep={1} //*** */
             currentStep={currentStep}
             path="/checkout/authenticate"
             component={Authenticate}
           />
         )}
         <RestrictedRoute
-          expectedStep={loggedIn ? 3 : 2}
+          expectedStep={steps.indexOf("Address filled") as Steps}
           currentStep={currentStep}
           path="/checkout/address"
           component={AddressForm}

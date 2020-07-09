@@ -4,12 +4,13 @@ import { useGlobalState } from "../../Context";
 
 import DeliveryManager from "../../Helper/deliveryRelated_helper";
 
+import { Button } from "../../Styles/utils";
+
 import {
   Container,
   Form,
   TitleDiv,
   Input,
-  Button,
   Shipping,
   ShippingSelf,
   ShippingIcon,
