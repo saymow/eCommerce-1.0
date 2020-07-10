@@ -30,14 +30,6 @@ export async function seed(knex: Knex) {
       name: "Blue t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "39.99",
-      qntd: 4,
-      image: "blue-t-shirt",
-    },
-    {
-      name: "Blue t-shirt",
-      description:
-        "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
       price: "49.99",
       qntd: 4,
       image: "blue-t-shirt",

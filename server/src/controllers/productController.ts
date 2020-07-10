@@ -62,7 +62,12 @@ class productManager {
         .status(400)
         .json({ error: { message: "Invalid product id." } });
 
-    return res.json(product);
+    const serializedProduct = {
+      ...product,
+      image: `http://localhost:3333/images/${product.image}.jpg`
+    }
+
+    return res.json(serializedProduct);
   }
 }
 
