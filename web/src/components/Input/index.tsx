@@ -8,6 +8,9 @@ import { Container, Input, ErrorSpan } from "./styles";
 interface Props {
   name: string;
   type: string;
+  placeholder?: string;
+  maxLength?: number;
+  pattern?: string;
   Icon: StyledComponent<StyledIcon, any, {}, never>;
 }
 

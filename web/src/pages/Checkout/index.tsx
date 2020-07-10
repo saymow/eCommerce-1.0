@@ -33,7 +33,7 @@ const Checkout: React.FC = () => {
   }
 
   let onlyRightSide = useMemo(() => {
-    let routes = ["/checkout/address"];
+    let routes = ["/checkout/address", "/checkout/authenticate/signup"];
 
     return routes.includes(pathname);
   }, [pathname]);

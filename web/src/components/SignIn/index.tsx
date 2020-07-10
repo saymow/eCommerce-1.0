@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik } from "formik";
-import * as Yup from "yup";
+import { Link } from "react-router-dom";
 
 import Api from "../../Services/api";
+import { LoginSchema } from "../../Helper/formRelated_helper";
 
 import Input from "../Input";
 
@@ -13,6 +14,8 @@ import {
   Button,
   EmailIcon,
   PasswordIcon,
+  SignUpMessage,
+  SignUpIcon,
 } from "./styles";
 
 const SignIn: React.FC = () => {
@@ -23,20 +26,7 @@ const SignIn: React.FC = () => {
           email: "",
           password: "",
         }}
-        validationSchema={Yup.object({
-          email: Yup.string()
-            .required("Email is required")
-            .max(320, "Email must have 320 characters or less")
-            .email("Email must have a valid format"),
-          password: Yup.string()
-            .required("Password is required")
-            .min(8, "Password must have at least 8 characters.")
-            .max(32, "Password must have less than 32 characters.")
-            .matches(
-              /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])/g,
-              "Password must contain capitalized letters and digits"
-            ),
-        })}
+        validationSchema={LoginSchema}
         onSubmit={async (values) => {
           Api.post("login", values).then((response) => {
             console.log(response);
@@ -46,14 +36,29 @@ const SignIn: React.FC = () => {
       >
         <Form>
           <InputField>
-            <Input type="email" name="email" Icon={EmailIcon} />
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              Icon={EmailIcon}
+            />
           </InputField>
           <InputField>
-            <Input type="password" name="password" Icon={PasswordIcon} />
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              Icon={PasswordIcon}
+            />
           </InputField>
           <Button>Sign in</Button>
         </Form>
       </Formik>
+      <SignUpMessage>
+        <Link to="/checkout/authenticate/signup">
+          <SignUpIcon /> Sign up
+        </Link>
+      </SignUpMessage>
     </Container>
   );
 };

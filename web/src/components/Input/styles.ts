@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -15,6 +16,7 @@ export const Input = styled.input`
   outline: 0;
   border: 2px solid var(--primary);
   border-radius: 0.5rem;
+  width: 100%;
 
   &.haveError {
     border-color: #f00;
