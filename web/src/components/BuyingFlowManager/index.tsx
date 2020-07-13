@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Switch, useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
+import ApiManager from "../../Services/userApi";
 
 import RestrictedRoute from "../RestrictedRoute";
 
@@ -25,6 +26,8 @@ const BuyingFlowManager: React.FC = () => {
     userController: { loggedIn },
     buyingController: { step: currentStep, dispatch },
   } = useGlobalState();
+  const UserApi = new ApiManager(loggedIn);
+
   const steps = loggedIn
     ? ["Shippment method", "Address filled", "Finish Buy", "completed"]
     : [
@@ -75,10 +78,10 @@ const BuyingFlowManager: React.FC = () => {
         />
         {!loggedIn && (
           <RestrictedRoute
-            expectedStep={1} //*** */
+            expectedStep={2} //*** */
             currentStep={currentStep}
             path="/checkout/authenticate"
-            component={Authenticate}
+            component={() => <Authenticate ApiMananger={UserApi}/>}
           />
         )}
         <RestrictedRoute

@@ -1,8 +1,13 @@
 import React from "react";
 import { Formik } from "formik";
+import { Link } from "react-router-dom";
 
 import Input from "../Input";
-import { RegisterSchema } from "../../Helper/formRelated_helper";
+import {
+  RegisterSchema,
+  cpfMask,
+  dateMask,
+} from "../../Helper/formRelated_helper";
 
 import {
   Container,
@@ -15,6 +20,8 @@ import {
   IdIcon,
   DateIcon,
   Button,
+  LinkWrapper,
+  LoginIcon
 } from "./styles";
 
 const SignUp: React.FC = () => {
@@ -67,13 +74,14 @@ const SignUp: React.FC = () => {
               type="text"
               name="cpf"
               placeholder="CPF"
-              maxLength={11}
+              mask={cpfMask}
               Icon={IdIcon}
             />
             <Input
               type="text"
               name="birthDate"
               placeholder="Birth date"
+              mask={dateMask}
               Icon={DateIcon}
             />
           </TwoInputsField>
@@ -81,6 +89,10 @@ const SignUp: React.FC = () => {
           <Button>Sign up</Button>
         </Form>
       </Formik>
+      <LinkWrapper>
+      <LoginIcon />
+      <Link to="/checkout/authenticate">Sign in</Link>
+      </LinkWrapper>
     </Container>
   );
 };

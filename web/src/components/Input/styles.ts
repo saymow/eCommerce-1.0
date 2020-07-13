@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import MaskedInput from "react-text-mask";
 
 export const Container = styled.div`
   width: 100%;
@@ -8,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Input = styled.input`
+export const Input = styled(MaskedInput)`
   background-color: transparent;
   font-size: 2.6rem;
   padding: 0.5rem 1rem 0.5rem 4.7rem;

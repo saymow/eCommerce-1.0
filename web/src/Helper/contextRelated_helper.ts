@@ -7,6 +7,9 @@ import {
 
 import { flowAction } from "./buyingFlowRelated_helper";
 
+import { userAction } from "./userRelated_helper";
+
+import { Action as UserAction } from "../Types/userRelated_types";
 import { Action as CartAction } from "../Types/cartRelated_types";
 import { Action as FlowAction, Steps } from "../Types/buyingFlowRelated_types";
 
@@ -16,6 +19,7 @@ export const InitialContext: ContextData = {
   userController: {
     loggedIn: false,
     user: undefined,
+    dispatch: (Action: UserAction) => null,
   },
   cartManager: {
     totalCart: "",
@@ -53,4 +57,5 @@ export {
   saveCartOnStorage,
   updatePrice,
   flowAction,
+  userAction,
 };

@@ -14,18 +14,21 @@ import {
   InitalCart,
   updatePrice,
   flowAction,
-  InitialFlow
+  InitialFlow,
+  userAction,
 } from "../Helper/contextRelated_helper";
-
-import { User } from "../Types/userRelated_types";
 
 const authContext = createContext(InitialContext);
 
 const AppContext: React.FC = ({ children }) => {
-  const [cartData, cartDispatch] = useReducer(cartAction, InitalCart, loadStoragedData);
+  const [cartData, cartDispatch] = useReducer(
+    cartAction,
+    InitalCart,
+    loadStoragedData
+  );
   const [buyingFlow, buyingFlowDispatch] = useReducer(flowAction, InitialFlow);
   const [showModal, setShowModal] = useState<string | boolean>(false);
-  const [user, setUser] = useState<User | false>(false);
+  const [user, userDispatch] = useReducer(userAction, false);
 
   useEffect(() => {
     return updatePrice(cartDispatch);
@@ -40,7 +43,8 @@ const AppContext: React.FC = ({ children }) => {
       value={{
         userController: {
           loggedIn: false,
-          user: undefined,
+          user: user ? user : undefined,
+          dispatch: userDispatch,
         },
         modalController: {
           showModal,
@@ -55,8 +59,8 @@ const AppContext: React.FC = ({ children }) => {
           step: buyingFlow.step,
           deliveryMethod: buyingFlow.deliveryMethod,
           address: buyingFlow.address,
-          dispatch: buyingFlowDispatch
-        }
+          dispatch: buyingFlowDispatch,
+        },
       }}
     >
       {children}

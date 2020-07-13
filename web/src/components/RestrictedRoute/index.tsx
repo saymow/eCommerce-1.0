@@ -18,9 +18,9 @@ const RestrictedRoute: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <Route
+    <Route {...rest}
       render={() => {
-        if (currentStep === expectedStep) return <Component {...rest} />;
+        if (currentStep === expectedStep) return <Component />;
         else return <Redirect to="/checkout" />;
       }}
     />

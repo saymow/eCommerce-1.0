@@ -2,7 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 
-import Api from "../../Services/api";
+import { useGlobalState } from "../../Context";
 import { LoginSchema } from "../../Helper/formRelated_helper";
 
 import Input from "../Input";
@@ -14,11 +14,20 @@ import {
   Button,
   EmailIcon,
   PasswordIcon,
-  SignUpMessage,
+  LinkWrapper,
   SignUpIcon,
 } from "./styles";
 
-const SignIn: React.FC = () => {
+interface Props {
+  ApiMananger: Object;
+}
+
+const SignIn: React.FC<Props> = (props) => {
+  console.log(props);
+
+  const {
+    userController: { dispatch },
+  } = useGlobalState();
   return (
     <Container>
       <Formik
@@ -28,10 +37,15 @@ const SignIn: React.FC = () => {
         }}
         validationSchema={LoginSchema}
         onSubmit={async (values) => {
-          Api.post("login", values).then((response) => {
-            console.log(response);
+          const { email, password } = values;
+
+          dispatch({
+            type: "signIn",
+            payload: {
+              email,
+              password,
+            },
           });
-          console.log("testing");
         }}
       >
         <Form>
@@ -54,11 +68,11 @@ const SignIn: React.FC = () => {
           <Button>Sign in</Button>
         </Form>
       </Formik>
-      <SignUpMessage>
+      <LinkWrapper>
         <Link to="/checkout/authenticate/signup">
           <SignUpIcon /> Sign up
         </Link>
-      </SignUpMessage>
+      </LinkWrapper>
     </Container>
   );
 };

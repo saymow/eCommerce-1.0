@@ -29,9 +29,29 @@ const RegisterSchema = Yup.object({
   cpf: Yup.string()
     .required("Cpf is required.")
     .matches(
-      /(\d{8})(-{1})(\d{2})/,
+      /(\d{3})(.{1})(\d{3})(.{1})(\d{3})(-{1})(\d{2})/,
       "Invalid format of CPF."
-    )
+    ),
+  birthDate: Yup.string().required("Birth date is required"),
 });
 
-export { LoginSchema, RegisterSchema };
+const cpfMask = [
+  /\d/,
+  /\d/,
+  /\d/,
+  ".",
+  /\d/,
+  /\d/,
+  /\d/,
+  ".",
+  /\d/,
+  /\d/,
+  /\d/,
+  "-",
+  /\d/,
+  /\d/,
+];
+
+const dateMask = [/\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/];
+
+export { LoginSchema, RegisterSchema, cpfMask, dateMask };

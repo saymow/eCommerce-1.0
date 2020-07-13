@@ -8,8 +8,12 @@ import { LockPassword } from "@styled-icons/remix-line";
 import { User } from "@styled-icons/boxicons-regular";
 import { DateRange } from "@styled-icons/material";
 import { PermIdentity } from "@styled-icons/material-sharp";
+import { SignInAlt } from "@styled-icons/fa-solid";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  position: relative;
+  height: 100%;
+`;
 
 export const Form = styled(FormikForm)`
   width: 100%;
@@ -63,4 +67,22 @@ export const TwoInputsField = styled.div`
 export const Button = styled(DefaultButton)`
   margin-top: 1rem;
   width: 40%;
+`;
+
+export const LinkWrapper = styled.span`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  font-size: 1.6rem;
+  > a {
+    text-decoration: none;
+    color: var(--primary);
+  }
+`;
+
+export const LoginIcon = styled(SignInAlt)`
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-right: 0.4rem;
 `;
