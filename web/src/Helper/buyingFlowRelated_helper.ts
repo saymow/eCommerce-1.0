@@ -43,6 +43,13 @@ export function flowAction(
         },
       };
 
+    case "set-logged": {
+      return {
+        ...state,
+        step
+      }
+    }
+
     case "set-reset-flow":
       return {
         ...state,

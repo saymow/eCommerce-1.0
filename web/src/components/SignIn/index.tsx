@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import { Link } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
+import { useBuyingFlowState } from "../BuyingFlowManager";
+
 import { LoginSchema } from "../../Helper/formRelated_helper";
 
 import Input from "../Input";
@@ -18,16 +20,13 @@ import {
   SignUpIcon,
 } from "./styles";
 
-interface Props {
-  ApiMananger: Object;
-}
-
-const SignIn: React.FC<Props> = (props) => {
-  console.log(props);
-
+const SignIn: React.FC = (props) => {
+  const { UserApi, next } = useBuyingFlowState();
   const {
     userController: { dispatch },
+    buyingController: { dispatch: FlowDispatcher },
   } = useGlobalState();
+
   return (
     <Container>
       <Formik
@@ -36,16 +35,30 @@ const SignIn: React.FC<Props> = (props) => {
           password: "",
         }}
         validationSchema={LoginSchema}
-        onSubmit={async (values) => {
-          const { email, password } = values;
+        onSubmit={async (values, { setErrors }) => {
+          try {
+            const { email, password } = values;
 
-          dispatch({
-            type: "signIn",
-            payload: {
-              email,
-              password,
-            },
-          });
+            const response = await UserApi.signIn(email, password);
+
+            if (response.error) throw response.error;
+
+            dispatch({
+              type: "set-user",
+              payload: {
+                email: response.email,
+                name: response.name,
+              },
+            });
+
+            FlowDispatcher({
+              type: "set-logged",
+            });
+
+            next();
+          } catch (err) {
+            setErrors(err);
+          }
         }}
       >
         <Form>
@@ -65,7 +78,7 @@ const SignIn: React.FC<Props> = (props) => {
               Icon={PasswordIcon}
             />
           </InputField>
-          <Button>Sign in</Button>
+          <Button type="submit">Sign in</Button>
         </Form>
       </Formik>
       <LinkWrapper>

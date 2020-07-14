@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 
 import { useGlobalState } from "../../Context";
+import { useBuyingFlowState } from "../BuyingFlowManager";
 
 import DeliveryManager from "../../Helper/deliveryRelated_helper";
 
@@ -19,12 +20,9 @@ import {
 
 import { DeliveryResponse } from "../../Types/deliveryRelated_types";
 
-interface FlowChildProps {
-  next: () => void;
-}
-
-const CepSearcher: React.FC<FlowChildProps> = ({ next }) => {
+const CepSearcher: React.FC = () => {
   const Api = new DeliveryManager();
+  const { next } = useBuyingFlowState();
 
   const {
     buyingController: { dispatch },

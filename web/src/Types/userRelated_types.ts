@@ -17,11 +17,10 @@ export interface UserRegister {
   birthDate: string;
 }
 
-export interface UserLogin {
+export interface User {
   email: string;
-  password: string;
+  name: string;
 }
 
 export type Action =
-  | { type: "signIn"; payload: UserLogin }
-  | { type: "signUp"; payload: UserRegister };
+  | { type: "set-user"; payload: User };

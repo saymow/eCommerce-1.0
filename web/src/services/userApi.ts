@@ -7,15 +7,7 @@ export default class ApiManager {
     this.loggedIn = loggedIn;
     this.api = api;
 
-    if (this.loggedIn) this.retrieveToken();
-  }
-
-  retrieveToken() {
-    const token = localStorage.getItem("@Auth:");
-
-    if (!token) return;
-
-    this.api.defaults.headers["Authorization"] = JSON.stringify(token);
+    if (this.loggedIn) this._retrieveToken();
   }
 
   async signIn(email: string, password: string) {
@@ -24,6 +16,47 @@ export default class ApiManager {
       password,
     });
 
-    console.log(response);
+    if (response.data.error) return response.data;
+
+    this._storeToken(response.data.token);
+
+    return response.data.userData;
+  }
+
+  async signUp(
+    name: string,
+    email: string,
+    password: string,
+    cpf: string,
+    birthDate: string
+  ) {
+    const response = await this.api.post("/register", {
+      name,
+      email,
+      password,
+      cpf,
+      birthDate,
+    });
+
+    if (response.data.error) return response.data;
+
+    this._storeToken(response.data.token);
+
+    return response.data.userData;
+  }
+
+  _retrieveToken() {
+    const token = localStorage.getItem("@Auth:");
+
+    if (!token) return;
+
+    this.api.defaults.headers["Authorization"] = `Bearer ${JSON.stringify(
+      token
+    )}`;
+  }
+
+  _storeToken(token: string) {
+    this.api.defaults.headers["Authorization"] = `Bearer ${token}`;
+    localStorage.setItem("@Auth:", token);
   }
 }

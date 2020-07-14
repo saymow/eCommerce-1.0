@@ -2,6 +2,9 @@ import React from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 
+import { useGlobalState } from "../../Context";
+import { useBuyingFlowState } from "../BuyingFlowManager";
+
 import Input from "../Input";
 import {
   RegisterSchema,
@@ -21,10 +24,16 @@ import {
   DateIcon,
   Button,
   LinkWrapper,
-  LoginIcon
+  LoginIcon,
 } from "./styles";
 
 const SignUp: React.FC = () => {
+  const { UserApi, next } = useBuyingFlowState();
+  const {
+    userController: { dispatch },
+    buyingController: { dispatch: FlowDispatcher },
+  } = useGlobalState();
+
   return (
     <Container>
       <Formik
@@ -37,8 +46,36 @@ const SignUp: React.FC = () => {
           cpf: "",
         }}
         validationSchema={RegisterSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={async (values, { setErrors }) => {
+          try {
+            const { name, email, password, cpf, birthDate } = values;
+
+            const response = await UserApi.signUp(
+              name,
+              email,
+              password,
+              cpf,
+              birthDate
+            );
+
+            if (response.error) throw response.error;
+
+            dispatch({
+              type: "set-user",
+              payload: {
+                email: response.email,
+                name: response.name,
+              },
+            });
+
+            FlowDispatcher({
+              type: "set-logged",
+            });
+
+            next();
+          } catch (err) {
+            setErrors(err);
+          }
         }}
       >
         <Form>
@@ -86,12 +123,12 @@ const SignUp: React.FC = () => {
             />
           </TwoInputsField>
 
-          <Button>Sign up</Button>
+          <Button type="submit">Sign up</Button>
         </Form>
       </Formik>
       <LinkWrapper>
-      <LoginIcon />
-      <Link to="/checkout/authenticate">Sign in</Link>
+        <LoginIcon />
+        <Link to="/checkout/authenticate">Sign in</Link>
       </LinkWrapper>
     </Container>
   );
