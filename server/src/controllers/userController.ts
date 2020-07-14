@@ -7,6 +7,7 @@ const authConfig = require("../config/auth.json");
 
 interface userData {
   id: Number;
+  name: string;
   email: string;
   password: string;
   cpf: string;
@@ -16,29 +17,29 @@ interface userData {
 
 class UserController {
   async register(req: Request, res: Response) {
-    const { email, password, cpf, cep } = req.body;
+    const { name, email, password, cpf, birthDate } = req.body;
 
     const userAlreadyExists = await knex("users").where("email", email);
 
     if (userAlreadyExists.length !== 0)
-      return res.json({ error: { email: "Email already in usage." } });
+      return res.json({ error: { email: "Email already in use." } });
 
     try {
       bcrypt.hash(password, genSaltSync(), async (err, hash) => {
         const { insertedId } = await connection("users").insert({
+          name,
           email,
           password: hash,
           cpf,
-          cep,
+          birth_date: birthDate,
         });
 
         // Confirmation email to be done.
         return res.json({
           token: generateToken({ insertedId }, authConfig.secret),
           userData: {
+            name,
             email,
-            cep,
-            cpf,
             adminPermission: false,
           },
         });
@@ -59,8 +60,7 @@ class UserController {
 
     const {
       id,
-      cep,
-      cpf,
+      name,
       password: passwordHashed,
       adminPermission,
     } = userExists[0];
@@ -71,9 +71,8 @@ class UserController {
     return res.json({
       token: generateToken({ id }, authConfig.secret),
       userData: {
+        name,
         email,
-        cep,
-        cpf,
         adminPermission: adminPermission === 1 ? true : false,
       },
     });
