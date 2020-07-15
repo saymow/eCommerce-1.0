@@ -1,30 +1,29 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useField } from "formik";
-import { StyledIcon } from "styled-icons/types";
-import { StyledComponent } from "styled-components";
 
-import { Container, Input, ErrorSpan } from "./styles";
+import { StyledComponent } from "styled-components";
+import { StyledIcon } from "styled-icons/types";
+
+import { Container, Select, ErrorSpan } from "./styles";
 
 interface Props {
   name: string;
-  type: string;
-  mask?: any[];
+  stateWatcher?: Dispatch<SetStateAction<undefined | string>>;
   placeholder?: string;
-  maxLength?: number;
-  max?: number;
-  pattern?: string;
   Icon: StyledComponent<StyledIcon, any, {}, never>;
 }
 
-const FormInput: React.FC<Props> = ({ Icon, mask, ...props }) => {
+const FormSelect: React.FC<Props> = ({ Icon, stateWatcher, ...props }) => {
   const [field, meta] = useField(props);
-
   return (
     <Container>
-      <Input
+      <Select
         {...field}
         {...props}
-        mask={mask ? mask : false}
+        onChange={(event) => {
+          if (stateWatcher) stateWatcher(event.target.value);
+          field.onChange(event);
+        }}
         className={
           meta.touched && meta.error
             ? "haveError"
@@ -40,4 +39,4 @@ const FormInput: React.FC<Props> = ({ Icon, mask, ...props }) => {
   );
 };
 
-export default FormInput;
+export default FormSelect;

@@ -28,26 +28,31 @@ export function flowAction(
       };
 
     case "set-address":
-      const { cep, city, number, street } = action.payload;
-      const Lstate = action.payload.state;
+      const {
+        state: Lstate,
+        city,
+        neighborhood,
+        street,
+        number,
+      } = action.payload;
 
       return {
         ...state,
         step,
         address: {
-          number,
-          street,
-          cep,
-          city,
           state: Lstate,
+          city,
+          neighborhood,
+          street,
+          number,
         },
       };
 
     case "set-logged": {
       return {
         ...state,
-        step
-      }
+        step,
+      };
     }
 
     case "set-reset-flow":

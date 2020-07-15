@@ -91,14 +91,14 @@ const BuyingFlowManager: React.FC = () => {
           />
           {!loggedIn && (
             <RestrictedRoute
-              expectedStep={2} //*** */
+              expectedStep={2}
               currentStep={currentStep}
               path="/checkout/authenticate"
               component={Authenticate}
             />
           )}
           <RestrictedRoute
-            expectedStep={steps.indexOf("Address filled") as Steps}
+            expectedStep={(steps.indexOf("Address filled") + 1) as Steps}
             currentStep={currentStep}
             path="/checkout/address"
             component={AddressForm}

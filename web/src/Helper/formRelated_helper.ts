@@ -35,6 +35,17 @@ const RegisterSchema = Yup.object({
   birthDate: Yup.string().required("Birth date is required"),
 });
 
+const AddressSchema = Yup.object({
+  state: Yup.string().required("State is required."),
+  city: Yup.string().required("City is required."),
+  neighborhood: Yup.string().required("Neighborhood is required."),
+  street: Yup.string().required("Street is required"),
+  number: Yup.number()
+    .required("House number is required.")
+    .min(1, "Invalid format.")
+    .max(9999, "Invalid format."),
+});
+
 const cpfMask = [
   /\d/,
   /\d/,
@@ -54,4 +65,4 @@ const cpfMask = [
 
 const dateMask = [/\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/];
 
-export { LoginSchema, RegisterSchema, cpfMask, dateMask };
+export { LoginSchema, RegisterSchema, AddressSchema, cpfMask, dateMask };
