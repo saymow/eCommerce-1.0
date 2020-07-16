@@ -27,7 +27,7 @@ Routes.post(
   productController.create
 );
 Routes.get("/", productController.list);
-Routes.get("/product/:product_id", productController.detailed)
+Routes.get("/product/:name", productController.detailed)
 
 
 export default Routes;

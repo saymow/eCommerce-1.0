@@ -60,10 +60,7 @@ const ShoppingCart: React.FC = () => {
                   <div>
                     <Link
                       to={{
-                        pathname: `/product/${product.image}`,
-                        state: {
-                          id: product.id,
-                        },
+                        pathname: `/product/${product.name}`,
                       }}
                     >
                       <img src={product.image} alt={product.name} />

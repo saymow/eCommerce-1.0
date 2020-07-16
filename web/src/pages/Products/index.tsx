@@ -49,7 +49,7 @@ const Products: React.FC = () => {
                 src={product.image}
                 alt={product.name}
                 onClick={() =>
-                  history.push(`product/${product.name}`, { id: product.id })
+                  history.push(`product/${product.name}`)
                 }
               />
               <strong>{product.name}</strong>

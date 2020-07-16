@@ -49,9 +49,6 @@ const Checkout: React.FC = () => {
                   <Link
                     to={{
                       pathname: `/product/${product.name}`,
-                      state: {
-                        id: product.id,
-                      },
                     }}
                   >
                     <img src={product.image} alt={product.name} />

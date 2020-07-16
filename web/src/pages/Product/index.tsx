@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, MouseEvent } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
 import Api from "../../Services/api";
@@ -17,23 +17,21 @@ import {
 import { DetailedProduct } from "../../Types/cartRelated_types";
 
 const Product: React.FC = () => {
+  const { name } = useParams();
   const {
     cartManager: { dispatch },
     modalController: { setShowModal },
   } = useGlobalState();
-  const {
-    state: { id },
-  } = useLocation();
   const imgRef = useRef<HTMLDivElement>(null);
   const [product, setProduct] = useState<DetailedProduct | undefined>();
   const [imgZoomState, setImgZoomState] = useState("0% 0%");
   const [qntd, setQntd] = useState(1);
 
   useEffect(() => {
-    Api.get(`product/${id}`).then((response) => {
+    Api.get(`product/${name}`).then((response) => {
       setProduct(response.data);
     });
-  }, [id]);
+  }, [name]);
 
   function handleMouseMove(event: MouseEvent) {
     if (!imgRef.current) return;
@@ -50,8 +48,6 @@ const Product: React.FC = () => {
       return alert(
         `There are only ${product?.qntd} ${product?.name} available.`
       );
-
-    console.log(qntd);
 
     dispatch({
       type: "add-product",

@@ -46,21 +46,21 @@ class productManager {
   }
 
   async detailed(req: Request, res: Response) {
-    const { product_id } = req.params;
+    const { name } = req.params;
 
-    if (!product_id)
+    if (!name)
       return res
         .status(400)
-        .json({ error: { message: "No product id passed." } });
+        .json({ error: { message: "No product name provided." } });
 
     const product = await connection("products")
-      .where("id", product_id)
+      .where("name", name)
       .first();
 
     if (!product)
       return res
         .status(400)
-        .json({ error: { message: "Invalid product id." } });
+        .json({ error: { message: "Invalid product name." } });
 
     const serializedProduct = {
       ...product,
