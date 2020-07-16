@@ -42,6 +42,7 @@ const AddressSchema = Yup.object({
   street: Yup.string().required("Street is required"),
   number: Yup.number()
     .required("House number is required.")
+    .integer("Number must be integer.")
     .min(1, "Invalid format.")
     .max(9999, "Invalid format."),
 });

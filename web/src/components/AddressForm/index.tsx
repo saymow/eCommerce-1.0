@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 
+import { useBuyingFlowState } from "../BuyingFlowManager";
 import { useGlobalState } from "../../Context";
 import api from "../../Services/api";
 import { AddressSchema } from "../../Helper/formRelated_helper";
@@ -33,6 +34,8 @@ const AddressForm: React.FC = () => {
   const {
     buyingController: { dispatch },
   } = useGlobalState();
+
+  const { next } = useBuyingFlowState();
 
   const [states, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState<undefined | string>(
@@ -78,6 +81,7 @@ const AddressForm: React.FC = () => {
         validationSchema={AddressSchema}
         onSubmit={(values) => {
           const { state, city, neighborhood, street, number } = values;
+
           dispatch({
             type: "set-address",
             payload: {
@@ -88,6 +92,8 @@ const AddressForm: React.FC = () => {
               number,
             },
           });
+
+          next();
         }}
       >
         <Form>

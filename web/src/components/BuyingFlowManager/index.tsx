@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useRef,
   useCallback,
   createContext,
   useContext,
@@ -14,6 +15,7 @@ import RestrictedRoute from "../RestrictedRoute";
 import Authenticate from "../Authenticate";
 import CepSearcher from "../CepSearcher";
 import AddressForm from "../AddressForm";
+import FinishBuy from "../FinishBuy";
 
 import {
   Container,
@@ -37,15 +39,19 @@ const BuyingFlowManager: React.FC = () => {
   } = useGlobalState();
   const UserApi = new ApiManager(loggedIn);
 
-  const steps = loggedIn
-    ? ["Shippment method", "Address filled", "Finish Buy", "completed"]
-    : [
-        "Shippment method",
-        "Authenticate",
-        "Address filled",
-        "Finish Buy",
-        "completed",
-      ];
+  const stepsRef = useRef(
+    loggedIn
+      ? ["Shippment method", "Address filled", "Finish Buy", "completed"]
+      : [
+          "Shippment method",
+          "Authenticate",
+          "Address filled",
+          "Finish Buy",
+          "completed",
+        ]
+  );
+
+  const steps = stepsRef.current;
 
   const next = useCallback(() => {
     switch (steps[currentStep]) {
@@ -54,6 +60,9 @@ const BuyingFlowManager: React.FC = () => {
       }
       case "Address filled": {
         return history.push("/checkout/address");
+      }
+      case "Finish Buy": {
+        return history.push("/checkout/finish buy");
       }
     }
   }, [currentStep, history, steps]);
@@ -83,15 +92,15 @@ const BuyingFlowManager: React.FC = () => {
       <BuyingFlowContext.Provider value={{ UserApi, next }}>
         <Switch>
           <RestrictedRoute
+            expectedStep={(steps.indexOf("Shippment method") + 1) as Steps}
             currentStep={currentStep}
-            expectedStep={1}
             exact
             path="/checkout"
             component={CepSearcher}
           />
           {!loggedIn && (
             <RestrictedRoute
-              expectedStep={2}
+              expectedStep={(steps.indexOf("Authenticate") + 1) as Steps}
               currentStep={currentStep}
               path="/checkout/authenticate"
               component={Authenticate}
@@ -100,8 +109,16 @@ const BuyingFlowManager: React.FC = () => {
           <RestrictedRoute
             expectedStep={(steps.indexOf("Address filled") + 1) as Steps}
             currentStep={currentStep}
+            authenticate
             path="/checkout/address"
             component={AddressForm}
+          />
+          <RestrictedRoute
+            expectedStep={(steps.indexOf("Finish Buy") + 1) as Steps}
+            currentStep={currentStep}
+            authenticate
+            path="/checkout/finish buy"
+            component={FinishBuy}
           />
         </Switch>
       </BuyingFlowContext.Provider>

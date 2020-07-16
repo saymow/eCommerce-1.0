@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
+import { useGlobalState } from "../../Context";
+
 import { Steps } from "../../Types/buyingFlowRelated_types";
 
 interface Props {
@@ -9,18 +11,26 @@ interface Props {
   component: React.FC;
   currentStep: Steps;
   expectedStep: Steps;
+  authenticate?: boolean;
 }
 
 const RestrictedRoute: React.FC<Props> = ({
   currentStep,
   expectedStep,
+  authenticate,
   component: Component,
   ...rest
 }) => {
+  const {
+    userController: { loggedIn },
+  } = useGlobalState();
+
   return (
-    <Route {...rest}
+    <Route
+      {...rest}
       render={() => {
-        if (currentStep === expectedStep) return <Component />;
+        if (currentStep === expectedStep && (authenticate ? loggedIn : true))
+          return <Component />;
         else return <Redirect to="/checkout" />;
       }}
     />
