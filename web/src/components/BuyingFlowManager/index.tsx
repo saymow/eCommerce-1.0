@@ -41,11 +41,11 @@ const BuyingFlowManager: React.FC = () => {
 
   const stepsRef = useRef(
     loggedIn
-      ? ["Shippment method", "Address filled", "Finish Buy", "completed"]
+      ? ["Shippment method", "Address", "Finish Buy", "completed"]
       : [
           "Shippment method",
           "Authenticate",
-          "Address filled",
+          "Address",
           "Finish Buy",
           "completed",
         ]
@@ -58,7 +58,7 @@ const BuyingFlowManager: React.FC = () => {
       case "Authenticate": {
         return history.push("/checkout/authenticate");
       }
-      case "Address filled": {
+      case "Address": {
         return history.push("/checkout/address");
       }
       case "Finish Buy": {
@@ -107,7 +107,7 @@ const BuyingFlowManager: React.FC = () => {
             />
           )}
           <RestrictedRoute
-            expectedStep={(steps.indexOf("Address filled") + 1) as Steps}
+            expectedStep={(steps.indexOf("Address") + 1) as Steps}
             currentStep={currentStep}
             authenticate
             path="/checkout/address"

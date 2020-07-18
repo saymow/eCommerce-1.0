@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { DeleteBack2 } from "@styled-icons/remix-line";
+
+import { DeleteBack2 } from "../../Styles/icons";
 
 interface CheckoutAnimationProps {
   onlyRightSide: boolean;
@@ -20,7 +21,8 @@ export const CheckoutConainer = styled.div<CheckoutAnimationProps>`
   height: 540px;
   border-radius: 0.5rem;
   display: grid;
-  grid-template-columns: ${props => props.onlyRightSide ? "1fr 3fr" : "9fr 11fr"};
+  grid-template-columns: ${(props) =>
+    props.onlyRightSide ? "1fr 3fr" : "9fr 11fr"};
   padding: 1rem;
   color: var(--primary);
 `;
@@ -55,8 +57,7 @@ export const Product = styled.div<CheckoutAnimationProps>`
   position: relative;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  font-size: ${props => props.onlyRightSide ? "1.2rem" : "2rem"};
-  
+  font-size: ${(props) => (props.onlyRightSide ? "1.2rem" : "2rem")};
 
   border: 1px solid var(--primary);
   margin-bottom: 1.5rem;
@@ -77,7 +78,7 @@ export const Product = styled.div<CheckoutAnimationProps>`
   }
 
   div:last-child span {
-    font-size: .7em;
+    font-size: 0.7em;
     position: absolute;
     bottom: 5px;
     right: 5px;

@@ -3,12 +3,14 @@ import { Form as FormikForm } from "formik";
 
 import { Button as DefaultButton } from "../../Styles/utils";
 
-import { EmailOutline } from "@styled-icons/evaicons-outline";
-import { LockPassword } from "@styled-icons/remix-line";
-import { User } from "@styled-icons/boxicons-regular";
-import { DateRange } from "@styled-icons/material";
-import { PermIdentity } from "@styled-icons/material-sharp";
-import { SignInAlt } from "@styled-icons/fa-solid";
+import {
+  EmailOutline,
+  LockPassword,
+  User,
+  DateRange,
+  PermIdentity,
+  SignInAlt,
+} from "../../Styles/icons";
 
 export const Container = styled.div`
   position: relative;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { CartAdd } from "@styled-icons/boxicons-solid";
 
 import { useGlobalState } from "../../Context/";
 import Api from "../../Services/api";
@@ -8,7 +7,7 @@ import Loading from "../../Components/Loading";
 
 import { Product } from "../../Types/cartRelated_types";
 
-import { Container, ProductsWrapper, ProductList, ProductSelf } from "./styles";
+import { Container, ProductsWrapper, ProductList, ProductSelf, BuyIcon } from "./styles";
 
 const Products: React.FC = () => {
   const {
@@ -54,7 +53,7 @@ const Products: React.FC = () => {
               />
               <strong>{product.name}</strong>
               <span>R${product.price}</span>
-              <CartAdd onClick={() => handleInsertIntoCart(product.id)} />
+              <BuyIcon onClick={() => handleInsertIntoCart(product.id)} />
             </ProductSelf>
           ))}
         </ProductList>

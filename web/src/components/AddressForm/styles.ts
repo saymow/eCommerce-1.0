@@ -3,13 +3,13 @@ import { Form as formikForm } from "formik";
 
 import { Button as DefaultButton } from "./../../Styles/utils";
 
-import { ArrowBack } from "@styled-icons/boxicons-regular";
-
-import { City } from "@styled-icons/boxicons-solid";
-import { Streetview } from "@styled-icons/material-sharp";
-import { Home } from "@styled-icons/material";
-import { BuildingHouse } from "@styled-icons/boxicons-regular";
-import { Location } from "@styled-icons/typicons";
+import {
+  City,
+  Streetview,
+  Home,
+  BuildingHouse,
+  Location,
+} from "./../../Styles/icons";
 
 export const Container = styled.div`
   position: relative;

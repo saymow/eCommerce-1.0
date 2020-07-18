@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { DeleteBack2 } from "@styled-icons/remix-line";
 
+import { DeleteBack2 } from "../../Styles/icons";
 
 export const Container = styled.div`
   display: grid;
@@ -26,14 +26,14 @@ export const CartProducts = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: var(--primary);
     border-radius: 4px;
-  } 
+  }
 `;
 
 export const CartProduct = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
 
   border: 1px solid var(--primary);
 
@@ -46,7 +46,7 @@ export const CartProduct = styled.div`
 
   div:last-child > p {
     font-size: 1.6rem;
-  } 
+  }
 
   div:last-child > span {
     position: absolute;
@@ -55,11 +55,11 @@ export const CartProduct = styled.div`
   }
 
   div:last-child {
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
   div:last-child > p > strong {
-    margin-right: .2rem;
+    margin-right: 0.2rem;
   }
 `;
 
@@ -76,7 +76,7 @@ export const ModalOptions = styled.div`
 
 export const ButtonsContainer = styled.div`
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 `;
 
 export const Button = styled.button`

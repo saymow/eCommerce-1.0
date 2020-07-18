@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { ShoppingBag } from "styled-icons/remix-fill";
+
+import { ShoppingBag } from "../../Styles/icons";
 
 export const Container = styled.header`
   position: fixed;
@@ -67,4 +68,3 @@ export const ListItem = styled.div`
     width: 100%;
   }
 `;
-

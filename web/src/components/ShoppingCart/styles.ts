@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { ShoppingCart } from "styled-icons/evaicons-solid";
-import { ShoppingBags } from "@styled-icons/boxicons-solid";
-import { DeleteBack2 } from "@styled-icons/remix-line";
+
+import { ShoppingCart, ShoppingBags, DeleteBack2 } from "./../../Styles/icons";
 
 interface ShoppingProps {
   qntd: number;
@@ -11,8 +10,8 @@ export const Container = styled.div<ShoppingProps>`
   position: relative;
 
   &::after {
-    display: ${props => props.qntd > 0 ? "inline" : "none"};
-    content: "${props => props.qntd}";
+    display: ${(props) => (props.qntd > 0 ? "inline" : "none")};
+    content: "${(props) => props.qntd}";
     position: absolute;
     font-size: 1rem;
     font-weight: bold;
@@ -157,7 +156,7 @@ export const Button = styled.button`
   background-color: var(--primary);
   color: var(--background);
   border: 1px solid var(--background);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 
   transition: all 200ms ease-in-out;
 

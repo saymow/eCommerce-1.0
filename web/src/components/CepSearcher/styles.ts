@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { LocalShipping } from "@styled-icons/material";
+
+import { LocalShipping } from "./../../Styles/icons";
+
+import { Button as DefaultButton } from "../../Styles/utils";
 
 interface ShowOptions {
   trigger: boolean;
@@ -30,10 +33,12 @@ export const TitleDiv = styled.div<ShowOptions>`
   transition: all 200ms ease;
 `;
 
-export const Form = styled.form<ShowOptions>`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  height: 30%;
   width: 100%;
 
   > div:first-child {
@@ -54,6 +59,10 @@ export const Input = styled.input`
   outline: none;
 
   text-align: center;
+`;
+
+export const Button = styled(DefaultButton)`
+  transition: width 500ms;
 `;
 
 export const Shipping = styled.div`
@@ -87,12 +96,13 @@ export const ShippingSelf = styled.div<ShippingSelf>`
 `;
 
 export const ShippingIcon = styled(LocalShipping)`
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
 `;
 
 export const Continue = styled.div<ShowOptions>`
-  width: 70%;
+  width: 50%;
+  margin-left: auto;
 
   transform: scaleY(${(props) => (props.trigger ? 1 : 0)});
 

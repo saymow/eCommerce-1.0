@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { CartAdd } from "../../Styles/icons";
+
 export const Container = styled.div`
   margin-top: 10rem;
   min-height: 100vh;
@@ -39,7 +41,6 @@ export const ProductSelf = styled.div`
     cursor: pointer;
     height: 180px;
     width: 100%;
-    /* max-width: 100%; */
   }
 
   strong {
@@ -51,19 +52,6 @@ export const ProductSelf = styled.div`
   span {
     color: var(--primary);
     font-size: 1.2rem;
-  }
-
-  svg {
-    cursor: pointer;
-    display: none;
-    height: 30px;
-    width: 30px;
-
-    position: absolute;
-    left: 1%;
-    top: 1%;
-
-    transition: all 200ms ease;
   }
 
   svg:hover {
@@ -82,4 +70,17 @@ export const ProductSelf = styled.div`
   &:hover svg {
     display: block;
   }
+`;
+
+export const BuyIcon = styled(CartAdd)`
+  cursor: pointer;
+  display: none;
+  height: 30px;
+  width: 30px;
+
+  position: absolute;
+  left: 1%;
+  top: 1%;
+
+  transition: all 200ms ease;
 `;

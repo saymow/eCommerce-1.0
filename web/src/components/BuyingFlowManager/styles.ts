@@ -1,10 +1,5 @@
 import styled from "styled-components";
 
-interface ProgressMockProps {
-  steps: string[];
-  stepsLen: number;
-}
-
 interface ProgressMadeProps {
   position: number;
   stepsTotal: number;

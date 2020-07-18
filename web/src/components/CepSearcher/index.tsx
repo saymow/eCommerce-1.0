@@ -1,17 +1,17 @@
 import React, { useState, FormEvent } from "react";
+import { CircularProgress } from "@material-ui/core";
 
 import { useGlobalState } from "../../Context";
 import { useBuyingFlowState } from "../BuyingFlowManager";
 
 import DeliveryManager from "../../Helper/deliveryRelated_helper";
 
-import { Button } from "../../Styles/utils";
-
 import {
   Container,
   Form,
   TitleDiv,
   Input,
+  Button,
   Shipping,
   ShippingSelf,
   ShippingIcon,
@@ -36,6 +36,7 @@ const CepSearcher: React.FC = () => {
   const [methodChoosed, setMethodChoosed] = useState<
     DeliveryResponse | undefined
   >(undefined);
+  const [apiLoading, setApiLoading] = useState(false);
 
   function handleCepUpdate(value: string) {
     let text = value.replace(/^(\d{5})(\d{1,3})/, "$1-$2");
@@ -50,7 +51,7 @@ const CepSearcher: React.FC = () => {
 
   async function handleApiSearch() {
     if (cep === lastCepSearched) return;
-
+    setApiLoading(true);
     setlastCepSearched(cep);
 
     let qntdProducts = cart.reduce(
@@ -65,6 +66,7 @@ const CepSearcher: React.FC = () => {
     }
 
     setshippmentMethods(options);
+    setApiLoading(false);
   }
 
   function handleCepChoosed() {
@@ -91,10 +93,7 @@ const CepSearcher: React.FC = () => {
         <h1>We're shipping to the wholly country.</h1>
       </TitleDiv>
 
-      <Form
-        onSubmit={handleFormSubmit}
-        trigger={shippmentMethods ? true : false}
-      >
+      <Form onSubmit={handleFormSubmit}>
         <div>
           <Input
             type="text"
@@ -106,7 +105,11 @@ const CepSearcher: React.FC = () => {
           />
         </div>
         <div>
-          <Button>Calculate shipping</Button>
+          {apiLoading ? (
+            <CircularProgress size={30} />
+          ) : (
+            <Button>Calculate shipping</Button>
+          )}
         </div>
       </Form>
       {shippmentMethods && (

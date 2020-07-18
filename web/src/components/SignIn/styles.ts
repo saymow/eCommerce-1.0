@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
 import { Form as FormikForm } from "formik";
 
-import { EmailOutline } from "@styled-icons/evaicons-outline";
-import { LockPassword } from "@styled-icons/remix-line";
-import { UserPlus } from "@styled-icons/feather/";
+import { EmailOutline, LockPassword, UserPlus } from "../../Styles/icons";
 
 import { Button as DefaultButton } from "../../Styles/utils";
 
@@ -48,6 +46,12 @@ export const PasswordIcon = styled(LockPassword)`
   ${IconsCSS}
 `;
 
+export const SignUpIcon = styled(UserPlus)`
+  padding-bottom: 0.3rem;
+  width: 2rem;
+  height: 2rem;
+`;
+
 export const LinkWrapper = styled.span`
   position: absolute;
   bottom: 0;
@@ -58,10 +62,4 @@ export const LinkWrapper = styled.span`
     text-decoration: none;
     color: var(--primary);
   }
-`;
-
-export const SignUpIcon = styled(UserPlus)`
-  padding-bottom: .3rem;
-  width: 2rem;
-  height: 2rem;
 `;
