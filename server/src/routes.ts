@@ -1,6 +1,8 @@
 import express from "express";
 
 import Middleware from "./middleware/auth";
+
+import charge from "./services/payment";
 import controller_user from "./controllers/userController";
 import controller_product from "./controllers/productController";
 
@@ -29,5 +31,6 @@ Routes.post(
 Routes.get("/", productController.list);
 Routes.get("/product/:name", productController.detailed)
 
+Routes.post("/checkout", middleWare.Auth, charge);
 
 export default Routes;

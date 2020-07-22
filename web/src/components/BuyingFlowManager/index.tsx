@@ -15,7 +15,7 @@ import RestrictedRoute from "../RestrictedRoute";
 import Authenticate from "../Authenticate";
 import CepSearcher from "../CepSearcher";
 import AddressForm from "../AddressForm";
-import FinishBuy from "../FinishBuy";
+import Stripe from "../StripeProvider";
 
 import {
   Container,
@@ -118,7 +118,7 @@ const BuyingFlowManager: React.FC = () => {
             currentStep={currentStep}
             authenticate
             path="/checkout/finish buy"
-            component={FinishBuy}
+            component={Stripe}
           />
         </Switch>
       </BuyingFlowContext.Provider>

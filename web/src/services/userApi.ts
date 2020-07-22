@@ -1,5 +1,15 @@
 import api, { ApiType } from "./api";
 
+import { Address, DeliveryState } from "../Types/buyingFlowRelated_types";
+import { CartData } from "../Types/cartRelated_types";
+
+interface CheckoutProp {
+  token: any;
+  address: Address;
+  shippment: DeliveryState;
+  cartData: CartData;
+}
+
 export default class ApiManager {
   api: ApiType;
   loggedIn: boolean;
@@ -7,7 +17,7 @@ export default class ApiManager {
     this.loggedIn = loggedIn;
     this.api = api;
 
-    if (this.loggedIn) this._retrieveToken();
+    this._retrieveToken();
   }
 
   async signIn(email: string, password: string) {
@@ -45,18 +55,24 @@ export default class ApiManager {
     return response.data.userData;
   }
 
+  async checkout(data: CheckoutProp) {
+    const response = await this.api.post("/checkout", {
+      data,
+    });
+
+    return response;
+  }
+
   _retrieveToken() {
     const token = localStorage.getItem("@Auth:");
 
     if (!token) return;
 
-    this.api.defaults.headers["Authorization"] = `Bearer ${JSON.stringify(
-      token
-    )}`;
+    this.api.defaults.headers["Authorization"] = `Bearer ${token}`;
   }
 
   _storeToken(token: string) {
-    this.api.defaults.headers["Authorization"] = `Bearer ${token}`;
+    this.api.defaults.headers["Authorization"] = "Bearer " + token
     localStorage.setItem("@Auth:", token);
   }
 }

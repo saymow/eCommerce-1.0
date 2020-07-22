@@ -5,7 +5,7 @@ export interface DeliveryMethods {
   Metodo: string | undefined;
 }
 
-interface DeliveryState {
+export interface DeliveryState {
   code: string;
   deadline: string;
   price: string;
