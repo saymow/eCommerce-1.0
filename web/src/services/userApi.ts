@@ -17,7 +17,7 @@ export default class ApiManager {
     this.loggedIn = loggedIn;
     this.api = api;
 
-    this._retrieveToken();
+    if (loggedIn) this._retrieveToken();
   }
 
   async signIn(email: string, password: string) {
@@ -72,7 +72,7 @@ export default class ApiManager {
   }
 
   _storeToken(token: string) {
-    this.api.defaults.headers["Authorization"] = "Bearer " + token
+    this.api.defaults.headers["Authorization"] = "Bearer " + token;
     localStorage.setItem("@Auth:", token);
   }
 }
