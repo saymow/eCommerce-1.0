@@ -1,6 +1,8 @@
 import express from "express";
 
 import Middleware from "./middleware/auth";
+import OrderModel from "./models/order_model";
+import ValidateOrder from "./middleware/validate_order";
 
 import charge from "./services/payment";
 import controller_user from "./controllers/userController";
@@ -29,8 +31,8 @@ Routes.post(
   productController.create
 );
 Routes.get("/", productController.list);
-Routes.get("/product/:name", productController.detailed)
+Routes.get("/product/:name", productController.detailed);
 
-Routes.post("/checkout", middleWare.Auth, charge);
+Routes.post("/checkout", middleWare.Auth, OrderModel, ValidateOrder, charge);
 
 export default Routes;
