@@ -22,7 +22,7 @@ export const Form = styled(FormikForm)`
 `;
 
 export const InputField = styled.div`
-  margin: 1.2rem;
+  margin: 1.1rem;
 `;
 
 export const Button = styled(DefaultButton)`

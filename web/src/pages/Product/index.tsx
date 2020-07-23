@@ -49,6 +49,8 @@ const Product: React.FC = () => {
         `There are only ${product?.qntd} ${product?.name} available.`
       );
 
+    delete product["description"];
+
     dispatch({
       type: "add-product",
       payload: {

@@ -1,4 +1,5 @@
 export interface DeliveryMethods {
+  cep: string;
   Codigo: string;
   PrazoEntrega: string;
   Valor: string;
@@ -6,6 +7,7 @@ export interface DeliveryMethods {
 }
 
 export interface DeliveryState {
+  cep: string;
   code: string;
   deadline: string;
   price: string;

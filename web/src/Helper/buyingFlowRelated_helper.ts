@@ -14,12 +14,13 @@ export function flowAction(
 
   switch (action.type) {
     case "set-delivery":
-      const { Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
+      const { cep, Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
 
       return {
         ...state,
         step,
         deliveryMethod: {
+          cep,
           code: Codigo,
           deadline: PrazoEntrega,
           price: Valor,

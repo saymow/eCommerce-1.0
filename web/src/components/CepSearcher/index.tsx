@@ -77,6 +77,7 @@ const CepSearcher: React.FC = () => {
     dispatch({
       type: "set-delivery",
       payload: {
+        cep,
         Codigo,
         Metodo,
         PrazoEntrega,
