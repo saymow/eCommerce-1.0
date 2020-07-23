@@ -32,6 +32,7 @@ export default celebrate({
       }),
 
       shippment: Joi.object().keys({
+        cep: Joi.string().required().length(9),
         code: Joi.string().required().length(5),
         deadline: Joi.string().required(),
         price: Joi.string().required(),

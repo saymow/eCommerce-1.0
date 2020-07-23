@@ -16,7 +16,7 @@ async function postCharge(req: Request, res: Response) {
 
     console.log(req.body);
 
-    const { email } = await knex("users").where({ id }).first();
+    const { name } = await knex("users").where({ id }).first();
 
     const amount = Math.round(
       (Number(cartData.totalCart) + Number(shippment.price)) * 100
@@ -26,7 +26,17 @@ async function postCharge(req: Request, res: Response) {
       amount,
       currency: "brl",
       source: token.id,
-      receipt_email: email,
+      receipt_email: "contact@ourcommerce.com",
+      shipping: {
+        name,
+        address: {
+          country: "BR",
+          state: address.state,
+          city: address.city,
+          line1: `${address.neighborhood} - ${address.street} - ${address.number}`,
+          postal_code: shippment.cep,
+        },
+      },
     });
 
     if (!charge) throw new Error("charge unsuccessful");
