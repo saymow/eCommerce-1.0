@@ -11,3 +11,4 @@ export { ShoppingBag } from "styled-icons/remix-fill";
 export { City } from "@styled-icons/boxicons-solid";
 export { Streetview } from "@styled-icons/material-sharp";
 export { Location } from "@styled-icons/typicons";
+export { DoneAll } from "@styled-icons/material";

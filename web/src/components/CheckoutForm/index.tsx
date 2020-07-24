@@ -10,9 +10,9 @@ const CheckoutForm: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { UserApi } = useBuyingFlowState();
+  const { UserApi, setReceipt_url, next } = useBuyingFlowState();
   const {
-    buyingController: { address, deliveryMethod },
+    buyingController: { address, deliveryMethod, dispatch },
     cartManager: { totalCart, cart },
   } = useGlobalState();
 
@@ -28,11 +28,9 @@ const CheckoutForm: React.FC = () => {
 
     if (error) return setErrorMessage(error.message as string);
 
-    console.log(token);
-
     if (!address || !deliveryMethod) return;
 
-    const order = await UserApi.checkout({
+    const response = await UserApi.checkout({
       token,
       address,
       shippment: deliveryMethod,
@@ -42,7 +40,13 @@ const CheckoutForm: React.FC = () => {
       },
     });
 
-    console.log(order);
+    if (response.error) alert(response.error);
+
+    setReceipt_url(response);
+    dispatch({
+      type: "set-finished-buy",
+    });
+    next();
   }
 
   return (

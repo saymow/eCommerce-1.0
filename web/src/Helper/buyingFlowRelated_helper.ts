@@ -56,6 +56,12 @@ export function flowAction(
       };
     }
 
+    case "set-finished-buy": {
+      return {
+        step,
+      };
+    }
+
     case "set-reset-flow":
       return {
         ...state,

@@ -60,7 +60,13 @@ export default class ApiManager {
       data,
     });
 
-    return response;
+    if (response.status !== 200) {
+      return {
+        error: response.data.message,
+      };
+    }
+
+    return response.data.charge.receipt_url;
   }
 
   _retrieveToken() {
