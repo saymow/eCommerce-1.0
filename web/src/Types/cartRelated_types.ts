@@ -22,4 +22,5 @@ export interface DetailedProduct extends Product{
 export type Action =
   | { type: "add-product"; payload: Product }
   | { type: "delete-product"; payload: { id: number } }
-  | { type: "refresh-totalCart" };
+  | { type: "refresh-totalCart" }
+  | { type: "reset-cart" };

@@ -1,11 +1,27 @@
-
-import React from "react";
+import React, { useEffect } from "react";
 import { useBuyingFlowState } from "../BuyingFlowManager";
+
+import { useGlobalState } from "../../Context";
 
 import { Container, CheckMarkIcon, Text } from "./styles";
 
 const CompletedBuy: React.FC = () => {
   const { receipt_url } = useBuyingFlowState();
+  const {
+    buyingController: { dispatch: buyingControllerDispacth },
+    cartManager: { dispatch: cartManagerDispatch },
+  } = useGlobalState();
+
+  useEffect(() => {
+    return () => {
+      buyingControllerDispacth({
+        type: "set-reset-flow",
+      });
+      cartManagerDispatch({
+        type: "reset-cart",
+      });
+    };
+  }, [buyingControllerDispacth, cartManagerDispatch]);
 
   return (
     <Container>

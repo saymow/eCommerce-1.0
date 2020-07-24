@@ -1,11 +1,6 @@
 import { Dispatch } from "react";
 
-import {
-  CartData,
-  Action,
-  Product,
-} from "../Types/cartRelated_types";
-
+import { CartData, Action, Product } from "../Types/cartRelated_types";
 
 export function cartAction(state: CartData, action: Action): CartData {
   switch (action.type) {
@@ -59,6 +54,13 @@ export function cartAction(state: CartData, action: Action): CartData {
         .toFixed(2);
 
       return { ...state, totalCart: total };
+
+    case "reset-cart": {
+      return {
+        cart: [],
+        totalCart: "",
+      };
+    }
 
     default:
       return state;

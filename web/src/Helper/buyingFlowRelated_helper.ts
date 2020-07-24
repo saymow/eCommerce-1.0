@@ -8,7 +8,7 @@ export function flowAction(
   state: BuyingFlowState,
   action: Action
 ): BuyingFlowState {
-  if (state.step > 4 || state.step < 1) return state;
+  if (state.step > 5 || state.step < 1) return state;
 
   let step = (state.step + 1) as Steps;
 
@@ -64,7 +64,6 @@ export function flowAction(
 
     case "set-reset-flow":
       return {
-        ...state,
         step: 1,
       };
 
