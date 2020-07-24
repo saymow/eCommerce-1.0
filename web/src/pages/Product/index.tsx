@@ -61,41 +61,43 @@ const Product: React.FC = () => {
     setShowModal("cart");
   }
 
-  return !product ? (
-    <Loading />
-  ) : (
+  return (
     <Container>
-      <ProductContainer>
-        <ImageFigure
-          ref={imgRef}
-          onMouseMove={handleMouseMove}
-          image={product.image}
-          position={imgZoomState}
-        >
-          <img src={product.image} alt={product.name} />
-        </ImageFigure>
-        <ProductInfo>
-          <div>
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-          </div>
-          <ProductInputs>
-            <p>Qntd:</p>
-            <select
-              value={qntd}
-              onChange={(event) => setQntd(Number(event.target.value))}
-            >
-              {[...Array(product.qntd)].map((item, index) => (
-                <option key={index} value={index + 1}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
-            <Button onClick={handleBuy}>Buy</Button>
-            <span>{product.qntd} items restantes.</span>
-          </ProductInputs>
-        </ProductInfo>
-      </ProductContainer>
+      {!product ? (
+        <Loading />
+      ) : (
+        <ProductContainer>
+          <ImageFigure
+            ref={imgRef}
+            onMouseMove={handleMouseMove}
+            image={product.image}
+            position={imgZoomState}
+          >
+            <img src={product.image} alt={product.name} />
+          </ImageFigure>
+          <ProductInfo>
+            <div>
+              <h1>{product.name}</h1>
+              <p>{product.description}</p>
+            </div>
+            <ProductInputs>
+              <p>Qntd:</p>
+              <select
+                value={qntd}
+                onChange={(event) => setQntd(Number(event.target.value))}
+              >
+                {[...Array(product.qntd)].map((item, index) => (
+                  <option key={index} value={index + 1}>
+                    {index + 1}
+                  </option>
+                ))}
+              </select>
+              <Button onClick={handleBuy}>Buy</Button>
+              <span>{product.qntd} items restantes.</span>
+            </ProductInputs>
+          </ProductInfo>
+        </ProductContainer>
+      )}
     </Container>
   );
 };

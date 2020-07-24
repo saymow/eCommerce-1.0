@@ -3,14 +3,20 @@ import styled from "styled-components";
 import { CartAdd } from "../../Styles/icons";
 
 export const Container = styled.div`
-  margin-top: 10rem;
+  margin: auto;
+  width: 100%;
+  max-width: 1360px;
   min-height: 100vh;
+`;
+
+export const LoadingContainer = styled.div`
+  width: 100%;
+  height: 100vh;
 `;
 
 export const ProductsWrapper = styled.div`
   margin: 8rem auto;
   width: 100%;
-  max-width: 1360px;
 `;
 
 export const ProductList = styled.div`

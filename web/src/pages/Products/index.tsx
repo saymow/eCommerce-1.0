@@ -7,7 +7,14 @@ import Loading from "../../Components/Loading";
 
 import { Product } from "../../Types/cartRelated_types";
 
-import { Container, ProductsWrapper, ProductList, ProductSelf, BuyIcon } from "./styles";
+import {
+  Container,
+  LoadingContainer,
+  ProductsWrapper,
+  ProductList,
+  ProductSelf,
+  BuyIcon,
+} from "./styles";
 
 const Products: React.FC = () => {
   const {
@@ -37,7 +44,9 @@ const Products: React.FC = () => {
   }
 
   return products.length === 0 ? (
-    <Loading />
+    <LoadingContainer>
+      <Loading />
+    </LoadingContainer>
   ) : (
     <Container>
       <ProductsWrapper>
@@ -47,9 +56,7 @@ const Products: React.FC = () => {
               <img
                 src={product.image}
                 alt={product.name}
-                onClick={() =>
-                  history.push(`product/${product.name}`)
-                }
+                onClick={() => history.push(`product/${product.name}`)}
               />
               <strong>{product.name}</strong>
               <span>R${product.price}</span>

@@ -6,7 +6,7 @@ import { Container } from "./styles";
 const Loading: React.FC = () => {
   return (
     <Container>
-      <LoadingComponent type="bars" width={"20%"} height={"20%"} color={"#eee"}/>
+      <LoadingComponent type="bars" width={"30%"} height={"30%"} color={"#ececec"}/>
     </Container>
   );
 }
