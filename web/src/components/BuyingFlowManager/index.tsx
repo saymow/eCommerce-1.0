@@ -11,7 +11,8 @@ import React, {
 import { Switch, useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
-import ApiManager from "../../Services/userApi";
+import UserApiManager from "../../Services/userApi";
+import DeliveryApiManager from "../../Helper/deliveryRelated_helper";
 
 import RestrictedRoute from "../RestrictedRoute";
 
@@ -33,12 +34,17 @@ import { Steps } from "../../Types/buyingFlowRelated_types";
 
 const BuyingFlowContext = createContext(
   {} as {
-    UserApi: ApiManager;
+    DeliveryApi: DeliveryApiManager;
+    UserApi: UserApiManager;
     next: () => void;
     receipt_url: string;
     setReceipt_url: Dispatch<SetStateAction<string>>;
   }
 );
+
+/* Its very important to declare this class here, otherwise the component will be mounted each
+time the route changes and, therefore declaring this class once again, losing all props.*/
+const DeliveryApi = new DeliveryApiManager();
 
 const BuyingFlowManager: React.FC = () => {
   const history = useHistory();
@@ -47,7 +53,7 @@ const BuyingFlowManager: React.FC = () => {
     buyingController: { step: currentStep, dispatch },
   } = useGlobalState();
 
-  const UserApi = new ApiManager(loggedIn);
+  const UserApi = new UserApiManager(loggedIn);
 
   const stepsRef = useRef(
     loggedIn
@@ -105,7 +111,7 @@ const BuyingFlowManager: React.FC = () => {
         </Progress>
       </ProgressMock>
       <BuyingFlowContext.Provider
-        value={{ UserApi, next, receipt_url, setReceipt_url }}
+        value={{ UserApi, DeliveryApi, next, receipt_url, setReceipt_url }}
       >
         <Switch>
           <RestrictedRoute

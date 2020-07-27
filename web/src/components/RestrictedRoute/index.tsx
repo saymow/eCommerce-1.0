@@ -25,8 +25,6 @@ const RestrictedRoute: React.FC<Props> = ({
     userController: { loggedIn },
   } = useGlobalState();
 
-  console.log(currentStep + " === " + expectedStep);
-
   return (
     <Route
       {...rest}

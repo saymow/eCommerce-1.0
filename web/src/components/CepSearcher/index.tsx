@@ -4,8 +4,6 @@ import { CircularProgress } from "@material-ui/core";
 import { useGlobalState } from "../../Context";
 import { useBuyingFlowState } from "../BuyingFlowManager";
 
-import DeliveryManager from "../../Helper/deliveryRelated_helper";
-
 import {
   Container,
   Form,
@@ -21,8 +19,7 @@ import {
 import { DeliveryResponse } from "../../Types/deliveryRelated_types";
 
 const CepSearcher: React.FC = () => {
-  const Api = new DeliveryManager();
-  const { next } = useBuyingFlowState();
+  const { next, DeliveryApi } = useBuyingFlowState();
 
   const {
     buyingController: { dispatch },
@@ -59,7 +56,7 @@ const CepSearcher: React.FC = () => {
       0
     );
 
-    const options = await Api.calcDelivery(cep, qntdProducts);
+    const options = await DeliveryApi.calcDelivery(cep, qntdProducts);
 
     if (!options) {
       return alert("Error");
@@ -84,6 +81,8 @@ const CepSearcher: React.FC = () => {
         Valor,
       },
     });
+
+    DeliveryApi.searchLocationByCep(cep);
 
     next();
   }

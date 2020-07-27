@@ -1,11 +1,28 @@
-import { CorreiosBrasil } from "correios-brasil";
+import { calcularPrecoPrazo, consultarCep } from "correios-brasil";
 
 import { Services, DeliveryResponse } from "../Types/deliveryRelated_types";
 
+interface LocationByCep {
+  logradouro: string;
+  bairro: string;
+  uf: string;
+  localidade: string;
+}
+
 export default class DeliveryManager {
-  Delivery: any;
+  locationByCep: {
+    uf: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+  };
   constructor() {
-    this.Delivery = new CorreiosBrasil();
+    this.locationByCep = {
+      uf: "",
+      city: "",
+      neighborhood: "",
+      street: "",
+    };
   }
 
   async calcDelivery(
@@ -35,7 +52,7 @@ export default class DeliveryManager {
 
     const data: DeliveryResponse[] = await Promise.all(
       args.map((arg) => {
-        return this.Delivery.calcPrecoPrazo(arg);
+        return calcularPrecoPrazo(arg);
       })
     );
 
@@ -56,5 +73,29 @@ export default class DeliveryManager {
     }));
 
     return serializedData;
+  }
+
+  searchLocationByCep(cep: string) {
+    consultarCep(cep)
+      .then((data: LocationByCep) => {
+        this._setLocationByCep({
+          uf: data.uf,
+          city: data.localidade,
+          neighborhood: data.bairro,
+          street: data.logradouro,
+        });
+      })
+      .catch((error: any) => console.log(error));
+  }
+
+  _setLocationByCep(data: {
+    uf: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+  }) {
+    this.locationByCep = {
+      ...data,
+    };
   }
 }

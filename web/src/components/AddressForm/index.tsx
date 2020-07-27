@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 
+import api from "../../Services/api";
 import { useBuyingFlowState } from "../BuyingFlowManager";
 import { useGlobalState } from "../../Context";
-import api from "../../Services/api";
 import { AddressSchema } from "../../Helper/formRelated_helper";
 
 import Input from "./../Input";
@@ -30,18 +30,39 @@ interface CityOption {
   nome: string;
 }
 
+interface InitialStateFromApi {
+  city: string;
+  neighborhood: string;
+  street: string;
+  state: string;
+}
+
 const AddressForm: React.FC = () => {
   const {
     buyingController: { dispatch },
   } = useGlobalState();
 
-  const { next } = useBuyingFlowState();
+  const { next, DeliveryApi } = useBuyingFlowState();
 
   const [states, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState<undefined | string>(
     undefined
   );
   const [cities, setCities] = useState([]);
+  const [initialState, setInitialState] = useState<
+    InitialStateFromApi | undefined
+  >(undefined);
+
+  useEffect(() => {
+    const { city, neighborhood, street, uf: state } = DeliveryApi.locationByCep;
+
+    setInitialState({
+      city,
+      neighborhood,
+      street,
+      state,
+    });
+  }, [DeliveryApi.locationByCep]);
 
   useEffect(() => {
     api
@@ -54,28 +75,29 @@ const AddressForm: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (!initialState) return;
     api
       .get(
         `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${
-          selectedState || "RO"
+          selectedState || initialState.state
         }/municipios`
       )
       .then((response) => {
         const dataCities = response.data;
+        console.log(dataCities);
         const citiesName = dataCities.map((city: CityOption) => city.nome);
 
         setCities(citiesName);
       });
-  }, [selectedState]);
+  }, [selectedState, initialState]);
+
+  if (!initialState) return null;
 
   return (
     <Container>
       <Formik
         initialValues={{
-          state: "",
-          city: "",
-          neighborhood: "",
-          street: "",
+          ...initialState,
           number: "",
         }}
         validationSchema={AddressSchema}
