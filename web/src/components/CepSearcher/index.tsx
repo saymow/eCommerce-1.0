@@ -1,8 +1,9 @@
 import React, { useState, FormEvent } from "react";
-import { CircularProgress } from "@material-ui/core";
 
 import { useGlobalState } from "../../Context";
 import { useBuyingFlowState } from "../BuyingFlowManager";
+
+import Loading from "../LoadingCircle";
 
 import {
   Container,
@@ -106,7 +107,7 @@ const CepSearcher: React.FC = () => {
         </div>
         <div>
           {apiLoading ? (
-            <CircularProgress size={30} />
+            <Loading color={"var(--primary)"} />
           ) : (
             <Button>Calculate shipping</Button>
           )}

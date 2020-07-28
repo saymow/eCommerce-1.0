@@ -33,15 +33,17 @@ export const ProductContainer = styled.div`
   }
 `;
 
-export const ImageFigure = styled.figure.attrs(({image, position}: FigureParams) => ({
-  style: {
-    backgroundImage: `url(${image})`,
-    backgroundPosition: position
-  }
-}))<FigureParams>`
+export const ImageFigure = styled.figure.attrs(
+  ({ image, position }: FigureParams) => ({
+    style: {
+      backgroundImage: `url(${image})`,
+      backgroundPosition: position,
+    },
+  })
+)<FigureParams>`
   cursor: move;
   width: 100%;
-  
+
   > img {
     display: block;
     width: 100%;
@@ -79,9 +81,9 @@ export const ProductInputs = styled.div`
   select {
     text-align: center;
     font-size: 2rem;
-    padding: .3rem;
+    padding: 0.3rem;
     color: var(--primary);
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   span {
@@ -98,7 +100,7 @@ export const Button = styled.button`
   background-color: var(--primary);
   color: #fff;
   border: 1px solid var(--primary);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   font-weight: bold;
   padding: 1rem;
 

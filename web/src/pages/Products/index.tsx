@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/";
 import Api from "../../Services/api";
-import Loading from "../../Components/Loading";
+import Loading from "../../Components/LoadingBars";
 
 import { Product } from "../../Types/cartRelated_types";
 
@@ -45,7 +45,7 @@ const Products: React.FC = () => {
 
   return products.length === 0 ? (
     <LoadingContainer>
-      <Loading />
+      <Loading barQntd={5} delay={200} height={"35%"} width={"25%"} />
     </LoadingContainer>
   ) : (
     <Container>

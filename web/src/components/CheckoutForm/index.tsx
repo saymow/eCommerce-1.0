@@ -4,7 +4,7 @@ import { useStripe, CardElement, useElements } from "@stripe/react-stripe-js";
 import { useGlobalState } from "../../Context";
 import { useBuyingFlowState } from "../BuyingFlowManager";
 
-import Loading from "../Loading";
+import Loading from "../LoadingBars";
 
 import { Container, Title, Form, Button, ErrorSpan } from "./styles";
 
@@ -65,7 +65,7 @@ const CheckoutForm: React.FC = () => {
   return (
     <Container>
       {isLoading ? (
-        <Loading />
+        <Loading barQntd={5} delay={200} height={"30%"} width={"30%"} />
       ) : (
         <>
           <Title>Credit Card info</Title>
