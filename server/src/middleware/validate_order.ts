@@ -21,6 +21,8 @@ export default async function validateOrder(
     },
   } = req.body;
 
+  const formatedPrice = Number(totalCart).toFixed(2);
+
   const productsIds = cart.map((product: Product) => product.id);
 
   const selectedProducts: Product[] = await knex("products").whereIn(
@@ -28,16 +30,17 @@ export default async function validateOrder(
     productsIds
   );
 
-  const expectedPrice = selectedProducts.reduce(
-    (accumulator, product, index) => {
-      return accumulator + Number(product.price) * cart[index].qntd;
-    },
-    0
-  );
+  const expectedPrice = selectedProducts
+    .reduce((accumulator, product) => {
+      const { qntd } = cart.find(
+        (cartProduct: Product) => cartProduct.id === product.id
+      );
 
-  console.log(totalCart + " === " + expectedPrice);
+      return accumulator + Number(product.price) * qntd;
+    }, 0)
+    .toFixed(2);
 
-  if (totalCart != expectedPrice)
+  if (formatedPrice !== expectedPrice)
     return res.status(401).json({
       message: "Data provided does not match with our database.",
     });
