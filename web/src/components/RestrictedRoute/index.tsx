@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Prompt, useLocation } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
 
@@ -25,13 +25,23 @@ const RestrictedRoute: React.FC<Props> = ({
     userController: { loggedIn },
   } = useGlobalState();
 
+  console.log(useLocation());
+
   return (
     <Route
       {...rest}
       render={() => {
-        if (currentStep === expectedStep && (authenticate ? loggedIn : true))
-          return <Component />;
-        else return <Redirect to="/checkout" />;
+        if (currentStep === expectedStep && (authenticate ? loggedIn : true)) {
+          if (authenticate && loggedIn) {
+          }
+
+          return (
+            <>
+              {/* <Prompt message="Do you really" /> */}
+              <Component />
+            </>
+          );
+        } else return <Redirect to="/checkout" />;
       }}
     />
   );

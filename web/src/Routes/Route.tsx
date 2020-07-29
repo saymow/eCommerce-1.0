@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route,  } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -18,7 +18,16 @@ const Routes: React.FC = () => {
         <Route path="/" exact component={Main} />
         <Route path="/product/:name" component={Product} />
         <Route path="/products" component={Products} />
-        <Route path="/checkout" component={Checkout} />
+        <Route
+          path={[
+            "/checkout",
+            "/checkout/authenticate",
+            "/checkout/address",
+            "/checkout/finish_buy",
+            "/checkout/buy_completed",
+          ]}
+          component={Checkout}
+        />
       </Switch>
       <ModalManager />
       <Footer />

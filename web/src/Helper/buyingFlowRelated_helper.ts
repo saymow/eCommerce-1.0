@@ -4,10 +4,7 @@ import {
   Steps,
 } from "../Types/buyingFlowRelated_types";
 
-export function flowAction(
-  state: BuyingFlowState,
-  action: Action
-): BuyingFlowState {
+function flowAction(state: BuyingFlowState, action: Action): BuyingFlowState {
   if (state.step > 5 || state.step < 1) return state;
 
   let step = (state.step + 1) as Steps;
@@ -71,3 +68,5 @@ export function flowAction(
       return state;
   }
 }
+
+export { flowAction };

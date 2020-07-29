@@ -79,7 +79,7 @@ const AddressForm: React.FC = () => {
     api
       .get(
         `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${
-          selectedState || initialState.state
+          selectedState || initialState.state || "RO"
         }/municipios`
       )
       .then((response) => {
