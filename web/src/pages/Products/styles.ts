@@ -56,16 +56,16 @@ export const ProductSelf = styled.div`
   }
 
   span {
-    color: var(--primary);
-    font-size: 1.2rem;
-  }
+    position: absolute;
+    top: -0.9rem;
+    right: -0.9rem;
 
-  svg:hover {
-    transform: scale(1.1);
-  }
+    font-size: 1.8rem;
+    padding: 0.5rem;
 
-  svg:focus {
-    color: #f00;
+    color: #fff;
+    background-color: var(--primary);
+    transform: rotate(5deg);
   }
 
   &:hover {
@@ -87,6 +87,10 @@ export const BuyIcon = styled(CartAdd)`
   position: absolute;
   left: 1%;
   top: 1%;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   transition: all 200ms ease;
 `;
