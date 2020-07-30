@@ -21,9 +21,7 @@ const Main: React.FC = () => {
           <h1>E-Commerce</h1>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe
-            reiciendis doloribus, debitis officia nihil optio dolorum sequi eos
-            est, similique autem asperiores tempora aliquam cum distinctio, sit
-            ipsa deleniti eligendi.
+            reiciendis doloribus.
           </p>
         </Content>
       </MainContent>

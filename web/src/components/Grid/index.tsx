@@ -7,7 +7,7 @@ const Grid: React.FC = () => {
     <Container>
       <Section className="el1 hasImage">
         <div>
-          <img src="https://images.pexels.com/photos/1029796/pexels-photo-1029796.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="More status" />
+          <img src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="More status" />
         </div>
         <div>
           <h3>Lorem, ipsum</h3>

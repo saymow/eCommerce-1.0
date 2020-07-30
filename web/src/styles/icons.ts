@@ -12,3 +12,11 @@ export { City } from "@styled-icons/boxicons-solid";
 export { Streetview } from "@styled-icons/material-sharp";
 export { Location } from "@styled-icons/typicons";
 export { DoneAll } from "@styled-icons/material";
+export {
+  FacebookSquare,
+  Whatsapp,
+  Instagram,
+  Twitter,
+  LinkedinSquare,
+  Youtube,
+} from "@styled-icons/boxicons-logos";

@@ -21,7 +21,7 @@ export const MainContent = styled.div`
 `;
 
 export const Content = styled.div`
-  max-width: 75rem;
+  max-width: 60%;
 
   h1,
   p {
@@ -45,6 +45,7 @@ export const AditionalContent = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
+  box-shadow: 3px 3px 20px var(--primary);
   padding: 15rem 0;
   width: 100%;
   background-color: #fff;
@@ -65,7 +66,7 @@ export const Separetor = styled.div`
 export const AboutUs = styled.section`
   width: 100%;
   max-width: 560px;
-  color: var(--secondary);
+  color: var(--primary);
 
   h2 {
     margin-bottom: 2rem;

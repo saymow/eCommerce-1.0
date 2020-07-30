@@ -30,6 +30,7 @@ export const CheckoutConainer = styled.div<CheckoutAnimationProps>`
 export const ProductRelated = styled.div`
   display: grid;
   grid-template-rows: 9fr 1fr;
+  overflow: hidden;
 `;
 
 export const TotalPrice = styled.div`

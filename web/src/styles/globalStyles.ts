@@ -10,7 +10,7 @@ export default createGlobalStyle`
   :root {
     --brand: #6462a6;
     --background: #fff;
-    --primary: #403f4c;
+    --primary: #353438;
     --secondary: #898980;
     --tertiary: #6c9a8b;
 
