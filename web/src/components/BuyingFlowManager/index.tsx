@@ -33,6 +33,7 @@ const BuyingFlowContext = createContext(
     DeliveryApi: DeliveryApiManager;
     UserApi: UserApiManager;
     next: () => void;
+    resetFlow: () => void;
     receipt_url: string;
     setReceipt_url: Dispatch<SetStateAction<string>>;
   }
@@ -64,9 +65,13 @@ const BuyingFlowManager: React.FC = () => {
     history.push(path);
   }, [currentStep, history, routeConfig]);
 
+  const resetFlow = useCallback(() => dispatch({ type: "set-reset-flow" }), [
+    dispatch,
+  ]);
+
   useEffect(() => {
-    return () => dispatch({ type: "set-reset-flow" });
-  }, [dispatch]);
+    return resetFlow();
+  }, [resetFlow]);
 
   return (
     <Container>
@@ -94,6 +99,7 @@ const BuyingFlowManager: React.FC = () => {
           UserApi,
           DeliveryApi,
           next,
+          resetFlow,
           receipt_url,
           setReceipt_url,
         }}
@@ -106,6 +112,7 @@ const BuyingFlowManager: React.FC = () => {
               currentStep={currentStep}
               exact={route.exact}
               path={route.path}
+              availablePaths={route.availablePaths}
               component={route.component}
             />
           ))}

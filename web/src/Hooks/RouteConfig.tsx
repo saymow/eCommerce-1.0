@@ -11,6 +11,7 @@ import { Steps } from "../Types/buyingFlowRelated_types";
 interface RouteConfigProps {
   name: string;
   path: string;
+  availablePaths?: string[];
   step: Steps;
   exact?: boolean;
   auth: boolean;
@@ -19,11 +20,10 @@ interface RouteConfigProps {
 
 export function useShoppingRoutes(LoggedIn: boolean) {
   const routes = useMemo(() => {
-    const AvailableRoutes: RouteConfigProps[] = [
+    let AvailableRoutes = [
       {
         name: "Shippment method",
         path: "/checkout",
-        step: 1,
         exact: true,
         auth: false,
         component: CepSearcher,
@@ -31,36 +31,55 @@ export function useShoppingRoutes(LoggedIn: boolean) {
       {
         name: "Authenticate",
         path: "/checkout/authenticate",
-        step: 2,
         auth: false,
         component: Authenticate,
       },
       {
         name: "Address",
         path: "/checkout/address",
-        step: 3,
         auth: true,
         component: AddressForm,
       },
       {
         name: "Finish Buy",
         path: "/checkout/finish_buy",
-        step: 4,
         auth: true,
         component: Stripe,
       },
       {
         name: "completed",
         path: "/checkout/buy_completed",
-        step: 5,
         auth: true,
         component: CompletedBuy,
       },
     ];
-    if (LoggedIn)
-      return AvailableRoutes.filter((route) => route.name !== "Authenticate");
 
-    return AvailableRoutes;
+    if (LoggedIn)
+      AvailableRoutes = AvailableRoutes.filter(
+        (route) => route.name !== "Authenticate"
+      );
+
+    let RoutesWithRespectiveStep = AvailableRoutes.map((route, index) => {
+      let availablePaths;
+      if (index < AvailableRoutes.length - 1) {
+        availablePaths = AvailableRoutes.map((route2) => route2.path);
+
+        console.log(
+          "route: ",
+          route.path,
+          "\navailablePaths :",
+          availablePaths.join(" ")
+        );
+      }
+
+      return {
+        ...route,
+        availablePaths,
+        step: index + 1,
+      } as RouteConfigProps;
+    });
+
+    return RoutesWithRespectiveStep;
   }, [LoggedIn]);
 
   return routes;

@@ -27,8 +27,8 @@ const CompletedBuy: React.FC = () => {
     <Container>
       <CheckMarkIcon />
       <Text>
-        You've finished your buy, check your receipt out by clicking{" "}
-        <a href={receipt_url} target="_blank">
+        You've finished your buy, check your receipt out by clicking 
+        <a href={receipt_url} target="_blank" rel="noopener noreferrer">
           here
         </a>
         .
