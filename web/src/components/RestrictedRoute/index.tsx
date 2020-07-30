@@ -50,10 +50,7 @@ const RestrictedRoute: React.FC<Props> = ({
               <Component />
             </>
           );
-        } else {
-          setTimeout(() => resetFlow(), 50); // Work around, to be resolved.
-          return <Redirect to="/checkout" />;
-        }
+        } else return <Redirect to="/checkout" />;
       }}
     />
   );

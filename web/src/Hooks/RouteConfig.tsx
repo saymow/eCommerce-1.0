@@ -61,16 +61,8 @@ export function useShoppingRoutes(LoggedIn: boolean) {
 
     let RoutesWithRespectiveStep = AvailableRoutes.map((route, index) => {
       let availablePaths;
-      if (index < AvailableRoutes.length - 1) {
-        availablePaths = AvailableRoutes.map((route2) => route2.path);
-
-        console.log(
-          "route: ",
-          route.path,
-          "\navailablePaths :",
-          availablePaths.join(" ")
-        );
-      }
+      if (index > 0 && index < AvailableRoutes.length - 1)
+        availablePaths = [AvailableRoutes[index + 1].path];
 
       return {
         ...route,
