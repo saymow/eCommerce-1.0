@@ -17,6 +17,7 @@
     "formik": "^2.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-text-mask": "^5.4.3",
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-helmet": "^6.0.0",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-stripe-elements": "^6.0.4",
     "@types/react-text-mask": "^5.4.6",
