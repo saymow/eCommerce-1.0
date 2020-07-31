@@ -18,7 +18,7 @@ export const Container = styled.footer`
 `;
 
 export const FooterContainer = styled.div`
-  margin: 1rem 0;
+  margin: 2rem 0;
   width: 100%;
   max-width: 1360px;
   display: flex;
@@ -48,7 +48,6 @@ export const Source = styled.div`
 `;
 
 export const Infomation = styled.div`
-  margin: 1rem;
   display: flex;
   justify-content: space-evenly;
 `;
@@ -77,47 +76,9 @@ export const RecentReleases = styled.div``;
 
 export const Contact = styled.div``;
 
-export const Icons = styled.div``;
-
-const IconsStyles = css`
-  cursor: pointer;
-  height: 25px;
-  width: 25px;
-
-  transition: transform 200ms ease;
-
-  &:hover {
-    transform: scale(1.2);
-  }
-`;
-
-export const FacebookIcon = styled(FacebookSquare)`
-  ${IconsStyles}
-`;
-
-export const InstagramIcon = styled(Instagram)`
-  ${IconsStyles}
-`;
-
-export const WhatsappIcon = styled(Whatsapp)`
-  ${IconsStyles}
-`;
-
-export const TwitterIcon = styled(Twitter)`
-  ${IconsStyles}
-`;
-
-export const LinkedinIcon = styled(LinkedinSquare)`
-  ${IconsStyles}
-`;
-
-export const YoutubeIcon = styled(Youtube)`
-  ${IconsStyles}
-`;
-
 export const SignUpForm = styled.form`
   display: flex;
-  margin: 1.5rem 0;
+  margin: .5rem 0 1.5rem 0;
 `;
 
 export const Input = styled.input`
@@ -141,4 +102,42 @@ export const Button = styled.button`
   &:hover {
     filter: brightness(80%);
   }
+`;
+
+const IconsStyles = css`
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+
+  transition: transform 200ms ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+
+export const Icons = styled.div``;
+
+export const FacebookIcon = styled(FacebookSquare)`
+  ${IconsStyles}
+`;
+
+export const InstagramIcon = styled(Instagram)`
+  ${IconsStyles}
+`;
+
+export const WhatsappIcon = styled(Whatsapp)`
+  ${IconsStyles}
+`;
+
+export const TwitterIcon = styled(Twitter)`
+  ${IconsStyles}
+`;
+
+export const LinkedinIcon = styled(LinkedinSquare)`
+  ${IconsStyles}
+`;
+
+export const YoutubeIcon = styled(Youtube)`
+  ${IconsStyles}
 `;
