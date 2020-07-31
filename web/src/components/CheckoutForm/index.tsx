@@ -55,11 +55,12 @@ const CheckoutForm: React.FC = () => {
       dispatch({
         type: "set-finished-buy",
       });
+
       next();
     } catch (error) {
+      setIsLoading(false);
       alert(error);
     }
-    setIsLoading(false);
   }
 
   return (
@@ -78,7 +79,7 @@ const CheckoutForm: React.FC = () => {
               options={{
                 style: {
                   base: {
-                    fontSize: "2rem",
+                    fontSize: "30px",
                     color: "var(--primary)",
                   },
                 },
