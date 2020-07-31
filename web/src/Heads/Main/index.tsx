@@ -7,7 +7,6 @@ const MainHead: React.FC = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>E-commerce</title>
-        <script src="https://js.stripe.com/v3/"></script>
         <link
           href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet"

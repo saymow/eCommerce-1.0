@@ -84,7 +84,6 @@ const AddressForm: React.FC = () => {
       )
       .then((response) => {
         const dataCities = response.data;
-        console.log(dataCities);
         const citiesName = dataCities.map((city: CityOption) => city.nome);
 
         setCities(citiesName);

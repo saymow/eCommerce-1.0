@@ -1,5 +1,6 @@
 import { calcularPrecoPrazo, consultarCep } from "correios-brasil";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Services, DeliveryResponse } from "../Types/deliveryRelated_types";
 
 interface LocationByCep {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { ShoppingBag } from "../../Styles/icons";
+import { ShoppingBag, UserCircle } from "../../Styles/icons";
 
 export const Container = styled.header`
   position: fixed;
@@ -27,11 +27,17 @@ export const Container = styled.header`
   }
 `;
 
+export const PageList = styled.nav`
+  display: flex;
+  align-items: flex-end;
+`;
+
 export const LogoContainer = styled.div`
   display: flex;
   align-items: flex-end;
 
   cursor: pointer;
+  margin-right: 2rem;
 
   > strong {
     line-height: 3rem;
@@ -45,13 +51,19 @@ export const LogoIcon = styled(ShoppingBag)`
   width: 4.2rem;
 `;
 
-export const ItemList = styled.div`
+export const UserIcon = styled(UserCircle)`
+  height: 3.4rem;
+`;
+
+export const ItemList = styled.ul`
   display: flex;
   align-items: flex-end;
   cursor: pointer;
 `;
 
-export const ListItem = styled.div`
+export const ListItem = styled.li`
+  list-style: none;
+  cursor: pointer;
   position: relative;
   font-size: 2.2rem;
   margin-left: 2rem;

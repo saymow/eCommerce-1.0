@@ -4,12 +4,14 @@ import { useHistory } from "react-router-dom";
 import {
   Container,
   LogoContainer,
+  PageList,
+  UserIcon,
   LogoIcon,
   ItemList,
   ListItem,
 } from "./styles";
 
-import ShoppingCart from '../ShoppingCart';
+import ShoppingCart from "../ShoppingCart";
 
 const Header: React.FC = () => {
   const history = useHistory();
@@ -17,18 +19,20 @@ const Header: React.FC = () => {
   return (
     <Container>
       <div>
-        <div>
+        <PageList>
           <LogoContainer onClick={() => history.push("/")}>
             <LogoIcon />
             <strong>E-Commerce</strong>
           </LogoContainer>
-        </div>
+          <ListItem onClick={() => history.push("/products")}>
+            Products
+          </ListItem>
+        </PageList>
 
         <ItemList>
-          <ListItem onClick={() => history.push("/products")}>
-            Products          
+          <ListItem>
+            <UserIcon />
           </ListItem>
-
           <ListItem>
             <ShoppingCart />
           </ListItem>

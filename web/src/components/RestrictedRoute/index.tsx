@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Redirect, Prompt } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
-import { useBuyingFlowState } from "../BuyingFlowManager";
 
 import { Steps } from "../../Types/buyingFlowRelated_types";
 
@@ -27,7 +26,6 @@ const RestrictedRoute: React.FC<Props> = ({
   const {
     userController: { loggedIn },
   } = useGlobalState();
-  const { resetFlow } = useBuyingFlowState();
 
   return (
     <Route

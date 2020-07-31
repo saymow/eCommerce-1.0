@@ -1,6 +1,5 @@
 export { Home, LocalShipping, DateRange } from "@styled-icons/material";
 export { LockPassword, DeleteBack2 } from "@styled-icons/remix-line";
-export { User, BuildingHouse } from "@styled-icons/boxicons-regular";
 export { ShoppingBags, CartAdd } from "@styled-icons/boxicons-solid";
 export { EmailOutline } from "@styled-icons/evaicons-outline";
 export { PermIdentity } from "@styled-icons/material-sharp";
@@ -12,6 +11,11 @@ export { City } from "@styled-icons/boxicons-solid";
 export { Streetview } from "@styled-icons/material-sharp";
 export { Location } from "@styled-icons/typicons";
 export { DoneAll } from "@styled-icons/material";
+export {
+  User,
+  UserCircle,
+  BuildingHouse,
+} from "@styled-icons/boxicons-regular";
 export {
   FacebookSquare,
   Whatsapp,
