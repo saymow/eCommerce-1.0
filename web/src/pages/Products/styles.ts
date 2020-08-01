@@ -15,26 +15,29 @@ export const LoadingContainer = styled.div`
 `;
 
 export const ProductsWrapper = styled.div`
-  margin: 8rem auto;
+  margin: 10rem auto;
   width: 100%;
 `;
 
-export const ProductList = styled.div`
+export const ProductList = styled.section`
   margin: auto;
   width: 100%;
-  max-width: 860px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  grid-gap: 5rem;
+  max-width: 1080px;
+  padding: 0 2rem;
+
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const ProductSelf = styled.div`
+  flex-grow: 1;
+  margin: 3%;
+  flex-basis: 27%;
+
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  min-height: 280px;
 
   color: var(--primary);
   background: #fff;
@@ -43,9 +46,8 @@ export const ProductSelf = styled.div`
 
   cursor: context-menu;
 
-  > img {
+  img {
     cursor: pointer;
-    height: 180px;
     width: 100%;
   }
 
@@ -70,11 +72,11 @@ export const ProductSelf = styled.div`
 
   &:hover {
     transform: translateY(-5px);
-    filter: brightness(95%);
-  }
+    background-color: var(--shadow-lv1);
 
-  &:hover svg {
-    display: block;
+    svg {
+      display: block;
+    }
   }
 `;
 

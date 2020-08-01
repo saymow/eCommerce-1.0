@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
@@ -6,7 +6,6 @@ import { useGlobalState } from "../../Context/index";
 import {
   Container,
   ShoppingIcon,
-  BackDrop,
   Cart,
   Item,
   Checkout,
@@ -23,7 +22,8 @@ const ShoppingCart: React.FC = () => {
     cartManager: { totalCart, cart, dispatch },
     buyingController: { step },
   } = useGlobalState();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const qntdItems = useMemo(() => {
     return cart.reduce((accumulator, item) => {
@@ -40,10 +40,28 @@ const ShoppingCart: React.FC = () => {
     });
   }
 
+  function manageListener(event: any) {
+    if (!containerRef.current) return;
+
+    if (containerRef && !containerRef.current.contains(event.target)) {
+      setShow(false);
+      document.removeEventListener("click", manageListener);
+    }
+  }
+
+  function handleToggleCart() {
+    if (!show) {
+      setShow(true);
+      document.addEventListener("click", manageListener);
+    } else {
+      setShow(false);
+      document.removeEventListener("click", manageListener);
+    }
+  }
+
   return (
-    <Container qntd={qntdItems}>
-      <ShoppingIcon onClick={() => setShow((value) => !value)} />
-      <BackDrop className={show ? "show" : ""} onClick={() => setShow(false)} />
+    <Container qntd={qntdItems} ref={containerRef}>
+      <ShoppingIcon onClick={handleToggleCart} />
 
       <Cart className={show ? "show" : ""}>
         {cart.length === 0 ? (

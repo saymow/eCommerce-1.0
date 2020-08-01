@@ -13,9 +13,10 @@ export const Container = styled.div`
   min-height: 100vh;
 `;
 
-export const CheckoutConainer = styled.div<CheckoutAnimationProps>`
+export const CheckoutContainer = styled.div<CheckoutAnimationProps>`
   margin: 8rem auto;
-  background-color: rgb(245, 245, 245);
+  background-color: var(--shadow-lv1);
+  box-shadow: 3px 3px 10px var(--shadow-lv2);
   width: 100%;
   max-width: 1080px;
   height: 540px;

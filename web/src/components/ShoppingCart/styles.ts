@@ -12,13 +12,17 @@ export const Container = styled.div<ShoppingProps>`
   &::after {
     display: ${(props) => (props.qntd > 0 ? "inline" : "none")};
     content: "${(props) => props.qntd}";
+   
     position: absolute;
+    top: 12px;
+    left: 20px;
+
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
+    
+    
     padding: .1rem;
-    top: 12px;
-    left: 20px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -31,23 +35,6 @@ export const Container = styled.div<ShoppingProps>`
 export const ShoppingIcon = styled(ShoppingCart)`
   height: 3.4rem;
   width: 3.4rem;
-`;
-
-export const BackDrop = styled.div`
-  display: none;
-  position: fixed;
-  top: 6rem;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-
-  cursor: auto;
-
-  background-color: rgba(0, 0, 0, 0.1);
-  &.show {
-    display: block;
-  }
 `;
 
 export const Cart = styled.div`
@@ -109,7 +96,6 @@ export const Item = styled.div`
   }
 
   > div > a > img {
-    width: 80px;
     height: 60px;
   }
 

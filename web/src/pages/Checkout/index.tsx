@@ -7,7 +7,7 @@ import BuyingFlowManager from "../../Components/BuyingFlowManager";
 
 import {
   Container,
-  CheckoutConainer,
+  CheckoutContainer,
   ProductRelated,
   TotalPrice,
   Products,
@@ -40,7 +40,7 @@ const Checkout: React.FC = () => {
 
   return (
     <Container>
-      <CheckoutConainer onlyRightSide={onlyRightSide}>
+      <CheckoutContainer onlyRightSide={onlyRightSide}>
         <ProductRelated>
           <Products>
             {cart.map((product) => (
@@ -87,7 +87,7 @@ const Checkout: React.FC = () => {
         <Information>
           <BuyingFlowManager />
         </Information>
-      </CheckoutConainer>
+      </CheckoutContainer>
     </Container>
   );
 };

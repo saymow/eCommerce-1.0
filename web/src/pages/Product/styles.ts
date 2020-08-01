@@ -16,20 +16,20 @@ export const Container = styled.div`
 `;
 
 export const ProductContainer = styled.div`
-  background-color: rgba(245, 245, 245);
+  background-color: var(--shadow-lv1);
   padding: 1rem;
   border-radius: 0.5rem;
-  box-shadow: 3px 3px 10px rgba(240, 240, 240);
+  box-shadow: 3px 3px 10px var(--shadow-lv2);
   width: 100%;
   max-width: 960px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  transition: 200ms ease;
+  transition: 300ms ease;
 
   &:hover {
-    background-color: rgba(235, 235, 235);
-    box-shadow: 3px 3px 10px #ddd;
+    background-color: var(--shadow-lv2);
+    box-shadow: 3px 3px 10px var(--shadow-lv2);
   }
 `;
 
