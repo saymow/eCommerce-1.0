@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useBuyingFlowState } from "../BuyingFlowManager";
+import { useBuyingFlowState } from "../Controller";
 
-import { useGlobalState } from "../../Context";
+import { useGlobalState } from "../../../Context";
 
 import { Container, CheckMarkIcon, Text } from "./styles";
 
@@ -27,7 +27,7 @@ const CompletedBuy: React.FC = () => {
     <Container>
       <CheckMarkIcon />
       <Text>
-        You've finished your buy, check your receipt out by clicking 
+        You've finished your buy, check your receipt out by clicking
         <a href={receipt_url} target="_blank" rel="noopener noreferrer">
           here
         </a>

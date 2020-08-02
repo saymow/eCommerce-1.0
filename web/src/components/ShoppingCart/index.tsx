@@ -102,7 +102,12 @@ const ShoppingCart: React.FC = () => {
             <Checkout>
               <strong>Total: R${totalCart}</strong>
 
-              <Button onClick={() => history.push("/checkout")}>
+              <Button
+                onClick={() => {
+                  history.push("/checkout");
+                  handleToggleCart();
+                }}
+              >
                 Check out
               </Button>
             </Checkout>

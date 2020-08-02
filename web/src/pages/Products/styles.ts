@@ -42,7 +42,7 @@ export const ProductSelf = styled.div`
   color: var(--primary);
   background: #fff;
 
-  transition: all 200ms ease;
+  transition: all 300ms ease;
 
   cursor: context-menu;
 

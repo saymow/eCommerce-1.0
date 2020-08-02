@@ -1,7 +1,8 @@
-import styled, { css } from "styled-components";
 import { Form as FormikForm } from "formik";
 
 import { Button as DefaultButton } from "../../Styles/utils";
+
+import styled, { css } from "styled-components";
 
 import {
   EmailOutline,
@@ -9,13 +10,7 @@ import {
   User,
   DateRange,
   PermIdentity,
-  SignInAlt,
 } from "../../Styles/icons";
-
-export const Container = styled.div`
-  position: relative;
-  height: 100%;
-`;
 
 export const Form = styled(FormikForm)`
   width: 100%;
@@ -69,22 +64,4 @@ export const TwoInputsField = styled.div`
 export const Button = styled(DefaultButton)`
   margin-top: 1rem;
   width: 40%;
-`;
-
-export const LinkWrapper = styled.span`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  cursor: pointer;
-  font-size: 1.6rem;
-  > a {
-    text-decoration: none;
-    color: var(--primary);
-  }
-`;
-
-export const LoginIcon = styled(SignInAlt)`
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-right: 0.4rem;
 `;

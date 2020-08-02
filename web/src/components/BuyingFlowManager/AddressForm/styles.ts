@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Form as formikForm } from "formik";
 
-import { Button as DefaultButton } from "./../../Styles/utils";
+import { Button as DefaultButton } from "../../../Styles/utils";
 
 import {
   City,
@@ -9,7 +9,7 @@ import {
   Home,
   BuildingHouse,
   Location,
-} from "./../../Styles/icons";
+} from "../../../Styles/icons";
 
 export const Container = styled.div`
   position: relative;

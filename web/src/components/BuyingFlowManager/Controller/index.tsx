@@ -11,12 +11,11 @@ import React, {
 } from "react";
 import { Switch, useHistory } from "react-router-dom";
 
-import { useGlobalState } from "../../Context";
-import UserApiManager from "../../Services/userApi";
-import DeliveryApiManager from "../../Helper/deliveryRelated_helper";
-import { useShoppingRoutes } from "../../Hooks/RouteConfig";
+import { useGlobalState } from "../../../Context";
+import DeliveryApiManager from "../../../Helper/deliveryRelated_helper";
+import { useShoppingRoutes } from "../../../Hooks/RouteConfig";
 
-import RestrictedRoute from "../RestrictedRoute";
+import RestrictedRoute from "../ShoppingFlowRestrictedRoute";
 
 import {
   Container,
@@ -26,12 +25,11 @@ import {
   Step,
 } from "./styles";
 
-import { Steps } from "../../Types/buyingFlowRelated_types";
+import { Steps } from "../../../Types/buyingFlowRelated_types";
 
 const BuyingFlowContext = createContext(
   {} as {
     DeliveryApi: DeliveryApiManager;
-    UserApi: UserApiManager;
     next: () => void;
     resetFlow: () => void;
     receipt_url: string;
@@ -45,11 +43,9 @@ const BuyingFlowManager: React.FC = () => {
     userController: { loggedIn },
     buyingController: { step: currentStep, dispatch },
   } = useGlobalState();
-  const loggedWhenMounted = useRef(loggedIn).current;
   const DeliveryApi = useMemo(() => new DeliveryApiManager(), []);
-  const UserApi = useMemo(() => new UserApiManager(loggedWhenMounted), [
-    loggedWhenMounted,
-  ]);
+  const loggedWhenMounted = useRef(loggedIn).current;
+  
   const routeConfig = useShoppingRoutes(loggedWhenMounted);
   const [receipt_url, setReceipt_url] = useState("");
 
@@ -96,7 +92,6 @@ const BuyingFlowManager: React.FC = () => {
       </ProgressMock>
       <BuyingFlowContext.Provider
         value={{
-          UserApi,
           DeliveryApi,
           next,
           resetFlow,

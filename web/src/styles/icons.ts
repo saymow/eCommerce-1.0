@@ -24,3 +24,4 @@ export {
   LinkedinSquare,
   Youtube,
 } from "@styled-icons/boxicons-logos";
+// export { User as } from "@styled-icons/fa-regular/";

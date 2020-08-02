@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 
-import CepSearcher from "../Components/CepSearcher";
-import Authenticate from "../Components/Authenticate";
-import AddressForm from "../Components/AddressForm";
-import Stripe from "../Components/StripeProvider";
-import CompletedBuy from "../Components/CompletedBuy";
+import CepSearcher from "../Components/BuyingFlowManager/CepSearcher";
+import Authenticate from "../Components/BuyingFlowManager/Authenticate";
+import AddressForm from "../Components/BuyingFlowManager/AddressForm";
+import Stripe from "../Components/BuyingFlowManager/StripeProvider";
+import CompletedBuy from "../Components/BuyingFlowManager/CompletedBuy";
 
 import { Steps } from "../Types/buyingFlowRelated_types";
 
@@ -27,6 +27,12 @@ export function useShoppingRoutes(LoggedIn: boolean) {
         exact: true,
         auth: false,
         component: CepSearcher,
+      },
+      {
+        name: "Authenticate",
+        path: "/checkout/authenticate",
+        auth: false,
+        component: Authenticate,
       },
       {
         name: "Authenticate",
@@ -61,8 +67,10 @@ export function useShoppingRoutes(LoggedIn: boolean) {
 
     let RoutesWithRespectiveStep = AvailableRoutes.map((route, index) => {
       let availablePaths;
-      if (index > 0 && index < AvailableRoutes.length - 1)
+      if (index > 0 && index < AvailableRoutes.length - 1) {
         availablePaths = [AvailableRoutes[index + 1].path];
+        availablePaths.push("/checkout/authenticate/signup");
+      }
 
       return {
         ...route,

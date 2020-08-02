@@ -3,6 +3,8 @@ import React, {
   useContext,
   useState,
   useEffect,
+  useRef,
+  useMemo,
   useReducer,
 } from "react";
 
@@ -18,6 +20,8 @@ import {
   userAction,
 } from "../Helper/contextRelated_helper";
 
+import UserApiManager from "../Services/userApi";
+
 const authContext = createContext(InitialContext);
 
 const AppContext: React.FC = ({ children }) => {
@@ -29,6 +33,11 @@ const AppContext: React.FC = ({ children }) => {
   const [buyingFlow, buyingFlowDispatch] = useReducer(flowAction, InitialFlow);
   const [showModal, setShowModal] = useState<string | boolean>(false);
   const [user, userDispatch] = useReducer(userAction, false);
+
+  const loggedWhenMounted = useRef(Boolean(user)).current;
+  const UserApi = useMemo(() => new UserApiManager(loggedWhenMounted), [
+    loggedWhenMounted,
+  ]);
 
   useEffect(() => {
     return updatePrice(cartDispatch);
@@ -46,6 +55,7 @@ const AppContext: React.FC = ({ children }) => {
           user: user ? user : undefined,
           dispatch: userDispatch,
         },
+        UserApi,
         modalController: {
           showModal,
           setShowModal,

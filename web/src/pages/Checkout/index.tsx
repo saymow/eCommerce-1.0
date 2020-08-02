@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
 
-import BuyingFlowManager from "../../Components/BuyingFlowManager";
+import BuyingFlowManager from "../../Components/BuyingFlowManager/Controller";
 
 import {
   Container,

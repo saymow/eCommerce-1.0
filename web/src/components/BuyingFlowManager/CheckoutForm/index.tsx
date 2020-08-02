@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useStripe, CardElement, useElements } from "@stripe/react-stripe-js";
 
-import { useGlobalState } from "../../Context";
-import { useBuyingFlowState } from "../BuyingFlowManager";
+import { useGlobalState } from "../../../Context";
+import { useBuyingFlowState } from "../Controller";
 
-import Loading from "../LoadingBars";
+import Loading from "../../LoadingBars";
 
 import { Container, Title, Form, Button, ErrorSpan } from "./styles";
 
@@ -12,10 +12,11 @@ const CheckoutForm: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { UserApi, setReceipt_url, next } = useBuyingFlowState();
+  const { setReceipt_url, next } = useBuyingFlowState();
   const {
     buyingController: { address, deliveryMethod, dispatch },
     cartManager: { totalCart, cart },
+    UserApi,
   } = useGlobalState();
 
   const [errorMessage, setErrorMessage] = useState("");

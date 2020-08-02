@@ -1,14 +1,20 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import RestrictedRoute from "../Components/RestrictedRoute";
+
 import MainHead from "../Heads/Main";
 
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 import Main from "../Pages/Main";
 import Products from "../Pages/Products";
 import Checkout from "../Pages/Checkout";
 import Product from "../Pages/Product";
+import SignIn from "../Pages/SignIn";
+import SignUp from "../Pages/SignUp";
+import Profile from "../Pages/Profile";
+
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 import ModalManager from "../Components/ModalManager";
 
@@ -22,6 +28,9 @@ const Routes: React.FC = () => {
           <Route path="/" exact component={Main} />
           <Route path="/product/:name" component={Product} />
           <Route path="/products" component={Products} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+          <RestrictedRoute path="/profile" component={Profile} />
           <Route
             path={[
               "/checkout",

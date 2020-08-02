@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 
-import api from "../../Services/api";
-import { useBuyingFlowState } from "../BuyingFlowManager";
-import { useGlobalState } from "../../Context";
-import { AddressSchema } from "../../Helper/formRelated_helper";
+import api from "../../../Services/api";
+import { useBuyingFlowState } from "../Controller";
+import { useGlobalState } from "../../../Context";
+import { AddressSchema } from "../../../Helper/formRelated_helper";
 
-import Input from "./../Input";
-import Select from "./../Select";
+import Input from "../../Input";
+import Select from "../../Select";
 
 import {
   Container,

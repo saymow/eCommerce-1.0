@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import { useGlobalState } from "../../Context";
+
 import {
   Container,
   LogoContainer,
@@ -16,6 +18,10 @@ import ShoppingCart from "../ShoppingCart";
 const Header: React.FC = () => {
   const history = useHistory();
 
+  const {
+    userController: { loggedIn },
+  } = useGlobalState();
+
   return (
     <Container>
       <div>
@@ -30,7 +36,9 @@ const Header: React.FC = () => {
         </PageList>
 
         <ItemList>
-          <ListItem>
+          <ListItem
+            onClick={() => history.push(loggedIn ? "/profile" : "/signin")}
+          >
             <UserIcon />
           </ListItem>
           <ListItem>

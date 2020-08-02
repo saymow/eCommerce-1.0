@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { LocalShipping } from "./../../Styles/icons";
+import { LocalShipping } from "../../../Styles/icons";
 
-import { Button as DefaultButton } from "../../Styles/utils";
+import { Button as DefaultButton } from "../../../Styles/utils";
 
 interface ShowOptions {
   trigger: boolean;

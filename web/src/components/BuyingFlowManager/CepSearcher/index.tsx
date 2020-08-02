@@ -1,9 +1,9 @@
 import React, { useState, FormEvent } from "react";
 
-import { useGlobalState } from "../../Context";
-import { useBuyingFlowState } from "../BuyingFlowManager";
+import { useGlobalState } from "../../../Context";
+import { useBuyingFlowState } from "../Controller";
 
-import Loading from "../LoadingCircle";
+import Loading from "../../LoadingCircle";
 
 import {
   Container,
@@ -17,7 +17,7 @@ import {
   Continue,
 } from "./styles";
 
-import { DeliveryResponse } from "../../Types/deliveryRelated_types";
+import { DeliveryResponse } from "../../../Types/deliveryRelated_types";
 
 const CepSearcher: React.FC = () => {
   const { next, DeliveryApi } = useBuyingFlowState();

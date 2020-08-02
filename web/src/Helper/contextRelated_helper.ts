@@ -1,3 +1,5 @@
+import UserApiManager from "../Services/userApi";
+
 import {
   cartAction,
   loadStoragedData,
@@ -21,6 +23,7 @@ export const InitialContext: ContextData = {
     user: undefined,
     dispatch: (Action: UserAction) => null,
   },
+  UserApi: new UserApiManager(false),
   cartManager: {
     totalCart: "",
     cart: [],
