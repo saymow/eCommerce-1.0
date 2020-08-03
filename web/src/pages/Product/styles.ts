@@ -19,7 +19,7 @@ export const ProductContainer = styled.div`
   background-color: var(--shadow-lv1);
   padding: 1rem;
   border-radius: 0.5rem;
-  box-shadow: 3px 3px 10px var(--shadow-lv2);
+  box-shadow: var(--box-shadow);
   width: 100%;
   max-width: 960px;
   display: grid;

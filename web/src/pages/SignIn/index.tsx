@@ -46,7 +46,7 @@ const Signin: React.FC = () => {
         },
       });
 
-      history.push("/profile");
+      history.push("/profile/me");
       
     } catch (err) {
       setErrors(err);

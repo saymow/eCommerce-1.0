@@ -37,7 +37,7 @@ const Header: React.FC = () => {
 
         <ItemList>
           <ListItem
-            onClick={() => history.push(loggedIn ? "/profile" : "/signin")}
+            onClick={() => history.push(loggedIn ? "/profile/me" : "/signin")}
           >
             <UserIcon />
           </ListItem>

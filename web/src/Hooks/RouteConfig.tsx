@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 
-import CepSearcher from "../Components/BuyingFlowManager/CepSearcher";
-import Authenticate from "../Components/BuyingFlowManager/Authenticate";
-import AddressForm from "../Components/BuyingFlowManager/AddressForm";
-import Stripe from "../Components/BuyingFlowManager/StripeProvider";
-import CompletedBuy from "../Components/BuyingFlowManager/CompletedBuy";
+import CepSearcher from "../Components/ShoppingFlowManager/CepSearcher";
+import Authenticate from "../Components/ShoppingFlowManager/Authenticate";
+import AddressForm from "../Components/ShoppingFlowManager/AddressForm";
+import Stripe from "../Components/ShoppingFlowManager/StripeProvider";
+import CompletedBuy from "../Components/ShoppingFlowManager/CompletedBuy";
 
 import { Steps } from "../Types/buyingFlowRelated_types";
 
@@ -27,12 +27,6 @@ export function useShoppingRoutes(LoggedIn: boolean) {
         exact: true,
         auth: false,
         component: CepSearcher,
-      },
-      {
-        name: "Authenticate",
-        path: "/checkout/authenticate",
-        auth: false,
-        component: Authenticate,
       },
       {
         name: "Authenticate",

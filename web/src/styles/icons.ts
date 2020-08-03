@@ -24,4 +24,6 @@ export {
   LinkedinSquare,
   Youtube,
 } from "@styled-icons/boxicons-logos";
-// export { User as } from "@styled-icons/fa-regular/";
+export { ArrowIosForwardOutline } from "@styled-icons/evaicons-outline";
+export { UserAlt } from "@styled-icons/fa-solid";
+export { Camera } from "@styled-icons/entypo";

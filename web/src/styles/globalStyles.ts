@@ -17,6 +17,8 @@ export default createGlobalStyle`
     --shadow-lv1: rgba(0, 0, 0, .05);
     --shadow-lv2: rgba(0, 0, 0, .1);
 
+    --box-shadow: 3px 3px 10px var(--shadow-lv2);
+
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
   }
