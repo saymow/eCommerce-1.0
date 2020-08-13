@@ -3,7 +3,8 @@ import bcrypt, { genSaltSync } from "bcrypt";
 import knex from "../database/connection";
 import connection from "../database/connection";
 import jwt from "jsonwebtoken";
-const authConfig = require("../config/auth.json");
+import AppError from "../errors/AppError";
+import authConfig from "../config/auth.json";
 
 interface userData {
   id: Number;
@@ -22,7 +23,7 @@ class UserController {
     const userAlreadyExists = await knex("users").where("email", email);
 
     if (userAlreadyExists.length !== 0)
-      return res.json({ error: { email: "Email already in use." } });
+      throw new AppError("Email already in use.", 409);
 
     try {
       bcrypt.hash(password, genSaltSync(), async (err, hash) => {
@@ -44,7 +45,9 @@ class UserController {
           },
         });
       });
-    } catch (err) {}
+    } catch (err) {
+      throw new AppError("Server error", 400);
+    }
   }
 
   async login(req: Request, res: Response) {
@@ -56,7 +59,7 @@ class UserController {
     );
 
     if (userExists.length === 0)
-      return res.json({ error: { email: "Email not registered." } });
+      throw new AppError("Email not registered.", 409);
 
     const {
       id,
@@ -66,7 +69,7 @@ class UserController {
     } = userExists[0];
 
     if (!(await bcrypt.compare(password, passwordHashed)))
-      return res.json({ error: { password: "Incorrect password." } });
+      throw new AppError("Incorrect password.", 409);
 
     return res.json({
       token: generateToken({ id }, authConfig.secret),

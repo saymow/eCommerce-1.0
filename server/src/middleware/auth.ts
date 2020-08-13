@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import connection from "../database/connection";
+import AppError from "../errors/AppError";
 const authConfig = require("../config/auth.json");
 
 interface verifiedResponse {
@@ -11,25 +12,21 @@ export default class {
   Auth = (req: Request, res: Response, next: Function) => {
     const { authorization } = req.headers;
 
-    if (!authorization)
-      return res.status(401).json({ error: { message: "Token not provided" } });
+    if (!authorization) throw new AppError("Token not provided", 401);
 
     let parts = authorization.split(" ");
 
-    if (parts.length !== 2)
-      return res.status(401).json({ error: { message: "Token error" } });
+    if (parts.length !== 2) throw new AppError("Token error", 401);
 
     let [schema, token] = parts;
 
-    if (!/^Bearer$/.test(schema))
-      return res.status(401).json({ error: { message: "Token malformated." } });
+    if (!/^Bearer$/.test(schema)) throw new AppError("Token malformated.", 401);
 
     jwt.verify(
       token,
       authConfig.secret,
       (err: VerifyErrors | null, decoded: verifiedResponse | undefined) => {
-        if (err)
-          return res.status(401).json({ error: { message: "Invalid token" } });
+        if (err) throw new AppError("Invalid token", 401);
 
         req.body.id = decoded?.id;
 
@@ -50,10 +47,6 @@ export default class {
 
     if (isAdmin?.adminPermission) return next();
 
-    return res.status(401).json({
-      error: {
-        message: "User doesn't have admin privileges.",
-      },
-    });
+    throw new AppError("User doesn't have admin privileges.", 401);
   };
 }

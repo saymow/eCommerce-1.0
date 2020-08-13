@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import knex from "../database/connection";
+import AppError from "../errors/AppError";
 
 interface Product {
   id: number;
@@ -41,9 +42,7 @@ export default async function validateOrder(
     .toFixed(2);
 
   if (formatedPrice !== expectedPrice)
-    return res.status(401).json({
-      message: "Data provided does not match with our database.",
-    });
+    throw new AppError("Data provided does not match with our database.", 400);
 
   return next();
 }

@@ -4,9 +4,9 @@ import Middleware from "./middleware/auth";
 import OrderModel from "./models/order_model";
 import ValidateOrder from "./middleware/validate_order";
 
-import charge from "./services/payment";
 import controller_user from "./controllers/userController";
 import controller_product from "./controllers/productController";
+import controller_order from "./controllers/orderController";
 
 import multer from "multer";
 import multerConfig from "./config/multer";
@@ -15,6 +15,7 @@ const middleWare = new Middleware();
 
 const userController = new controller_user();
 const productController = new controller_product();
+const orderController = new controller_order();
 
 const upload = multer(multerConfig);
 
@@ -33,6 +34,12 @@ Routes.post(
 Routes.get("/", productController.list);
 Routes.get("/product/:name", productController.detailed);
 
-Routes.post("/checkout", middleWare.Auth, OrderModel, ValidateOrder, charge);
+Routes.post(
+  "/checkout",
+  middleWare.Auth,
+  OrderModel,
+  ValidateOrder,
+  orderController.post
+);
 
 export default Routes;

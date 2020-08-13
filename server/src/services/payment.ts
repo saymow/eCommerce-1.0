@@ -7,51 +7,43 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   typescript: true,
 });
 
-async function postCharge(req: Request, res: Response) {
-  try {
-    const {
-      data: { address, shippment, cartData, token },
-      id,
-    } = req.body;
+interface Props {
+  name: string;
+  amount: number;
+  token: any;
+  address: {
+    state: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+    number: string;
+  };
+  shippment: {
+    cep: string;
+  };
+}
 
-    console.log(req.body);
+async function postCharge(data: Props) {
+  const { name, token, amount, shippment, address } = data;
 
-    const { name } = await knex("users").where({ id }).first();
-
-    const amount = Math.round(
-      (Number(cartData.totalCart) + Number(shippment.price)) * 100
-    );
-
-    const charge = await stripe.charges.create({
-      amount,
-      currency: "brl",
-      source: token.id,
-      receipt_email: "contact@ourcommerce.com",
-      shipping: {
-        name,
-        address: {
-          country: "BR",
-          state: address.state,
-          city: address.city,
-          line1: `${address.neighborhood} - ${address.street} - ${address.number}`,
-          postal_code: shippment.cep,
-        },
+  const charge = await stripe.charges.create({
+    amount,
+    currency: "brl",
+    source: token.id,
+    receipt_email: "contact@ourcommerce.com",
+    shipping: {
+      name,
+      address: {
+        country: "BR",
+        state: address.state,
+        city: address.city,
+        line1: `${address.neighborhood} - ${address.street} - ${address.number}`,
+        postal_code: shippment.cep,
       },
-    });
+    },
+  });
 
-    if (!charge) throw new Error("charge unsuccessful");
-
-    res.status(200).json({
-      message: "charge posted successfully",
-      charge,
-    });
-  } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      message: error.message,
-    });
-  }
+  return charge;
 }
 
 export default postCharge;

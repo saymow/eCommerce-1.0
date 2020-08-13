@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import connection from "../database/connection";
+import AppError from "../errors/AppError";
 
 interface QueryList {
   page?: number;
@@ -23,7 +24,7 @@ class productManager {
   }
 
   async list(req: Request, res: Response) {
-    const { page = 0, limit = 999 } : QueryList = req.query;
+    const { page = 0, limit = 999 }: QueryList = req.query;
 
     const products = await connection("products")
       .select("id", "name", "price", "qntd", "image")
@@ -40,32 +41,22 @@ class productManager {
       res.setHeader("X-Total-Count", count["count(*)"]);
     }
 
-    console.log(serializedProducts);
-
     return res.json(serializedProducts);
   }
 
   async detailed(req: Request, res: Response) {
     const { name } = req.params;
 
-    if (!name)
-      return res
-        .status(400)
-        .json({ error: { message: "No product name provided." } });
+    if (!name) throw new AppError("No product name provided.", 400);
 
-    const product = await connection("products")
-      .where("name", name)
-      .first();
+    const product = await connection("products").where("name", name).first();
 
-    if (!product)
-      return res
-        .status(400)
-        .json({ error: { message: "Invalid product name." } });
+    if (!product) throw new AppError("Invalid product name.", 400);
 
     const serializedProduct = {
       ...product,
-      image: `http://localhost:3333/images/${product.image}.jpg`
-    }
+      image: `http://localhost:3333/images/${product.image}.jpg`,
+    };
 
     return res.json(serializedProduct);
   }
