@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Button as DefaultButton } from "../../Styles/utils";
+import { Button as DefaultButton } from "../../../Styles/utils";
 
 export const Container = styled.section`
   display: grid;

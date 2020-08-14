@@ -69,6 +69,11 @@ export default class ApiManager {
     return response.data.charge.receipt_url;
   }
 
+  async getAddresses() {
+    const response = await this.api.get("/users/addresses");
+    return response;
+  }
+
   _retrieveToken() {
     const token = localStorage.getItem("@Auth:");
 

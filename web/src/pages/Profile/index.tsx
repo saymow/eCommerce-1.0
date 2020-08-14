@@ -3,8 +3,9 @@ import { Switch } from "react-router-dom";
 
 import RestrictedRoute from "../../Components/RestrictedRoute";
 
-import SideBar from "../../Components/Painel/SideBar";
-import UserInformation from "../../Components/UserInformation";
+import SideBar from "./SideBar";
+import UserInformation from "./UserInformation";
+import Addresses from "./Addresses";
 
 import { Container, ProfileWrapper } from "./styles";
 
@@ -41,7 +42,7 @@ const Profile: React.FC = () => {
           />
           <RestrictedRoute
             path="/profile/address"
-            component={() => <h1>address</h1>}
+            component={Addresses}
           />
           <RestrictedRoute
             path="/profile/change_password"
