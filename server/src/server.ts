@@ -1,7 +1,8 @@
 import path from "path";
 import dotenv from "dotenv";
-import express, { Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
+import "express-async-errors";
 
 dotenv.config();
 
@@ -15,14 +16,14 @@ App.use(Routes);
 
 App.use("/images", express.static(path.resolve(__dirname, "..", "images")));
 
-App.use((error: Error, _, res: Response, _) => {
+App.use((error: Error, _: Request, res: Response, __: NextFunction) => {
   if (error instanceof AppError) {
     return res.status(error.statusCode).send({
       message: error.message,
     });
   }
 
-  console.log(error);
+  console.error(error);
 
   res.status(500).send({
     message: "Internal server error.",

@@ -40,8 +40,6 @@ const SignUp: React.FC = () => {
         birthDate
       );
 
-      if (response.error) throw response.error;
-
       dispatch({
         type: "set-user",
         payload: {
@@ -56,7 +54,7 @@ const SignUp: React.FC = () => {
 
       next();
     } catch (err) {
-      setErrors(err);
+      setErrors(err.response.data);
     }
   }
 

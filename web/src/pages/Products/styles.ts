@@ -32,7 +32,21 @@ export const ProductList = styled.section`
 export const ProductSelf = styled.div`
   flex-grow: 1;
   margin: 3%;
-  flex-basis: 27%;
+  flex-basis: 27.33%;
+
+  @media (max-width: 780px) {
+    &:first-child {
+      flex: 1 88%;
+    }
+
+    &:not(:first-child) {
+      flex: 1 44%;
+    }
+  }
+
+  @media (max-width: 540px) {
+    flex: 1 88% !important;
+  }
 
   position: relative;
   display: flex;
@@ -66,7 +80,7 @@ export const ProductSelf = styled.div`
     padding: 0.5rem;
 
     color: #fff;
-    background-color: var(--primary);
+    background-color: #343835;
     transform: rotate(5deg);
   }
 

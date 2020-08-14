@@ -23,11 +23,13 @@ class UserController {
     const userAlreadyExists = await knex("users").where("email", email);
 
     if (userAlreadyExists.length !== 0)
-      throw new AppError("Email already in use.", 409);
+      return res.status(409).send({
+        email: "Email already in use.",
+      });
 
     try {
       bcrypt.hash(password, genSaltSync(), async (err, hash) => {
-        const { insertedId } = await connection("users").insert({
+        const [id] = await connection("users").insert({
           name,
           email,
           password: hash,
@@ -37,7 +39,7 @@ class UserController {
 
         // Confirmation email to be done.
         return res.json({
-          token: generateToken({ insertedId }, authConfig.secret),
+          token: generateToken({ id }, authConfig.secret),
           userData: {
             name,
             email,
@@ -59,7 +61,9 @@ class UserController {
     );
 
     if (userExists.length === 0)
-      throw new AppError("Email not registered.", 409);
+      return res.status(409).send({
+        email: "Email not registered.",
+      });
 
     const {
       id,
@@ -69,7 +73,9 @@ class UserController {
     } = userExists[0];
 
     if (!(await bcrypt.compare(password, passwordHashed)))
-      throw new AppError("Incorrect password.", 409);
+      return res.status(409).send({
+        password: "Incorrect password.",
+      });
 
     return res.json({
       token: generateToken({ id }, authConfig.secret),
@@ -84,7 +90,7 @@ class UserController {
 
 function generateToken(params = {}, secret: string) {
   return jwt.sign(params, secret, {
-    expiresIn: 8640,
+    expiresIn: "3d",
   });
 }
 

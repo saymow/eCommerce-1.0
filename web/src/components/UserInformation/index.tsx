@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Container, Info, Item, InfoProgress, ChangeData } from "./styles";
+import {
+  Container,
+  Info,
+  Item,
+  InfoProgress,
+  ChangeData,
+  Button,
+} from "./styles";
 
 const Address: React.FC = () => {
   return (
@@ -36,7 +43,15 @@ const Address: React.FC = () => {
         </div>
       </Info>
       <InfoProgress />
-      <ChangeData />
+      <ChangeData>
+        <div>
+          <input type="checkbox" id="checkbox" />
+          <label htmlFor="checkbox">
+            I wish to receive promotions and new.
+          </label>
+        </div>
+        <Button>Editar informações</Button>
+      </ChangeData>
     </Container>
   );
 };

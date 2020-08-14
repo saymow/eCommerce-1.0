@@ -28,7 +28,7 @@ export default class {
       (err: VerifyErrors | null, decoded: verifiedResponse | undefined) => {
         if (err) throw new AppError("Invalid token", 401);
 
-        req.body.id = decoded?.id;
+        req.user.id = decoded?.id as string;
 
         return next();
       }
@@ -36,7 +36,7 @@ export default class {
   };
 
   adminAuth = async (req: Request, res: Response, next: Function) => {
-    const { id } = req.body;
+    const { id } = req.user;
 
     const [isAdmin] = await connection("users")
       .select("adminPermission")

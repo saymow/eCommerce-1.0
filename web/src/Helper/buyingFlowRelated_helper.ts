@@ -32,12 +32,14 @@ function flowAction(state: BuyingFlowState, action: Action): BuyingFlowState {
         neighborhood,
         street,
         number,
+        id,
       } = action.payload;
 
       return {
         ...state,
         step,
         address: {
+          id,
           state: Lstate,
           city,
           neighborhood,

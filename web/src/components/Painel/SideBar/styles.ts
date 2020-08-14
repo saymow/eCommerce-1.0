@@ -11,11 +11,12 @@ export const Container = styled.section`
   flex-direction: column;
 
   border-radius: 0.5rem;
+
+  box-shadow: var(--box-shadow);
 `;
 
 export const Profile = styled.div`
   padding: 1.2rem;
-  box-shadow: var(--box-shadow);
 `;
 
 export const Avatar = styled.div`
@@ -88,7 +89,7 @@ export const ListItem = styled.li<ListItemProps>`
   cursor: pointer;
 
   padding: 1rem;
-  box-shadow: var(--box-shadow);
+  border: 1px solid var(--shadow-lv2);
   border-top: none;
 
   display: flex;

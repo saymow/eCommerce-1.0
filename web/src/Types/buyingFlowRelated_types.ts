@@ -15,6 +15,7 @@ export interface DeliveryState {
 }
 
 export interface Address {
+  id?: number; 
   state: string;
   city: string;
   neighborhood: string;

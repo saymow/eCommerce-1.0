@@ -10,7 +10,6 @@ const Product = Joi.object().keys({
 
 export default celebrate({
   body: Joi.object().keys({
-    id: Joi.number().required(),
     data: Joi.object().keys({
       token: Joi.object().keys({
         id: Joi.string().required(),
@@ -24,6 +23,7 @@ export default celebrate({
       }),
 
       address: Joi.object().keys({
+        id: Joi.number(),
         state: Joi.string().required().length(2),
         city: Joi.string().required(),
         neighborhood: Joi.string().required(),

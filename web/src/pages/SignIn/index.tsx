@@ -36,8 +36,6 @@ const Signin: React.FC = () => {
       const { email, password } = values;
       const response = await UserApi.signIn(email, password);
 
-      if (response.error) throw response.error;
-
       dispatch({
         type: "set-user",
         payload: {
@@ -47,9 +45,8 @@ const Signin: React.FC = () => {
       });
 
       history.push("/profile/me");
-      
     } catch (err) {
-      setErrors(err);
+      setErrors(err.response.data);
     }
   }
 
