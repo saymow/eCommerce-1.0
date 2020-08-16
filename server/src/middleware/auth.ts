@@ -28,8 +28,6 @@ export default class {
       (err: VerifyErrors | null, decoded: verifiedResponse | undefined) => {
         if (err) throw new AppError("Invalid token", 401);
 
-        console.log(decoded);
-
         req.user = {
           id: decoded?.id as string,
         };

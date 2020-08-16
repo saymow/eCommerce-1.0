@@ -1,4 +1,5 @@
 import express from "express";
+import knex from "./database/connection";
 
 import Middleware from "./middleware/auth";
 import OrderModel from "./models/order_model";
@@ -23,9 +24,19 @@ const upload = multer(multerConfig);
 
 const Routes = express();
 
+Routes.get("/account", middleWare.Auth, async (req, res) => {
+  const { id } = req.user;
+
+  const data = await knex("users").where({ id }).first();
+
+  return res.send(data);
+});
+
 Routes.post("/register", userController.register);
 Routes.post("/login", userController.login);
 Routes.get("/users/addresses", middleWare.Auth, addressController.index);
+Routes.get("/users/me", middleWare.Auth, userController.index);
+Routes.get("/users/purchases", middleWare.Auth, orderController.list);
 
 Routes.post(
   "/products",
@@ -45,5 +56,7 @@ Routes.post(
   ValidateOrder,
   orderController.post
 );
+
+
 
 export default Routes;

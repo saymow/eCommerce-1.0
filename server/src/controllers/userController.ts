@@ -86,6 +86,14 @@ class UserController {
       },
     });
   }
+
+  async index(req: Request, res: Response) {
+    const { id } = req.user;
+
+    const data = await knex("users").where({ id }).first();
+
+    res.send(data);
+  }
 }
 
 function generateToken(params = {}, secret: string) {
