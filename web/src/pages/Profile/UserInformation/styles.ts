@@ -62,7 +62,7 @@ export const ChangeData = styled.div`
     label {
       font-size: 1.4rem;
       font-weight: 500;
-      margin-left: .6rem;
+      margin-left: 0.6rem;
     }
   }
 `;

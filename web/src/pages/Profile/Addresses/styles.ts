@@ -25,6 +25,10 @@ export const Address = styled.section`
   p {
     font-size: 1.8rem;
     line-height: 2.6rem;
+
+    &:last-child {
+      font-weight: 500;
+    }
   }
 `;
 

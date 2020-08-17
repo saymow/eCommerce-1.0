@@ -8,9 +8,7 @@ const RestrictedRoute: React.FC<RouteProps> = (props) => {
     userController: { loggedIn },
   } = useGlobalState();
 
-  return <Route {...props} />;
-
-  // return loggedIn ? <Route {...props} /> : <Redirect to={"/signin"} />;
+  return loggedIn ? <Route {...props} /> : <Redirect to={"/signin"} />;
 };
 
 export default RestrictedRoute;

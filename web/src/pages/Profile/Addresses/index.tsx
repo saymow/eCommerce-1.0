@@ -17,7 +17,7 @@ const Addresses: React.FC = () => {
 
   useEffect(() => {
     UserApi.getAddresses().then((response) => setAddresses(response.data));
-  });
+  }, [UserApi]);
 
   return (
     <Container>

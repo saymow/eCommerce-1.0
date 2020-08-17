@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import { useGlobalState } from "../Context";
+
 import RestrictedRoute from "../Components/RestrictedRoute";
 
 import MainHead from "../Heads/Main";
@@ -19,6 +21,10 @@ import Footer from "../Components/Footer";
 import ModalManager from "../Components/ModalManager";
 
 const Routes: React.FC = () => {
+  const {
+    userController: { loggedIn },
+  } = useGlobalState();
+
   return (
     <>
       <MainHead />
@@ -26,10 +32,14 @@ const Routes: React.FC = () => {
         <Header />
         <Switch>
           <Route path="/" exact component={Main} />
-          <Route path="/product/:name" component={Product} />
           <Route path="/products" component={Products} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/product/:name" component={Product} />
+          {!loggedIn && (
+            <>
+              <Route path="/signin" component={SignIn} />
+              <Route path="/signup" component={SignUp} />
+            </>
+          )}
           <RestrictedRoute path="/profile" component={Profile} />
           <Route
             path={[

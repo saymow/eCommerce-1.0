@@ -5,6 +5,7 @@ import RestrictedRoute from "../../Components/RestrictedRoute";
 
 import SideBar from "./SideBar";
 import UserInformation from "./UserInformation";
+import History from "./History";
 import Addresses from "./Addresses";
 
 import { Container, ProfileWrapper } from "./styles";
@@ -36,14 +37,8 @@ const Profile: React.FC = () => {
 
         <Switch>
           <RestrictedRoute path="/profile/me" component={UserInformation} />
-          <RestrictedRoute
-            path="/profile/history"
-            component={() => <h1>history</h1>}
-          />
-          <RestrictedRoute
-            path="/profile/address"
-            component={Addresses}
-          />
+          <RestrictedRoute path="/profile/history" component={History} />
+          <RestrictedRoute path="/profile/address" component={Addresses} />
           <RestrictedRoute
             path="/profile/change_password"
             component={() => <h1>change_password</h1>}

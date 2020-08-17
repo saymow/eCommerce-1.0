@@ -40,6 +40,23 @@ const AppContext: React.FC = ({ children }) => {
   ]);
 
   useEffect(() => {
+    (async function signIn() {
+      const response = await UserApi.validifyToken();
+
+      if (!response) return;
+      const { email, name } = response;
+
+      userDispatch({
+        type: "set-user",
+        payload: {
+          email: email,
+          name: name,
+        },
+      });
+    })();
+  }, [UserApi]);
+
+  useEffect(() => {
     return updatePrice(cartDispatch);
   }, [cartData.cart]);
 

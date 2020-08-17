@@ -74,7 +74,14 @@ export const UploadIcon = styled(Camera)`
 
 export const Description = styled.div`
   padding-top: 1.5rem;
-  font-size: 1.6rem;
+
+  p {
+    font-size: 1.6rem;
+    
+    &:first-child {
+      margin: .6rem 0;
+    }
+  }
 `;
 
 export const ItemList = styled.ul`

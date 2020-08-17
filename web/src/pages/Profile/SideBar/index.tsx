@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import { useGlobalState } from "../../../Context";
+
 import {
   Container,
   Profile,
@@ -27,6 +29,10 @@ interface Props {
 const SideBar: React.FC<Props> = ({ listItem, image }) => {
   const location = useLocation();
 
+  const {
+    userController: { user },
+  } = useGlobalState();
+
   const currentPath = useMemo(() => location.pathname, [location]);
 
   return (
@@ -39,8 +45,8 @@ const SideBar: React.FC<Props> = ({ listItem, image }) => {
           <AvatarIcon />
         </Avatar>
         <Description>
-          <p>Welcome, User</p>
-          <p>Glad to see you here</p>
+          <p>Welcome, {user?.name}</p>
+          <p>Glad to see you here.</p>
         </Description>
       </Profile>
       <ItemList>

@@ -48,8 +48,6 @@ export default class ApiManager {
       birthDate,
     });
 
-    if (response.data.error) return response.data;
-
     this._storeToken(response.data.token);
 
     return response.data.userData;
@@ -74,12 +72,38 @@ export default class ApiManager {
     return response;
   }
 
+  async getPersonalInfo() {
+    const response = await this.api.get("/users/me");
+
+    return response.data;
+  }
+
+  async getOrderHistory() {
+    const response = await this.api.get("/users/purchases");
+
+    return response.data;
+  }
+
   _retrieveToken() {
     const token = localStorage.getItem("@Auth:");
 
     if (!token) return;
 
     this.api.defaults.headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  async validifyToken() {
+    const token = localStorage.getItem("@Auth:");
+
+    if (!token) return;
+
+    this.api.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+    const response = await this.api.get("/account");
+
+    console.log(response);
+
+    return response.data;
   }
 
   _storeToken(token: string) {
