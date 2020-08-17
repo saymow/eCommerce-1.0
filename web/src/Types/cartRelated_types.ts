@@ -1,5 +1,6 @@
 export interface CartData {
-  totalCart: string;
+  totalCart: number;
+  totalCartConverted: string;
   cart: Product[];
 }
 
@@ -11,11 +12,12 @@ export interface Product {
   id: number;
   name: string;
   image: string;
-  price: string;
+  price: number;
+  convertedPrice: string;
   qntd: number;
 }
 
-export interface DetailedProduct extends Product{
+export interface DetailedProduct extends Product {
   description: string;
 }
 

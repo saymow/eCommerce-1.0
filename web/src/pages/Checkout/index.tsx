@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
+import { priceFormater } from "../../Utils/formaters";
 
 import BuyingFlowManager from "../../Components/ShoppingFlowManager/Controller";
 
@@ -19,7 +20,7 @@ import {
 const Checkout: React.FC = () => {
   const { pathname } = useLocation();
   const {
-    cartManager: { cart, totalCart, dispatch },
+    cartManager: { cart, totalCart, totalCartConverted, dispatch },
     buyingController: { deliveryMethod, step },
   } = useGlobalState();
 
@@ -71,15 +72,15 @@ const Checkout: React.FC = () => {
           </Products>
           <TotalPrice>
             <div>
-              <p>Price: R${totalCart}</p>
+              <p>Price: {totalCartConverted}</p>
               <p>Delivery: {deliveryMethod && `R$${deliveryMethod.price}`}</p>
               <h3>
-                Total: R$
+                Total:
                 {deliveryMethod
-                  ? (Number(totalCart) + Number(deliveryMethod?.price)).toFixed(
-                      2
+                  ? priceFormater(
+                      totalCart + Number(deliveryMethod?.price) * 100
                     )
-                  : totalCart}
+                  : totalCartConverted}
               </h3>
             </div>
           </TotalPrice>

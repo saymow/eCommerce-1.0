@@ -101,8 +101,6 @@ export default class ApiManager {
 
     const response = await this.api.get("/account");
 
-    console.log(response);
-
     return response.data;
   }
 

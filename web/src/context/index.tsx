@@ -80,6 +80,7 @@ const AppContext: React.FC = ({ children }) => {
         cartManager: {
           cart: cartData.cart,
           totalCart: cartData.totalCart,
+          totalCartConverted: cartData.totalCartConverted,
           dispatch: cartDispatch,
         },
         buyingController: {

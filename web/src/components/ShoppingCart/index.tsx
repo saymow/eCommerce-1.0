@@ -19,7 +19,7 @@ import {
 const ShoppingCart: React.FC = () => {
   const history = useHistory();
   const {
-    cartManager: { totalCart, cart, dispatch },
+    cartManager: { totalCartConverted, cart, dispatch },
     buyingController: { step },
   } = useGlobalState();
   const [show, setShow] = useState<boolean | null>(null);
@@ -89,7 +89,7 @@ const ShoppingCart: React.FC = () => {
                       <strong>{product.qntd}x</strong>
                       {product.name}
                     </p>
-                    <span>R${product.price}</span>
+                    <span>{product.convertedPrice}</span>
                     {step === 1 && (
                       <DeleteIcon
                         onClick={() => handleDeleteCartItem(product.id)}
@@ -100,7 +100,7 @@ const ShoppingCart: React.FC = () => {
               ))}
             </ListItem>
             <Checkout>
-              <strong>Total: R${totalCart}</strong>
+              <strong>Total: {totalCartConverted}</strong>
 
               <Button
                 onClick={() => {

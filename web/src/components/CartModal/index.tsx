@@ -12,14 +12,14 @@ import {
   ModalOptions,
   ButtonsContainer,
   Button,
-  DeleteIcon
+  DeleteIcon,
 } from "./styles";
 
 import { Modal } from "../../Types/modalRelated_types";
 
 const CartModal: React.FC<Modal> = ({ setShowModal }) => {
   const {
-    cartManager: { cart, dispatch, totalCart },
+    cartManager: { cart, dispatch, totalCartConverted },
   } = useGlobalState();
   const history = useHistory();
 
@@ -37,9 +37,9 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
     dispatch({
       type: "delete-product",
       payload: {
-        id
-      }
-    })
+        id,
+      },
+    });
   }
 
   return (
@@ -49,14 +49,15 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
           {cart.map((item) => (
             <CartProduct key={item.name}>
               <div>
-                <Link 
-                onClick={() => setShowModal(false)}
-                to={{
-                  pathname: `product/${item.name}`,
-                  state: {
-                    id: item.id
-                  }
-                }}>
+                <Link
+                  onClick={() => setShowModal(false)}
+                  to={{
+                    pathname: `product/${item.name}`,
+                    state: {
+                      id: item.id,
+                    },
+                  }}
+                >
                   <img src={item.image} alt={item.name} />
                 </Link>
               </div>
@@ -65,9 +66,9 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
                   <strong>{item.qntd}x</strong>
                   {item.name}
                 </p>
-                <span>R${item.price}</span>
+                <span>{item.convertedPrice}</span>
 
-                <DeleteIcon onClick={() => handleDeleteProduct(item.id)}/>
+                <DeleteIcon onClick={() => handleDeleteProduct(item.id)} />
               </div>
             </CartProduct>
           ))}
@@ -75,7 +76,7 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
 
         <ModalOptions>
           <div>
-            <h1>Total: R${totalCart}</h1>
+            <h1>Total: R${totalCartConverted}</h1>
           </div>
           <ButtonsContainer>
             <Button onClick={handleContinueBuying}>Continue buying</Button>

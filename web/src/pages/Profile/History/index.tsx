@@ -48,7 +48,7 @@ interface PropsOrderHistoryServer {
   address: OrderHistoryAddress;
   products: Array<{
     name: string;
-    price: string;
+    price: number;
     image: string;
   }>;
 }
@@ -66,14 +66,21 @@ const History: React.FC = () => {
           raw_price,
           shipment_price,
           created_at,
+          products,
           ...props
         }: PropsOrderHistoryServer) => {
           let [createdDate, createdHour] = created_at.split(" ");
+
+          const serializedProducts = products.map(({ price, ...props }) => ({
+            ...props,
+            price: priceFormater(price),
+          }));
 
           return {
             ...props,
             createdDate,
             createdHour,
+            products: serializedProducts,
             raw_price: priceFormater(raw_price),
             shipment_price: priceFormater(shipment_price),
             total_price: priceFormater(raw_price + shipment_price),
@@ -163,7 +170,7 @@ const History: React.FC = () => {
                         <span>Name</span>: {name}
                       </p>
                       <p>
-                        <span>Price</span>: R${price}
+                        <span>Price</span>: {price}
                       </p>
                     </div>
                   </Product>

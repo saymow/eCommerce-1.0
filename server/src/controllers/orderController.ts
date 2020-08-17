@@ -37,7 +37,7 @@ class OrderController {
       const { name } = await trx("users").where({ id }).first();
 
       const products = cartData.cart as IProduct[];
-      const raw_price = Number(cartData.totalCart) * 100;
+      const raw_price = cartData.totalCart;
       const shipment_price = Number(shippment.price) * 100;
 
       const amount = Math.round(raw_price + shipment_price);
@@ -146,8 +146,8 @@ class OrderController {
 
         return {
           ...props,
-          address: { state, city, neighborhood, street, number, cep },
           products: orderProductsFormatedArray,
+          address: { state, city, neighborhood, street, number, cep },
         };
       }
     );

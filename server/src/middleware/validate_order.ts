@@ -7,7 +7,7 @@ interface Product {
   id: number;
   name: string;
   image: string;
-  price: string;
+  price: number;
   qntd: number;
 }
 
@@ -22,8 +22,6 @@ export default async function validateOrder(
     },
   } = req.body;
 
-  const formatedPrice = Number(totalCart).toFixed(2);
-
   const productsIds = cart.map((product: Product) => product.id);
 
   const selectedProducts: Product[] = await knex("products").whereIn(
@@ -31,17 +29,15 @@ export default async function validateOrder(
     productsIds
   );
 
-  const expectedPrice = selectedProducts
-    .reduce((accumulator, product) => {
-      const { qntd } = cart.find(
-        (cartProduct: Product) => cartProduct.id === product.id
-      );
+  const expectedPrice = selectedProducts.reduce((accumulator, product) => {
+    const { qntd } = cart.find(
+      (cartProduct: Product) => cartProduct.id === product.id
+    );
 
-      return accumulator + Number(product.price) * qntd;
-    }, 0)
-    .toFixed(2);
+    return accumulator + product.price * qntd;
+  }, 0);
 
-  if (formatedPrice !== expectedPrice)
+  if (totalCart !== expectedPrice)
     throw new AppError("Data provided does not match with our database.", 400);
 
   return next();

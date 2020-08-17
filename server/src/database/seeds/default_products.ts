@@ -6,7 +6,7 @@ export async function seed(knex: Knex) {
       name: "Green t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "40.00",
+      price: 4000,
       qntd: 4,
       image: "green-t-shirt",
     },
@@ -14,7 +14,7 @@ export async function seed(knex: Knex) {
       name: "Grey t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "49.00",
+      price: 4900,
       qntd: 3,
       image: "grey-t-shirt",
     },
@@ -22,7 +22,7 @@ export async function seed(knex: Knex) {
       name: "Red t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "59.99",
+      price: 5999,
       qntd: 9,
       image: "red-t-shirt",
     },
@@ -30,7 +30,7 @@ export async function seed(knex: Knex) {
       name: "Blue t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "49.99",
+      price: 4999,
       qntd: 4,
       image: "blue-t-shirt",
     },
@@ -38,7 +38,7 @@ export async function seed(knex: Knex) {
       name: "Cobalt blue t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "40.00",
+      price: 4990,
       qntd: 6,
       image: "cobalt-blue-t-shirt",
     },
@@ -46,7 +46,7 @@ export async function seed(knex: Knex) {
       name: "Teal t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "69.99",
+      price: 6999,
       qntd: 9,
       image: "teal-t-shirt",
     },
@@ -54,7 +54,7 @@ export async function seed(knex: Knex) {
       name: "Light green t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "69.99",
+      price: 6999,
       qntd: 11,
       image: "light-green-t-shirt",
     },
@@ -62,7 +62,7 @@ export async function seed(knex: Knex) {
       name: "Bright purple t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "89.99",
+      price: 8999,
       qntd: 9,
       image: "bright-purple-t-shirt",
     },
@@ -70,7 +70,7 @@ export async function seed(knex: Knex) {
       name: "Purple t-shirt",
       description:
         "Eius vel ipsa error animi! Ab praesentium in ducimus modi voluptatem dolores minus dolorem quibusdam ipsam porro.",
-      price: "99.99",
+      price: 9999,
       qntd: 15,
       image: "purple-t-shirt",
     },

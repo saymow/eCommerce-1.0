@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
 
 import { CartData, Action, Product } from "../Types/cartRelated_types";
+import { priceFormater } from "../Utils/formaters";
 
 export function cartAction(state: CartData, action: Action): CartData {
   switch (action.type) {
@@ -44,21 +45,21 @@ export function cartAction(state: CartData, action: Action): CartData {
       };
 
     case "refresh-totalCart":
-      let total = state.cart
-        .reduce((accumulator, item) => {
-          let priceParsed = item.price.replace(",", ".");
-          return (
-            accumulator + parseFloat(priceParsed) * (item.qntd ? item.qntd : 1)
-          );
-        }, 0.0)
-        .toFixed(2);
+      let total = state.cart.reduce((accumulator, item) => {
+        return accumulator + item.price * (item.qntd ? item.qntd : 1);
+      }, 0);
 
-      return { ...state, totalCart: total };
+      return {
+        ...state,
+        totalCart: total,
+        totalCartConverted: priceFormater(total),
+      };
 
     case "reset-cart": {
       return {
         cart: [],
-        totalCart: "",
+        totalCart: 0,
+        totalCartConverted: "",
       };
     }
 
@@ -81,17 +82,19 @@ export function loadStoragedData() {
     return data;
   } catch {
     return {
-      totalCart: "",
+      totalCartConverted: "",
+      totalCart: 0,
       cart: [],
     };
   }
 }
 
 export function saveCartOnStorage(cartData: CartData) {
-  const { cart, totalCart } = cartData;
+  const { cart, totalCart, totalCartConverted } = cartData;
   localStorage.setItem(
     "@CartData:",
     JSON.stringify({
+      totalCartConverted,
       cart,
       totalCart,
     })

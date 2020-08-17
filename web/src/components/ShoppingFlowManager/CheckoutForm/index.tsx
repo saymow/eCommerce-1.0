@@ -15,7 +15,7 @@ const CheckoutForm: React.FC = () => {
   const { setReceipt_url, next } = useBuyingFlowState();
   const {
     buyingController: { address, deliveryMethod, dispatch },
-    cartManager: { totalCart, cart },
+    cartManager: { totalCart, totalCartConverted, cart },
     UserApi,
   } = useGlobalState();
 
@@ -47,6 +47,7 @@ const CheckoutForm: React.FC = () => {
         cartData: {
           cart,
           totalCart,
+          totalCartConverted,
         },
       });
 

@@ -4,7 +4,8 @@ const Product = Joi.object().keys({
   id: Joi.number().required(),
   name: Joi.string().required(),
   image: Joi.string().required(),
-  price: Joi.string().required(),
+  price: Joi.number().required(),
+  convertedPrice: Joi.string(),
   qntd: Joi.number().required(),
 });
 
@@ -40,7 +41,8 @@ export default celebrate({
       }),
 
       cartData: Joi.object().keys({
-        totalCart: Joi.string().required(),
+        totalCart: Joi.number().required(),
+        totalCartConverted: Joi.string(),
         cart: Joi.array().items(Product),
       }),
     }),

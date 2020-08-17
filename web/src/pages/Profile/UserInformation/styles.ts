@@ -68,5 +68,6 @@ export const ChangeData = styled.div`
 `;
 
 export const Button = styled(DefaultButton)`
+  background: var(--brand);
   width: 25%;
 `;

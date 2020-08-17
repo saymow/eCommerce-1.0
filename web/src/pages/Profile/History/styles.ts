@@ -27,7 +27,7 @@ export const ListItem = styled.li`
   position: relative;
 
   padding-bottom: 1.6rem;
-  margin: 3rem 1.6rem;
+  margin: 2.2rem 1.6rem;
 
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
@@ -149,6 +149,6 @@ export const TotalPrice = styled.p`
     width: 6rem;
     height: 0.6rem;
     background: var(--brand);
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
 `;

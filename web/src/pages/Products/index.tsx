@@ -5,6 +5,7 @@ import { useGlobalState } from "../../Context/";
 import Api from "../../Services/api";
 import Loading from "../../Components/LoadingBars";
 
+import { priceFormater } from "../../Utils/formaters";
 import { Product } from "../../Types/cartRelated_types";
 
 import {
@@ -27,7 +28,15 @@ const Products: React.FC = () => {
     Api.get("/").then((response) => {
       const data = response.data;
 
-      setProducts(data);
+      const serializedProduct = data.map(
+        ({ price, convertedPrice, ...props }: Product) => ({
+          ...props,
+          price,
+          convertedPrice: priceFormater(price),
+        })
+      );
+
+      setProducts(serializedProduct);
     });
   }, []);
 
@@ -59,7 +68,7 @@ const Products: React.FC = () => {
                 onClick={() => history.push(`product/${product.name}`)}
               />
               <strong>{product.name}</strong>
-              <span>R${product.price}</span>
+              <span>{product.convertedPrice}</span>
               <BuyIcon onClick={() => handleInsertIntoCart(product.id)} />
             </ProductSelf>
           ))}

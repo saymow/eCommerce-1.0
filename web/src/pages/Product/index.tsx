@@ -15,6 +15,7 @@ import {
 } from "./styles";
 
 import { DetailedProduct } from "../../Types/cartRelated_types";
+import { priceFormater } from "../../Utils/formaters";
 
 const Product: React.FC = () => {
   const { name } = useParams();
@@ -29,7 +30,14 @@ const Product: React.FC = () => {
 
   useEffect(() => {
     Api.get(`product/${name}`).then((response) => {
-      setProduct(response.data);
+      if (!response.data) alert("Error");
+
+      const serializedProduct = {
+        ...response.data,
+        convertedPrice: priceFormater(response.data.price),
+      };
+
+      setProduct(serializedProduct);
     });
   }, [name]);
 

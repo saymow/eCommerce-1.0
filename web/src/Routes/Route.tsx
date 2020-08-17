@@ -34,12 +34,8 @@ const Routes: React.FC = () => {
           <Route path="/" exact component={Main} />
           <Route path="/products" component={Products} />
           <Route path="/product/:name" component={Product} />
-          {!loggedIn && (
-            <>
-              <Route path="/signin" component={SignIn} />
-              <Route path="/signup" component={SignUp} />
-            </>
-          )}
+          {!loggedIn && <Route path="/signin" component={SignIn} />}
+          {!loggedIn && <Route path="/signup" component={SignUp} />}
           <RestrictedRoute path="/profile" component={Profile} />
           <Route
             path={[

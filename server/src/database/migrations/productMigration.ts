@@ -5,7 +5,7 @@ export const up = (knex: Knex) => {
     table.increments("id").primary();
     table.string("name").notNullable();
     table.text("description").notNullable();
-    table.text("price").notNullable();
+    table.integer("price").notNullable();
     table.integer("qntd").notNullable();
     table.string("image").notNullable();
   });
