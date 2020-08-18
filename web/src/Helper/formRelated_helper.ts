@@ -35,6 +35,31 @@ const RegisterSchema = Yup.object({
   birthDate: Yup.string().required("Birth date is required"),
 });
 
+const changePassSchema = Yup.object({
+  password: Yup.string()
+    .required("Password is required.")
+    .min(8, "Password must have at least 8 characters.")
+    .max(32, "Password must have less than 32 characters.")
+    .matches(
+      /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])/g,
+      "Password must contain capitalized letters and digits."
+    ),
+  newPassword: Yup.string()
+    .required("Password is required.")
+    .min(8, "Password must have at least 8 characters.")
+    .max(32, "Password must have less than 32 characters.")
+    .matches(
+      /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])/g,
+      "Password must contain capitalized letters and digits."
+    ),
+  confirmation: Yup.string()
+    .required("Confirmation password is required.")
+    .oneOf(
+      [Yup.ref("newPassword")],
+      "Confirmation does not match with password."
+    ),
+});
+
 const AddressSchema = Yup.object({
   state: Yup.string().required("State is required."),
   city: Yup.string().required("City is required."),
@@ -66,4 +91,11 @@ const cpfMask = [
 
 const dateMask = [/\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/];
 
-export { LoginSchema, RegisterSchema, AddressSchema, cpfMask, dateMask };
+export {
+  LoginSchema,
+  RegisterSchema,
+  changePassSchema,
+  AddressSchema,
+  cpfMask,
+  dateMask,
+};

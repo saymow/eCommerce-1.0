@@ -9,8 +9,8 @@ export const Container = styled.div`
 `;
 
 export const Select = styled.select`
-  background-color: transparent;
-  font-size: 2.6rem;
+  background: var(--background);
+  font-size: 2.4rem;
   padding: 0.5rem 1rem 0.5rem 4.7rem;
   color: var(--primary);
   outline: 0;
@@ -48,7 +48,7 @@ export const ErrorSpan = styled.span`
   width: 100%;
   padding: 0.2rem;
 
-  font-size: 1.2rem;
+  font-size: 1.125rem;
   color: #f00;
   background-color: rgba(255, 0, 0, 0.1);
 

@@ -54,6 +54,15 @@ export default class ApiManager {
     return response.data.userData;
   }
 
+  async changePass(password: string, newPassword: string) {
+    const response = await this.api.put("/users/change_password", {
+      password,
+      newPassword,
+    });
+
+    return response.data;
+  }
+
   async checkout(data: CheckoutProp) {
     const response = await this.api.post("/checkout", {
       data,

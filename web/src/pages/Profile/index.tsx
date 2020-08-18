@@ -7,6 +7,7 @@ import SideBar from "./SideBar";
 import UserInformation from "./UserInformation";
 import History from "./History";
 import Addresses from "./Addresses";
+import ChangePass from "./ChangePass";
 
 import { Container, ProfileWrapper } from "./styles";
 
@@ -41,7 +42,7 @@ const Profile: React.FC = () => {
           <RestrictedRoute path="/profile/address" component={Addresses} />
           <RestrictedRoute
             path="/profile/change_password"
-            component={() => <h1>change_password</h1>}
+            component={ChangePass}
           />
         </Switch>
       </ProfileWrapper>

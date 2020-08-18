@@ -8,8 +8,6 @@ const RestrictedRoute: React.FC<RouteProps> = (props) => {
     userController: { loggedIn },
   } = useGlobalState();
 
-  console.log(loggedIn);
-
   return loggedIn === undefined || loggedIn ? (
     <Route {...props} />
   ) : (

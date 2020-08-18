@@ -24,6 +24,7 @@ export default createGlobalStyle`
   }
 
   *, button, input {
+    font-family: 'Montserrat', sans-serif;
     border: 0;
   }
 `;

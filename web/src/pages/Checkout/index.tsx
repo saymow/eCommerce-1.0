@@ -60,7 +60,7 @@ const Checkout: React.FC = () => {
                     <strong>{product.qntd}x</strong>
                     {product.name}
                   </p>
-                  <span>R${product.price}</span>
+                  <span>{product.convertedPrice}</span>
                   {step === 1 && (
                     <DeleteIcon
                       onClick={() => handleDeleteProduct(product.id)}
