@@ -1,10 +1,9 @@
-import { Request, Response, json } from "express";
+import { Request, Response } from "express";
 import bcrypt, { genSaltSync } from "bcrypt";
 import knex from "../database/connection";
 import connection from "../database/connection";
 import jwt from "jsonwebtoken";
 import AppError from "../errors/AppError";
-import authConfig from "../config/auth.json";
 
 interface userData {
   id: Number;
@@ -39,7 +38,10 @@ class UserController {
 
         // Confirmation email to be done.
         return res.json({
-          token: generateToken({ id }, authConfig.secret),
+          token: generateToken(
+            { id },
+            process.env.JWT_SESSION_TOKEN_SECRET as string
+          ),
           userData: {
             name,
             email,
@@ -78,7 +80,10 @@ class UserController {
       });
 
     return res.json({
-      token: generateToken({ id }, authConfig.secret),
+      token: generateToken(
+        { id },
+        process.env.JWT_SESSION_TOKEN_SECRET as string
+      ),
       userData: {
         name,
         email,

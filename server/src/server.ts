@@ -1,14 +1,12 @@
 import path from "path";
-import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import "express-async-errors";
 
-dotenv.config();
-
 import Routes from "./routes";
 import AppError from "./errors/AppError";
 
+const PORT = process.env.PORT || 3333;
 const App = express();
 App.use(cors());
 App.use(express.json());
@@ -30,6 +28,6 @@ App.use((error: Error, _: Request, res: Response, __: NextFunction) => {
   });
 });
 
-App.listen(3333, () => {
-  console.log("Server online");
+App.listen(PORT, () => {
+  console.log("Server online on port:", PORT);
 });

@@ -29,7 +29,12 @@ Routes.get("/account", middleWare.Auth, async (req, res) => {
 
   const data = await knex("users").where({ id }).first();
 
-  return res.send(data);
+  const { email, name } = data;
+
+  return res.send({
+    email,
+    name,
+  });
 });
 
 Routes.post("/register", userController.register);
@@ -56,7 +61,5 @@ Routes.post(
   ValidateOrder,
   orderController.post
 );
-
-
 
 export default Routes;

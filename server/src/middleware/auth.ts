@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import connection from "../database/connection";
 import AppError from "../errors/AppError";
-const authConfig = require("../config/auth.json");
 
 interface verifiedResponse {
   id?: string;
@@ -24,7 +23,7 @@ export default class {
 
     jwt.verify(
       token,
-      authConfig.secret,
+      process.env.JWT_SESSION_TOKEN_SECRET as string,
       (err: VerifyErrors | null, decoded: verifiedResponse | undefined) => {
         if (err) throw new AppError("Invalid token", 401);
 
