@@ -12,12 +12,15 @@ interface CheckoutProp {
 
 export default class ApiManager {
   api: ApiType;
-  loggedIn: boolean;
-  constructor(loggedIn: boolean) {
-    this.loggedIn = loggedIn;
+  constructor() {
     this.api = api;
+    console.log("mounted")
 
-    if (loggedIn) this._retrieveToken();
+     /* The context has it inital data using this class to create UserApi object, therefore if the page is opened
+     in an authenticated page the user should be able to load his/her (if correctly authenticaded) data in this first load.
+     A workaround would be checking if the user loggedin state is already set in each api call (and set loggedin 
+     as useEffect dependency) though it would be worse.*/
+    this.retrieveToken();
   }
 
   async signIn(email: string, password: string) {
@@ -73,6 +76,7 @@ export default class ApiManager {
   }
 
   async getPersonalInfo() {
+    console.log(this.api.defaults.headers);
     const response = await this.api.get("/users/me");
 
     return response.data;
@@ -84,24 +88,21 @@ export default class ApiManager {
     return response.data;
   }
 
-  _retrieveToken() {
+  retrieveToken() {
     const token = localStorage.getItem("@Auth:");
 
-    if (!token) return;
+    if (!token) return false;
 
     this.api.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+    return true;
   }
 
-  async validifyToken() {
-    const token = localStorage.getItem("@Auth:");
-
-    if (!token) return;
-
-    this.api.defaults.headers["Authorization"] = `Bearer ${token}`;
-
-    const response = await this.api.get("/account");
-
-    return response.data;
+  validifyToken() {
+    return this.api
+      .get("/account")
+      .then((response) => response.data)
+      .catch((error) => false);
   }
 
   _storeToken(token: string) {

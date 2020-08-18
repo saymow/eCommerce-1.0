@@ -3,7 +3,6 @@ import React, {
   useContext,
   useState,
   useEffect,
-  useRef,
   useMemo,
   useReducer,
 } from "react";
@@ -32,22 +31,28 @@ const AppContext: React.FC = ({ children }) => {
   );
   const [buyingFlow, buyingFlowDispatch] = useReducer(flowAction, InitialFlow);
   const [showModal, setShowModal] = useState<string | boolean>(false);
-  const [user, userDispatch] = useReducer(userAction, false);
+  const [user, userDispatch] = useReducer(userAction, undefined);
 
-  const loggedWhenMounted = useRef(Boolean(user)).current;
-  const UserApi = useMemo(() => new UserApiManager(loggedWhenMounted), [
-    loggedWhenMounted,
+  // const loggedWhenMounted = useRef(Boolean(user)).current;
+  const UserApi = useMemo(() => new UserApiManager(), []);
+  const loggedIn = useMemo(() => (user === undefined || user ? true : false), [
+    user,
   ]);
 
   useEffect(() => {
     (async function signIn() {
+      if (!UserApi.retrieveToken()) {
+        return userDispatch({ type: "unset-loggedIn" });
+      }
+
       const response = await UserApi.validifyToken();
 
-      if (!response) return;
+      if (!response) return userDispatch({ type: "unset-loggedIn" });
+
       const { email, name } = response;
 
       userDispatch({
-        type: "set-user",
+        type: "set-loggedIn",
         payload: {
           email: email,
           name: name,
@@ -68,7 +73,7 @@ const AppContext: React.FC = ({ children }) => {
     <authContext.Provider
       value={{
         userController: {
-          loggedIn: Boolean(user),
+          loggedIn,
           user: user ? user : undefined,
           dispatch: userDispatch,
         },

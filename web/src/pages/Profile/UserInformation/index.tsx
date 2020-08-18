@@ -22,12 +22,9 @@ interface UserInfo {
 const Address: React.FC = () => {
   const {
     UserApi,
-    userController: { user },
   } = useGlobalState();
 
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
-
-  console.log("test");
 
   useEffect(() => {
     (async function getUser() {
@@ -35,7 +32,7 @@ const Address: React.FC = () => {
 
       setUserInfo(data);
     })();
-  }, [UserApi, user]);
+  }, [UserApi]);
 
   return (
     <Container>

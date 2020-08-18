@@ -76,8 +76,8 @@ export default class DeliveryManager {
     return serializedData;
   }
 
-  searchLocationByCep(cep: string) {
-    consultarCep(cep)
+  async searchLocationByCep(cep: string) {
+    await consultarCep(cep)
       .then((data: LocationByCep) => {
         this._setLocationByCep({
           uf: data.uf,

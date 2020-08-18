@@ -41,7 +41,7 @@ const SignUp: React.FC = () => {
       );
 
       dispatch({
-        type: "set-user",
+        type: "set-loggedIn",
         payload: {
           email: response.email,
           name: response.name,

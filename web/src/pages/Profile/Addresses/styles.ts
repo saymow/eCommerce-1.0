@@ -26,7 +26,7 @@ export const Address = styled.section`
     font-size: 1.8rem;
     line-height: 2.6rem;
 
-    &:last-child {
+    span {
       font-weight: 500;
     }
   }

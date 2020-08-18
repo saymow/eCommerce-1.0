@@ -25,12 +25,16 @@ const Addresses: React.FC = () => {
         ({ city, neighborhood, number, state, street, cep }, i) => (
           <Address key={i}>
             <p>
-              {street}, {number}
+              <span>Street</span>: {street}, {number}
             </p>
-            <p>{neighborhood}</p>
-            <p>{cep}</p>
             <p>
-              {city} - {state}
+              <span>Neighborhood</span>: {neighborhood}
+            </p>
+            <p>
+              <span>Cep</span>: {cep}
+            </p>
+            <p>
+              <span>Location</span>: {city} - {state}
             </p>
           </Address>
         )

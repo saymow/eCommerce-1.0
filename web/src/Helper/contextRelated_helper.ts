@@ -23,7 +23,7 @@ export const InitialContext: ContextData = {
     user: undefined,
     dispatch: (Action: UserAction) => null,
   },
-  UserApi: new UserApiManager(false),
+  UserApi: new UserApiManager(),
   cartManager: {
     totalCartConverted: "",
     totalCart: 0,

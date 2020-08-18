@@ -23,4 +23,5 @@ export interface User {
 }
 
 export type Action =
-  | { type: "set-user"; payload: User };
+  | { type: "set-loggedIn"; payload: User }
+  | { type: "unset-loggedIn"}

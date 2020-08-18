@@ -37,7 +37,7 @@ const Signin: React.FC = () => {
       const response = await UserApi.signIn(email, password);
 
       dispatch({
-        type: "set-user",
+        type: "set-loggedIn",
         payload: {
           email: response.email,
           name: response.name,

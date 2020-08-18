@@ -61,6 +61,8 @@ const History: React.FC = () => {
     (async () => {
       const data = await UserApi.getOrderHistory();
 
+      console.log(data);
+
       const serializedData = data.map(
         ({
           raw_price,
@@ -107,8 +109,8 @@ const History: React.FC = () => {
             status,
             address: { state, city, neighborhood, cep, street, number },
             products,
-          }) => (
-            <ListItem>
+          }, i) => (
+            <ListItem key={i}>
               <MainInfo>
                 <h2>
                   <span>Id</span>: {id}
@@ -160,10 +162,16 @@ const History: React.FC = () => {
               </AddressInfo>
 
               <ProductList>
-                {products.map(({ name, price, image }) => (
-                  <Product>
+                {products.map(({ name, price, image }, i) => (
+                  <Product key={i}>
                     <div>
-                      <img src={image} alt="product" />
+                      <a
+                        href={"http://localhost:3000/product/" + name}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={image} alt="product" />
+                      </a>
                     </div>
                     <div>
                       <p>

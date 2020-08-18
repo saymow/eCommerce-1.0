@@ -67,7 +67,7 @@ const CepSearcher: React.FC = () => {
     setApiLoading(false);
   }
 
-  function handleCepChoosed() {
+  async function handleCepChoosed() {
     if (!methodChoosed) return;
 
     const { Codigo, Metodo, PrazoEntrega, Valor } = methodChoosed;
@@ -83,7 +83,7 @@ const CepSearcher: React.FC = () => {
       },
     });
 
-    DeliveryApi.searchLocationByCep(cep);
+    await DeliveryApi.searchLocationByCep(cep);
 
     next();
   }
