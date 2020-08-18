@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bcrypt, { genSaltSync } from "bcrypt";
+import bcrypt from "bcrypt";
 import knex from "../database/connection";
 import connection from "../database/connection";
 import jwt from "jsonwebtoken";
@@ -27,7 +27,7 @@ class UserController {
       });
 
     try {
-      bcrypt.hash(password, genSaltSync(), async (err, hash) => {
+      bcrypt.hash(password, 8, async (err, hash) => {
         const [id] = await connection("users").insert({
           name,
           email,
@@ -50,7 +50,7 @@ class UserController {
         });
       });
     } catch (err) {
-      throw new AppError("Server error", 400);
+      throw new AppError("Internal server error.", 500);
     }
   }
 
@@ -98,6 +98,37 @@ class UserController {
     const data = await knex("users").where({ id }).first();
 
     res.send(data);
+  }
+
+  async changePassword(req: Request, res: Response) {
+    const { id } = req.user;
+    const { password, newPassword } = req.body;
+
+    try {
+      const { password: hashedPass } = await knex("users")
+        .where({ id })
+        .first();
+
+      if (!(await bcrypt.compare(password, hashedPass)))
+        return res.status(409).send({
+          password: "Incorrect password.",
+        });
+
+      bcrypt.hash(newPassword, 8, async (err, hash) => {
+        await knex("users")
+          .update({
+            password: hash,
+          })
+          .where({
+            id,
+          });
+
+        res.sendStatus(200);
+      });
+    } catch (err) {
+      console.log(err);
+      throw new AppError("Internal server error.", 500);
+    }
   }
 }
 

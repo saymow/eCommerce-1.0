@@ -16,6 +16,8 @@ App.use("/images", express.static(path.resolve(__dirname, "..", "images")));
 
 App.use((error: Error, _: Request, res: Response, __: NextFunction) => {
   if (error instanceof AppError) {
+    console.log(error);
+
     return res.status(error.statusCode).send({
       message: error.message,
     });

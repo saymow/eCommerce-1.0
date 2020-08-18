@@ -42,6 +42,11 @@ Routes.post("/login", userController.login);
 Routes.get("/users/addresses", middleWare.Auth, addressController.index);
 Routes.get("/users/me", middleWare.Auth, userController.index);
 Routes.get("/users/purchases", middleWare.Auth, orderController.list);
+Routes.put(
+  "/users/change_password",
+  middleWare.Auth,
+  userController.changePassword
+);
 
 Routes.post(
   "/products",
