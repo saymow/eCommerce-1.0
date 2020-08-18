@@ -71,14 +71,18 @@ export function cartAction(state: CartData, action: Action): CartData {
 export function loadStoragedData() {
   try {
     const loadedStorage = localStorage.getItem("@CartData:");
+    
     if (!loadedStorage) {
       throw new Error("empty local storage");
     }
+    
     const data: CartData = JSON.parse(loadedStorage);
-    if (!(data.cart && data.totalCart)) {
-      localStorage.clear();
+
+    if (!(data.cart && data.totalCart && data.totalCartConverted)) {
+      localStorage.removeItem("@CartData:");
       throw new Error("malformated local storage");
     }
+    
     return data;
   } catch {
     return {

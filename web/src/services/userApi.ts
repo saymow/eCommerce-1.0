@@ -14,9 +14,7 @@ export default class ApiManager {
   api: ApiType;
   constructor() {
     this.api = api;
-    console.log("mounted")
-
-     /* The context has it inital data using this class to create UserApi object, therefore if the page is opened
+    /* The context has it inital data using this class to create UserApi object, therefore if the page is opened
      in an authenticated page the user should be able to load his/her (if correctly authenticaded) data in this first load.
      A workaround would be checking if the user loggedin state is already set in each api call (and set loggedin 
      as useEffect dependency) though it would be worse.*/

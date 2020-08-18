@@ -42,12 +42,15 @@ const AppContext: React.FC = ({ children }) => {
   useEffect(() => {
     (async function signIn() {
       if (!UserApi.retrieveToken()) {
+        console.log("Test");
         return userDispatch({ type: "unset-loggedIn" });
       }
 
       const response = await UserApi.validifyToken();
 
-      if (!response) return userDispatch({ type: "unset-loggedIn" });
+      if (!response) {
+        return userDispatch({ type: "unset-loggedIn" });
+      }
 
       const { email, name } = response;
 
