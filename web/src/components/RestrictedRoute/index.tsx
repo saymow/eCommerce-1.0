@@ -3,15 +3,30 @@ import { Route, Redirect, RouteProps } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
 
-const RestrictedRoute: React.FC<RouteProps> = (props) => {
+interface ResctricedRouteProps extends RouteProps {
+  authenticated: boolean;
+}
+
+const RestrictedRoute: React.FC<ResctricedRouteProps> = ({
+  authenticated,
+  ...props
+}) => {
   const {
     userController: { loggedIn },
   } = useGlobalState();
 
-  return loggedIn === undefined || loggedIn ? (
-    <Route {...props} />
+  const ensureIsLoggedIn = loggedIn === undefined || loggedIn;
+
+  return authenticated ? (
+    ensureIsLoggedIn ? (
+      <Route {...props} />
+    ) : (
+      <Redirect to="/signin" />
+    )
+  ) : ensureIsLoggedIn ? (
+    <Redirect to="/profile/me" />
   ) : (
-    <Redirect to={"/signin"} />
+    <Route {...props} />
   );
 };
 

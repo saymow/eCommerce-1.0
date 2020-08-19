@@ -44,13 +44,8 @@ const BuyingFlowManager: React.FC = () => {
     buyingController: { step: currentStep, dispatch },
   } = useGlobalState();
   const DeliveryApi = useMemo(() => new DeliveryApiManager(), []);
-  const loggedWhenMounted = useRef(loggedIn).current;
-  
-  const routeConfig = useShoppingRoutes(loggedWhenMounted);
+  const routeConfig = useShoppingRoutes(loggedIn, currentStep);
   const [receipt_url, setReceipt_url] = useState("");
-
-  /* UseMemo is the best approach to this, since declaring it outside react fc will only call constructor once. 
-  This way every time the /checkout route is rendered, we call the constructor to restart the process. */
 
   const next = useCallback(() => {
     // Since when this function is called, the context has not yet been updated,

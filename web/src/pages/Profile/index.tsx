@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import RestrictedRoute from "../../Components/RestrictedRoute";
 
@@ -37,13 +37,10 @@ const Profile: React.FC = () => {
         />
 
         <Switch>
-          <RestrictedRoute path="/profile/me" component={UserInformation} />
-          <RestrictedRoute path="/profile/history" component={History} />
-          <RestrictedRoute path="/profile/address" component={Addresses} />
-          <RestrictedRoute
-            path="/profile/change_password"
-            component={ChangePass}
-          />
+          <Route path="/profile/me" component={UserInformation} />
+          <Route path="/profile/history" component={History} />
+          <Route path="/profile/address" component={Addresses} />
+          <Route path="/profile/change_password" component={ChangePass} />
         </Switch>
       </ProfileWrapper>
     </Container>

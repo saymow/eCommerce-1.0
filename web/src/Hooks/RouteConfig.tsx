@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 import CepSearcher from "../Components/ShoppingFlowManager/CepSearcher";
 import Authenticate from "../Components/ShoppingFlowManager/Authenticate";
@@ -18,7 +18,13 @@ interface RouteConfigProps {
   component: React.FC;
 }
 
-export function useShoppingRoutes(LoggedIn: boolean) {
+export function useShoppingRoutes(loggedIn: boolean, currentStep: number) {
+  const [loggedStatus, setLoggedStatus] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (currentStep === 1) setLoggedStatus(loggedIn);
+  }, [loggedIn, currentStep]);
+
   const routes = useMemo(() => {
     let AvailableRoutes = [
       {
@@ -54,7 +60,7 @@ export function useShoppingRoutes(LoggedIn: boolean) {
       },
     ];
 
-    if (LoggedIn)
+    if (loggedStatus)
       AvailableRoutes = AvailableRoutes.filter(
         (route) => route.name !== "Authenticate"
       );
@@ -74,7 +80,7 @@ export function useShoppingRoutes(LoggedIn: boolean) {
     });
 
     return RoutesWithRespectiveStep;
-  }, [LoggedIn]);
+  }, [loggedStatus]);
 
   return routes;
 }

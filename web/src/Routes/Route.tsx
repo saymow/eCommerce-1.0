@@ -34,9 +34,26 @@ const Routes: React.FC = () => {
           <Route path="/" exact component={Main} />
           <Route path="/products" component={Products} />
           <Route path="/product/:name" component={Product} />
-          {!loggedIn && <Route path="/signin" component={SignIn} />}
-          {!loggedIn && <Route path="/signup" component={SignUp} />}
-          <RestrictedRoute path="/profile" component={Profile} />
+          <RestrictedRoute
+            authenticated={false}
+            path="/signin"
+            component={SignIn}
+          />
+          <RestrictedRoute
+            authenticated={false}
+            path="/signup"
+            component={SignUp}
+          />
+          <RestrictedRoute
+            authenticated
+            path={[
+              "/profile/me",
+              "/profile/history",
+              "/profile/address",
+              "/profile/change_password",
+            ]}
+            component={Profile}
+          />
           <Route
             path={[
               "/checkout",

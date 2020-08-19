@@ -80,7 +80,7 @@ export const ProductSelf = styled.div`
     padding: 0.5rem;
 
     color: #fff;
-    background-color: #343835;
+    background: var(--primary);
     transform: rotate(5deg);
   }
 

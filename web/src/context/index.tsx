@@ -31,6 +31,8 @@ const AppContext: React.FC = ({ children }) => {
   );
   const [buyingFlow, buyingFlowDispatch] = useReducer(flowAction, InitialFlow);
   const [showModal, setShowModal] = useState<string | boolean>(false);
+
+
   const [user, userDispatch] = useReducer(userAction, undefined);
 
   // const loggedWhenMounted = useRef(Boolean(user)).current;
@@ -40,9 +42,8 @@ const AppContext: React.FC = ({ children }) => {
   ]);
 
   useEffect(() => {
-    (async function signIn() {
+    (async function autoSignIn() {
       if (!UserApi.retrieveToken()) {
-        console.log("Test");
         return userDispatch({ type: "unset-loggedIn" });
       }
 
@@ -61,6 +62,8 @@ const AppContext: React.FC = ({ children }) => {
           name: name,
         },
       });
+
+
     })();
   }, [UserApi]);
 
