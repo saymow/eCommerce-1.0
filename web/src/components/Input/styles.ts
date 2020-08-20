@@ -10,12 +10,12 @@ export const Container = styled.div`
 `;
 
 export const Input = styled(MaskedInput)`
-  background: var(--background);
+  background: var(--background-secondary);
   font-size: 2.4rem;
   padding: 0.5rem 1rem 0.5rem 4.7rem;
   color: var(--primary);
   outline: 0;
-  border: 2px solid var(--primary);
+  border: 1px solid var(--shadow-lv1);
   border-radius: 0.5rem;
   width: 100%;
 

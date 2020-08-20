@@ -1,8 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import RestrictedRoute from "../../Components/RestrictedRoute";
-
 import SideBar from "./SideBar";
 import UserInformation from "./UserInformation";
 import History from "./History";
@@ -15,26 +13,28 @@ const Profile: React.FC = () => {
   return (
     <Container>
       <ProfileWrapper>
-        <SideBar
-          listItem={[
-            {
-              title: "My profile",
-              path: "/profile/me",
-            },
-            {
-              title: "My History",
-              path: "/profile/history",
-            },
-            {
-              title: "My addresses",
-              path: "/profile/address",
-            },
-            {
-              title: "Change password",
-              path: "/profile/change_password",
-            },
-          ]}
-        />
+        <div>
+          <SideBar
+            listItem={[
+              {
+                title: "My profile",
+                path: "/profile/me",
+              },
+              {
+                title: "My History",
+                path: "/profile/history",
+              },
+              {
+                title: "My addresses",
+                path: "/profile/address",
+              },
+              {
+                title: "Change password",
+                path: "/profile/change_password",
+              },
+            ]}
+          />
+        </div>
 
         <Switch>
           <Route path="/profile/me" component={UserInformation} />

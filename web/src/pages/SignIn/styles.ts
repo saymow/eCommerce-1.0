@@ -32,7 +32,7 @@ export const UserDefaultImage = styled.div`
 
   width: 20rem;
   height: 20rem;
-  background-color: var(--primary);
+  background: #b8bbc1;
   border-radius: 50%;
 `;
 

@@ -93,7 +93,7 @@ export const Button = styled.button`
   font-weight: bold;
   padding: 1rem;
 
-  color: var(--background);
+  color: var(--background-primary);
   background-color: #c44445;
   box-shadow: 1px 1px 3px #000;
 

@@ -76,7 +76,7 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
 
         <ModalOptions>
           <div>
-            <h1>Total: R${totalCartConverted}</h1>
+            <h1>Total: {totalCartConverted}</h1>
           </div>
           <ButtonsContainer>
             <Button onClick={handleContinueBuying}>Continue buying</Button>

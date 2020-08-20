@@ -12,7 +12,7 @@ export const Container = styled.header`
   z-index: 99;
 
   background-color: var(--primary);
-  color: var(--background);
+  color: var(--background-primary);
 
   display: flex;
   align-items: center;
@@ -69,7 +69,7 @@ export const ListItem = styled.li`
   margin-left: 2rem;
 
   &::after {
-    border-bottom: 2px solid var(--background);
+    border-bottom: 2px solid var(--background-primary);
     display: block;
     width: 0;
     content: "";

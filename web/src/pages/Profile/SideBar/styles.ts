@@ -26,9 +26,9 @@ export const Avatar = styled.div`
   width: max(13vw, 89px);
   border-radius: 50%;
 
-  margin: auto;
+  margin: 1rem auto;
 
-  background-color: #bbb;
+  background-color: #dcdcdc;
 
   &:hover > div {
     display: block;
@@ -54,15 +54,16 @@ export const BackDrop = styled.div`
   height: 100%;
 
   display: none;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
+
 `;
 
 export const UploadIcon = styled(Camera)`
   height: 30%;
   width: 30%;
 
-  color: var(--background);
+  color: var(--background-primary);
 
   z-index: 2;
   cursor: pointer;

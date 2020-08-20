@@ -61,9 +61,7 @@ export const Input = styled.input`
   text-align: center;
 `;
 
-export const Button = styled(DefaultButton)`
-  transition: width 500ms;
-`;
+export const Button = styled(DefaultButton)``;
 
 export const Shipping = styled.div`
   margin-top: 1rem;

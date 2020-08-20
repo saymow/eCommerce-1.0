@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/";
 import Api from "../../Services/api";
@@ -14,7 +14,7 @@ import {
   ProductsWrapper,
   ProductList,
   ProductSelf,
-  BuyIcon,
+  Options,
 } from "./styles";
 
 const Products: React.FC = () => {
@@ -68,8 +68,13 @@ const Products: React.FC = () => {
                 onClick={() => history.push(`product/${product.name}`)}
               />
               <strong>{product.name}</strong>
+              <Options>
+                <Link to={`product/${product.name}`}>Details</Link>
+                <button onClick={() => handleInsertIntoCart(product.id)}>
+                  Add to cart
+                </button>
+              </Options>
               <span>{product.convertedPrice}</span>
-              <BuyIcon onClick={() => handleInsertIntoCart(product.id)} />
             </ProductSelf>
           ))}
         </ProductList>

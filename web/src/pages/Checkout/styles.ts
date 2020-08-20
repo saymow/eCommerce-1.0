@@ -15,7 +15,6 @@ export const Container = styled.div`
 
 export const CheckoutContainer = styled.div<CheckoutAnimationProps>`
   margin: 8rem auto;
-  background-color: var(--shadow-lv1);
   box-shadow: var(--box-shadow);
   width: 100%;
   max-width: 1080px;

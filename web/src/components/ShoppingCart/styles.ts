@@ -50,7 +50,7 @@ export const Cart = styled.div`
   padding: 1rem 1rem 1rem 0.5rem;
   box-shadow: 1px 1px 3px var(--primary);
 
-  background-color: var(--background);
+  background-color: var(--background-primary);
 
   transition: all 200ms ease;
 
@@ -141,14 +141,14 @@ export const Button = styled.button`
 
   background-color: var(--primary);
   color: var(--background);
-  border: 1px solid var(--background);
+  border: 1px solid var(--background-primary);
   border-radius: 0.5rem;
 
   transition: all 200ms ease-in-out;
 
   &:hover {
     color: var(--primary);
-    background-color: var(--background);
+    background: var(--background-primary);
     border-color: var(--primary);
   }
 `;

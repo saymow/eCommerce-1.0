@@ -9,18 +9,23 @@ export default createGlobalStyle`
 
   :root {
     --brand: #6462a6;
-    --background: #fff;
+    --background-primary: #fff;
+    --background-secondary: #f7f7f9;
     --primary: #353438;
     --secondary: #898980;
     --tertiary: #6c9a8b;
 
-    --shadow-lv1: rgba(0, 0, 0, .05);
+    --shadow-lv1: rgb(34, 34, 44, .05);
     --shadow-lv2: rgba(0, 0, 0, .1);
 
     --box-shadow: .6rem .6rem 1rem .3rem var(--shadow-lv2);
 
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
+  }
+
+  body {
+    background: var(--background-primary);
   }
 
   *, button, input {

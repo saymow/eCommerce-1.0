@@ -23,7 +23,7 @@ export const Button = styled(DefaultButton)`
 const IconsCSS = css`
   position: absolute;
   display: block;
-  border-right: 2px solid var(--primary);
+  border-right: 2px solid var(--shadow-lv1);
   width: 4.2rem;
   height: 4.2rem;
 `;

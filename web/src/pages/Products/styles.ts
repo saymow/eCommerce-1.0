@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { CartAdd } from "../../Styles/icons";
-
 export const Container = styled.div`
   margin: auto;
   width: 100%;
@@ -34,6 +32,9 @@ export const ProductSelf = styled.div`
   margin: 3%;
   flex-basis: 27.33%;
 
+  padding: 1rem;
+  border: 1px solid var(--shadow-lv2);
+
   @media (max-width: 780px) {
     &:first-child {
       flex: 1 88%;
@@ -54,7 +55,7 @@ export const ProductSelf = styled.div`
   align-items: center;
 
   color: var(--primary);
-  background: #fff;
+  background: var(--background-secondary);
 
   transition: all 300ms ease;
 
@@ -66,15 +67,17 @@ export const ProductSelf = styled.div`
   }
 
   strong {
+    margin-right: auto;
+    font-weight: 400;
+    font-size: 1.4rem;
     cursor: pointer;
     line-height: 5rem;
-    font-size: 2rem;
   }
 
   span {
     position: absolute;
-    top: -0.9rem;
-    right: -0.9rem;
+    top: -1.6rem;
+    right: -1.6rem;
 
     font-size: 1.8rem;
     padding: 0.5rem;
@@ -83,30 +86,36 @@ export const ProductSelf = styled.div`
     background: var(--primary);
     transform: rotate(5deg);
   }
-
-  &:hover {
-    transform: translateY(-5px);
-    background-color: var(--shadow-lv1);
-
-    svg {
-      display: block;
-    }
-  }
 `;
 
-export const BuyIcon = styled(CartAdd)`
-  cursor: pointer;
-  display: none;
-  height: 30px;
-  width: 30px;
+export const Options = styled.div`
+  width: 80%;
+  margin: 2rem 0 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
 
-  position: absolute;
-  left: 1%;
-  top: 1%;
+  a {
+    text-align: center;
+    text-decoration: none;
 
-  &:hover {
-    transform: scale(1.1);
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
-  transition: all 200ms ease;
+  a,
+  button {
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    color: var(--primary);
+  }
+
+  button {
+    cursor: pointer;
+    padding: 0.8rem 1.2rem;
+    color: var(--background-primary);
+    background: var(--primary);
+  }
 `;

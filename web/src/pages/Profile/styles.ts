@@ -4,12 +4,13 @@ export const Container = styled.div`
   margin: auto;
   width: 100%;
   max-width: 1360px;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 `;
 
 export const ProfileWrapper = styled.section`
   width: 90%;
-  margin: 10% 5%;
+  margin: 10% auto;
   padding: 1rem;
 
   border-radius: 0.5rem;

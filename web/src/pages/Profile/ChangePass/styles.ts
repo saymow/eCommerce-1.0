@@ -14,7 +14,7 @@ export const Container = styled.div`
 export const PassIcon = styled(LockPassword)`
   position: absolute;
   display: block;
-  border-right: 2px solid var(--primary);
+  border-right: 2px solid var(--shadow-lv1);
   width: 4.2rem;
   height: 4.2rem;
 `;
@@ -30,7 +30,7 @@ export const FormContainer = styled.main`
   border-radius: 0.5rem;
 
   > form {
-    margin-top: 2.2rem;
+    margin: 2.2rem 0;
   }
 
   &:before {
@@ -70,10 +70,10 @@ export const Text = styled.div`
 `;
 
 export const FieldSet = styled.div`
-  margin: 1.8rem 0;
+  margin: 1.9rem 0;
 `;
 
 export const Button = styled(DefaultButton)`
-  margin-top: 1rem;
+  margin-top: 2rem;
   background: var(--brand);
 `;

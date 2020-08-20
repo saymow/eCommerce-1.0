@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   box-shadow: var(--box-shadow);
-  max-height: 47rem;
-
+  padding: 2rem 0;
+  max-height: 75vh;
   overflow: auto;
 
   ::-webkit-scrollbar {
@@ -41,7 +41,7 @@ export const ListItem = styled.li`
     top: -2.4rem;
     left: -0.8rem;
 
-    background: var(--background);
+    background: var(--background-secondary);
     padding: 0 2rem;
 
     font-size: 2.6rem;
@@ -136,7 +136,7 @@ export const TotalPrice = styled.p`
 
   font-size: 2rem;
 
-  background: var(--background);
+  background: var(--background-secondary);
   padding: 0 2rem;
 
   &:after {

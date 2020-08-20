@@ -26,7 +26,7 @@ export const Content = styled.div`
   h1,
   p {
     text-shadow: 2px 2px #000;
-    color: var(--background);
+    color: var(--background-primary);
   }
 
   h1 {
@@ -48,7 +48,7 @@ export const ContentWrapper = styled.div`
   box-shadow: 3px 3px 20px var(--primary);
   padding: 15rem 0;
   width: 100%;
-  background-color: #fff;
+  background: var(--background-secondary);
 `;
 
 export const ContentElement = styled.div`

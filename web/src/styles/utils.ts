@@ -6,7 +6,7 @@ const Button = styled.button`
   width: 100%;
   background-color: var(--brand);
   border: 1px solid var(--primary);
-  color: var(--background);
+  color: var(--background-primary);
   padding: 1rem;
   border-radius: 0.5rem;
 
