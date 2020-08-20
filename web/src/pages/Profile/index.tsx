@@ -7,7 +7,7 @@ import History from "./History";
 import Addresses from "./Addresses";
 import ChangePass from "./ChangePass";
 
-import { Container, ProfileWrapper } from "./styles";
+import { Container, ProfileWrapper, ContentWrapper } from "./styles";
 
 const Profile: React.FC = () => {
   return (
@@ -35,13 +35,14 @@ const Profile: React.FC = () => {
             ]}
           />
         </div>
-
-        <Switch>
-          <Route path="/profile/me" component={UserInformation} />
-          <Route path="/profile/history" component={History} />
-          <Route path="/profile/address" component={Addresses} />
-          <Route path="/profile/change_password" component={ChangePass} />
-        </Switch>
+        <ContentWrapper>
+          <Switch>
+            <Route path="/profile/me" component={UserInformation} />
+            <Route path="/profile/history" component={History} />
+            <Route path="/profile/address" component={Addresses} />
+            <Route path="/profile/change_password" component={ChangePass} />
+          </Switch>
+        </ContentWrapper>
       </ProfileWrapper>
     </Container>
   );

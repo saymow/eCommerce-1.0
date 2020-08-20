@@ -19,8 +19,21 @@ export const Profile = styled.div`
   padding: 1.2rem;
 `;
 
+export const Description = styled.div`
+  margin: 2rem 0 1rem;
+
+  p {
+    font-size: 1.6rem;
+
+    &:first-child {
+      margin: 0.6rem 0;
+    }
+  }
+`;
+
 export const Avatar = styled.div`
   position: relative;
+  overflow: hidden;
 
   height: max(13vw, 89px);
   width: max(13vw, 89px);
@@ -30,14 +43,20 @@ export const Avatar = styled.div`
 
   background-color: #dcdcdc;
 
-  &:hover > div {
+  &:hover > div:last-child {
     display: block;
   }
 `;
 
+export const ProfileImg = styled.img`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+`;
+
 export const AvatarIcon = styled(UserAlt)`
-  width: max(8.75vw, 60px);
-  height: max(8.75vw, 60px);
+  width: max(8.5vw, 60px);
+  height: max(8.5vw, 60px);
 
   position: absolute;
   top: 50%;
@@ -49,14 +68,19 @@ export const AvatarIcon = styled(UserAlt)`
 `;
 
 export const BackDrop = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 
   display: none;
-  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
 
+  input {
+    display: none;
+  }
 `;
 
 export const UploadIcon = styled(Camera)`
@@ -71,18 +95,6 @@ export const UploadIcon = styled(Camera)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-`;
-
-export const Description = styled.div`
-  padding-top: 1.5rem;
-
-  p {
-    font-size: 1.6rem;
-    
-    &:first-child {
-      margin: .6rem 0;
-    }
-  }
 `;
 
 export const ItemList = styled.ul`

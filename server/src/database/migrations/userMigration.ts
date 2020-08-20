@@ -5,6 +5,7 @@ export const up = (knex: Knex) => {
     table.increments("id").primary();
     table.string("email").notNullable();
     table.string("name").notNullable();
+    table.string("avatar");
     table.date("birth_date").notNullable();
     table.specificType("password", "char(32)").notNullable();
     table.specificType("cpf", "char(11)").notNullable(); //99999999 99 format

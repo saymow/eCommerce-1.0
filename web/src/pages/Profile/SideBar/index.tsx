@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { useGlobalState } from "../../../Context";
@@ -8,6 +8,7 @@ import {
   Profile,
   Avatar,
   BackDrop,
+  ProfileImg,
   AvatarIcon,
   UploadIcon,
   Description,
@@ -27,22 +28,59 @@ interface Props {
 }
 
 const SideBar: React.FC<Props> = ({ listItem, image }) => {
+  const { UserApi } = useGlobalState();
   const location = useLocation();
-
   const {
     userController: { user },
   } = useGlobalState();
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   const currentPath = useMemo(() => location.pathname, [location]);
+
+  useEffect(() => {
+    (async function fetchAvatar() {
+      const response = await UserApi.getAvatar();
+
+      setAvatarUrl(response.url);
+    })();
+  }, [UserApi]);
+
+  async function handleUserImageUpload(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    if (!event.target.files) return;
+
+    const data = new FormData();
+
+    data.append("image", event.target.files[0]);
+
+    const response = await UserApi.uploadAvatar(data);
+
+    console.log(response);
+
+    setAvatarUrl(response.url);
+  }
 
   return (
     <Container>
       <Profile>
         <Avatar>
+          {!avatarUrl ? (
+            <AvatarIcon />
+          ) : (
+            <ProfileImg src={avatarUrl} alt="user" />
+          )}
           <BackDrop>
-            <UploadIcon onClick={() => alert("Upload image, to-do.")} />
+            <input
+              id="userImage"
+              type="file"
+              accept=".jpg,.jpeg,.png"
+              onChange={handleUserImageUpload}
+            />
+            <label htmlFor="userImage">
+              <UploadIcon />
+            </label>
           </BackDrop>
-          <AvatarIcon />
         </Avatar>
         <Description>
           <p>Welcome, {user?.name}</p>

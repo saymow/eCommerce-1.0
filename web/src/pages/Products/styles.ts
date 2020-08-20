@@ -55,7 +55,7 @@ export const ProductSelf = styled.div`
   align-items: center;
 
   color: var(--primary);
-  background: var(--background-secondary);
+  background: var(--background-primary);
 
   transition: all 300ms ease;
 

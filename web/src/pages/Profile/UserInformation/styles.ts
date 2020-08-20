@@ -3,22 +3,20 @@ import styled from "styled-components";
 import { Button as DefaultButton } from "../../../Styles/utils";
 
 export const Container = styled.section`
+  height: 100%;
+
   display: grid;
   grid-template-rows: 70% 30%;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "info progress"
     "edit edit";
-
-  box-shadow: var(--box-shadow);
 `;
 
 export const Info = styled.main`
   grid-area: info;
   display: grid;
   grid-template-columns: 1fr 1fr;
-
-  /* box-shadow: var(--box-shadow); */
 
   > div {
     display: flex;

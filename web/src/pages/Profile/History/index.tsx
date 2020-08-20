@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useGlobalState } from "../../../Context";
+import LoadingBars from "../../../Components/LoadingBars";
 
 import { priceFormater } from "../../../Utils/formaters";
 import { Address } from "../../../Types/buyingFlowRelated_types";
@@ -54,8 +55,9 @@ interface PropsOrderHistoryServer {
 }
 
 const History: React.FC = () => {
-  const [orderHistory, setOrderHistory] = useState<PropsOrderHistory[]>([]);
   const { UserApi } = useGlobalState();
+  const [orderHistory, setOrderHistory] = useState<PropsOrderHistory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -90,26 +92,33 @@ const History: React.FC = () => {
         }
       );
 
+      setIsLoading(false);
+
       setOrderHistory(serializedData);
     })();
   }, [UserApi]);
 
-  return (
+  return isLoading ? (
+    <LoadingBars />
+  ) : (
     <Container>
       <ItemList>
         {orderHistory.map(
-          ({
-            id,
-            raw_price,
-            shipment_price,
-            total_price,
-            createdDate,
-            createdHour,
-            delivered_at,
-            status,
-            address: { state, city, neighborhood, cep, street, number },
-            products,
-          }, i) => (
+          (
+            {
+              id,
+              raw_price,
+              shipment_price,
+              total_price,
+              createdDate,
+              createdHour,
+              delivered_at,
+              status,
+              address: { state, city, neighborhood, cep, street, number },
+              products,
+            },
+            i
+          ) => (
             <ListItem key={i}>
               <MainInfo>
                 <h2>

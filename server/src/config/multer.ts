@@ -1,16 +1,13 @@
 import multer from "multer";
 import path from "path";
-import { randomBytes } from "crypto";
 
-export default {
+const config = multer({
   storage: multer.diskStorage({
-    destination: path.resolve(__dirname, "..", "..", "productImages"),
+    destination: path.resolve(__dirname, "..", "..", "images"),
     filename(request, file, callback) {
-      const hash = randomBytes(3).toString("hex");
+      callback(null, file.originalname);
+    },
+  }),
+});
 
-      const filname = "-" + hash + file.originalname;
-
-      callback(null, filname)
-    }
-  })
-}
+export default config;

@@ -7,7 +7,7 @@ export const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(auto-fill, 13rem);
 
-  box-shadow: var(--box-shadow);
+  height: 100%;
 
   section {
     border: 1px solid var(--shadow-lv2);

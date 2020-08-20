@@ -12,15 +12,20 @@ interface Props {
 }
 
 const Loading: React.FC<Props> = ({ barQntd, color, width, height, delay }) => {
-  const BarsArray = Array(barQntd || 5).fill(0);
+  const barsQntd = barQntd || 5;
+  const BarsArray = Array(barsQntd).fill(0);
   let [currentBar, setCurrentBar] = useState(1);
+
+  console.log(BarsArray);
 
   useEffect(() => {
     let interval = setInterval(() => {
-      setCurrentBar((previous) => (previous === barQntd ? 0 : previous + 1));
+      setCurrentBar((previous) => (previous === barsQntd ? 0 : previous + 1));
     }, delay || 200);
     return () => clearInterval(interval);
-  }, [setCurrentBar, barQntd, delay]);
+  }, [setCurrentBar, barsQntd, delay]);
+
+  // console.log(currentBar);
 
   return (
     <Container>

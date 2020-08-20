@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const Select = styled.select`
-  background: var(--background-primary);
+  background: var(--background-secondary);
   font-size: 2.4rem;
   padding: 0.5rem 1rem 0.5rem 4.7rem;
   color: var(--primary);

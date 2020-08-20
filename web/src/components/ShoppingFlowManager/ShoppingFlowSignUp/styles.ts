@@ -5,6 +5,10 @@ import { SignInAlt } from "../../../Styles/icons";
 export const Container = styled.div`
   position: relative;
   height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const LinkWrapper = styled.span`

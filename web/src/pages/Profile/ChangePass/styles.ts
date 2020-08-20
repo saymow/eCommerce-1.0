@@ -4,7 +4,8 @@ import { LockPassword } from "../../../Styles/icons";
 import { Button as DefaultButton } from "../../../Styles/utils";
 
 export const Container = styled.div`
-  box-shadow: var(--box-shadow);
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;

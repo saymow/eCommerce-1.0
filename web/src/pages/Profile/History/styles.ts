@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  box-shadow: var(--box-shadow);
   padding: 2rem 0;
-  max-height: 75vh;
+  height: 100%;
   overflow: auto;
 
   ::-webkit-scrollbar {

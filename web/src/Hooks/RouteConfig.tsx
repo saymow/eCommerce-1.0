@@ -69,7 +69,9 @@ export function useShoppingRoutes(loggedIn: boolean, currentStep: number) {
       let availablePaths;
       if (index > 0 && index < AvailableRoutes.length - 1) {
         availablePaths = [AvailableRoutes[index + 1].path];
-        availablePaths.push("/checkout/authenticate/signup");
+        if (route.name === "Authenticate") {
+          availablePaths.push("/checkout/authenticate");
+        }
       }
 
       return {

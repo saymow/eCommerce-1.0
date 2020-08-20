@@ -140,7 +140,7 @@ class OrderController {
             return {
               name,
               price,
-              image: `http://localhost:3333/images/${image}.jpg`,
+              image: `http://localhost:3333/images/products/${image}.jpg`,
             };
           });
 

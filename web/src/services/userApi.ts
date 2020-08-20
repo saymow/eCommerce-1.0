@@ -77,6 +77,18 @@ export default class ApiManager {
     return response.data.charge.receipt_url;
   }
 
+  async uploadAvatar(data: any) {
+    const response = await this.api.post("/users/avatar", data);
+
+    return response.data;
+  }
+
+  async getAvatar() {
+    const response = await this.api.get("/users/avatar");
+
+    return response.data;
+  }
+
   async getAddresses() {
     const response = await this.api.get("/users/addresses");
     return response;
@@ -105,7 +117,7 @@ export default class ApiManager {
     return true;
   }
 
-  validifyToken() {
+  async validifyToken() {
     return this.api
       .get("/account")
       .then((response) => response.data)

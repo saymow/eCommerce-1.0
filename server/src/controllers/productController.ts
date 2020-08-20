@@ -33,7 +33,7 @@ class productManager {
 
     const serializedProducts = products.map((product) => ({
       ...product,
-      image: `http://localhost:3333/images/${product.image}.jpg`,
+      image: `http://localhost:3333/images/products/${product.image}.jpg`,
     }));
 
     if (page == 1) {
@@ -55,7 +55,7 @@ class productManager {
 
     const serializedProduct = {
       ...product,
-      image: `http://localhost:3333/images/${product.image}.jpg`,
+      image: `http://localhost:3333/images/products/${product.image}.jpg`,
     };
 
     return res.json(serializedProduct);

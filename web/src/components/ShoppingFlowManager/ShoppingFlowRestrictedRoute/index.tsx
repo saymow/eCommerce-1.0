@@ -34,6 +34,8 @@ const RestrictedRoute: React.FC<Props> = ({
             <>
               <Prompt
                 message={(location) => {
+                  console.log(availablePaths);
+
                   if (
                     currentStep === 1 ||
                     !availablePaths ||
