@@ -40,6 +40,7 @@ export const LogoContainer = styled.div`
   margin-right: 2rem;
 
   > strong {
+    color: var(--background-primary);
     line-height: 3rem;
     margin-left: 0.5rem;
     font-size: 3rem;

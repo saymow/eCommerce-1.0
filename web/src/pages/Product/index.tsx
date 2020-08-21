@@ -89,19 +89,22 @@ const Product: React.FC = () => {
               <p>{product.description}</p>
             </div>
             <ProductInputs>
-              <p>Qntd:</p>
-              <select
-                value={qntd}
-                onChange={(event) => setQntd(Number(event.target.value))}
-              >
-                {[...Array(product.qntd)].map((item, index) => (
-                  <option key={index} value={index + 1}>
-                    {index + 1}
-                  </option>
-                ))}
-              </select>
-              <Button onClick={handleBuy}>Buy</Button>
-              <span>{product.qntd} items restantes.</span>
+              <strong>{product.convertedPrice}</strong>
+              <div>
+                <p>Qty:</p>
+                <select
+                  value={qntd}
+                  onChange={(event) => setQntd(Number(event.target.value))}
+                >
+                  {[...Array(product.qntd)].map((item, index) => (
+                    <option key={index} value={index + 1}>
+                      {index + 1}
+                    </option>
+                  ))}
+                </select>
+                <Button onClick={handleBuy}>Buy</Button>
+              </div>
+              <span>{product.qntd} items left.</span>
             </ProductInputs>
           </ProductInfo>
         </ProductContainer>

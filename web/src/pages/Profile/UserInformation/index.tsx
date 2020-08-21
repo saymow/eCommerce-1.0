@@ -11,6 +11,7 @@ import {
   InfoProgress,
   ChangeData,
   Button,
+  LogoutButton,
 } from "./styles";
 
 interface UserInfo {
@@ -22,7 +23,10 @@ interface UserInfo {
 }
 
 const Address: React.FC = () => {
-  const { UserApi } = useGlobalState();
+  const {
+    UserApi,
+    userController: { dispatch },
+  } = useGlobalState();
 
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
 
@@ -34,12 +38,20 @@ const Address: React.FC = () => {
     })();
   }, [UserApi]);
 
+  function logOut() {
+    UserApi.logOut();
+    dispatch({
+      type: "unset-loggedIn",
+    });
+  }
+
   return !userInfo ? (
     <LoadingBars />
   ) : (
     <Container>
       <Info>
         <div>
+          <LogoutButton onClick={logOut} />
           <Item>
             <p>Name:</p>
             <p>{userInfo.name}</p>

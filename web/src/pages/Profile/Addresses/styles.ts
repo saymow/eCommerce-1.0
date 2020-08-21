@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
-import { Plus } from "../../../Styles/icons";
+import { LibraryAdd } from "../../../Styles/icons";
 
 export const Container = styled.div`
+  height: 100%;
+  padding: 2rem 0;
+`;
+
+export const AddressesContainer = styled.article`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(auto-fill, 13rem);
-
-  height: 100%;
 
   section {
     border: 1px solid var(--shadow-lv2);
@@ -22,6 +25,8 @@ export const Container = styled.div`
 `;
 
 export const Address = styled.section`
+  border-radius: 0.5rem;
+
   p {
     font-size: 1.8rem;
     line-height: 2.6rem;
@@ -37,16 +42,32 @@ export const AddAddress = styled.section`
   align-items: center;
   justify-content: center;
 
+  border-radius: 0.5rem;
+
   > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 10rem;
+    height: 10rem;
     padding: 1rem;
     background: var(--shadow-lv1);
     border-radius: 50%;
   }
 `;
 
-export const PlusIcon = styled(Plus)`
-  width: 6rem;
-  height: 6rem;
+export const Message = styled.div`
+  margin: 4rem auto;
+  text-align: center;
+  font-size: 1.8rem;
+`;
+export const ButtonAdd = styled(LibraryAdd)`
+  cursor: pointer;
+  margin: 1.6rem 0;
+
+  width: 5rem;
+  height: 5rem;
 
   fill: var(--brand);
 `;

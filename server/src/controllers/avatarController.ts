@@ -22,6 +22,8 @@ class AvatarController {
 
     const user = await knex("users").select("avatar").where({ id }).first();
 
+    if (!user.avatar) return res.send();
+
     const serializedResponse = {
       url: "http://localhost:3333/images/user/" + user.avatar,
     };

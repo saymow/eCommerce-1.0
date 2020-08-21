@@ -32,7 +32,7 @@ export const ProductSelf = styled.div`
   margin: 3%;
   flex-basis: 27.33%;
 
-  padding: 1rem;
+  padding: .6rem;
   border: 1px solid var(--shadow-lv2);
 
   @media (max-width: 780px) {
@@ -76,8 +76,8 @@ export const ProductSelf = styled.div`
 
   span {
     position: absolute;
-    top: -1.6rem;
-    right: -1.6rem;
+    top: -1.2rem;
+    right: -1.2rem;
 
     font-size: 1.8rem;
     padding: 0.5rem;

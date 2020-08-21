@@ -48,7 +48,7 @@ export const ContentWrapper = styled.div`
   box-shadow: 3px 3px 20px var(--primary);
   padding: 15rem 0;
   width: 100%;
-  background: var(--background-secondary);
+  background: var(--background-primary);
 `;
 
 export const ContentElement = styled.div`

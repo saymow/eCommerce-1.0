@@ -10,7 +10,7 @@ export const Container = styled.div`
 export const ProfileWrapper = styled.section`
   width: 90%;
   margin: 12rem auto;
-  height: min(80vh, 480px);
+  height: min(80vh, 510px);
   padding: 1rem;
 
   border-radius: 0.5rem;
@@ -22,4 +22,14 @@ export const ProfileWrapper = styled.section`
 
 export const ContentWrapper = styled.div`
   box-shadow: var(--box-shadow);
+  overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
+  }
 `;

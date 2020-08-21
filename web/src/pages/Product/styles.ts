@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Button as DefaultButton } from "../../Styles/utils";
+
 interface FigureParams {
   image: string;
   position: string;
@@ -75,39 +77,46 @@ export const ProductInfo = styled.div`
 `;
 
 export const ProductInputs = styled.div`
+  width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 
-  select {
-    text-align: center;
-    font-size: 2rem;
-    padding: 0.3rem;
-    color: var(--primary);
-    margin-right: 0.5rem;
+  strong {
+    font-size: 4.2rem;
   }
 
   span {
     font-size: 1rem;
+    color: var(--brand);
     position: absolute;
     right: 0;
-    bottom: 0;
+    top: 0;
+  }
+
+  div {
+    display: flex;
+    align-items: flex-end;
+
+    p {
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      margin-right: 0.4rem;
+      font-weight: bold;
+    }
+
+    select {
+      text-align: center;
+      font-size: 2rem;
+      padding: 0.3rem;
+      color: var(--primary);
+      margin-right: 0.5rem;
+    }
+    margin-left: auto;
   }
 `;
 
-export const Button = styled.button`
-  cursor: pointer;
-  width: 200px;
-  background-color: var(--primary);
-  color: #fff;
-  border: 1px solid var(--primary);
-  border-radius: 0.5rem;
-  font-weight: bold;
-  padding: 1rem;
-
-  transition: all 200ms ease;
-
-  &:hover {
-    background-color: transparent;
-    color: var(--primary);
-  }
+export const Button = styled(DefaultButton)`
+  background: var(--primary);
+  margin-left: 1.2rem;
+  min-width: 12rem;
 `;

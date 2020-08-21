@@ -124,6 +124,11 @@ export default class ApiManager {
       .catch((error) => false);
   }
 
+  async logOut() {
+    localStorage.removeItem("@Auth:");
+    this.api.defaults.headers["Authorization"] = undefined;
+  }
+
   _storeToken(token: string) {
     this.api.defaults.headers["Authorization"] = "Bearer " + token;
     localStorage.setItem("@Auth:", token);

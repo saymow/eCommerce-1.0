@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { useGlobalState } from "../Context";
-
 import RestrictedRoute from "../Components/RestrictedRoute";
 
 import MainHead from "../Heads/Main";
@@ -21,10 +19,6 @@ import Footer from "../Components/Footer";
 import ModalManager from "../Components/ModalManager";
 
 const Routes: React.FC = () => {
-  const {
-    userController: { loggedIn },
-  } = useGlobalState();
-
   return (
     <>
       <MainHead />

@@ -24,7 +24,6 @@ export const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  color: #fff;
   font-size: 1.3rem;
 `;
 
@@ -42,6 +41,7 @@ export const Source = styled.div`
   > div {
     text-align: center;
     > p {
+      color: var(--background-primary);
       line-height: 1.8rem;
     }
   }
@@ -53,11 +53,16 @@ export const Infomation = styled.div`
 `;
 
 export const Title = styled.h2`
+  color: var(--background-primary);
   line-height: 4rem;
   text-transform: uppercase;
 `;
 
-export const Location = styled.div``;
+export const Location = styled.div`
+  p {
+    color: var(--background-primary);
+  }
+`;
 
 export const Menu = styled.ul`
   list-style: none;
@@ -66,19 +71,24 @@ export const Menu = styled.ul`
   flex-direction: column;
 
   > li {
+    color: var(--background-primary);
     cursor: pointer;
     text-decoration: underline;
     line-height: 2.2rem;
   }
 `;
 
-export const RecentReleases = styled.div``;
+export const RecentReleases = styled.div`
+  p {
+    color: var(--background-primary);
+  }
+`;
 
 export const Contact = styled.div``;
 
 export const SignUpForm = styled.form`
   display: flex;
-  margin: .5rem 0 1.5rem 0;
+  margin: 0.5rem 0 1.5rem 0;
 `;
 
 export const Input = styled.input`
@@ -108,6 +118,8 @@ const IconsStyles = css`
   cursor: pointer;
   height: 25px;
   width: 25px;
+
+  fill: var(--background-primary);
 
   transition: transform 200ms ease;
 

@@ -1,23 +1,14 @@
 import styled from "styled-components";
 
+import { EmojiSad } from "../../../Styles/icons";
+
 export const Container = styled.div`
   padding: 2rem 0;
   height: 100%;
-  overflow: auto;
-
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
-    border-radius: 4px;
-  }
 `;
 
 export const ItemList = styled.ul`
   padding-top: 2rem;
-
   display: flex;
   flex-direction: column;
 `;
@@ -33,14 +24,14 @@ export const ListItem = styled.li`
   align-items: flex-start;
 
   border: 1px solid var(--shadow-lv2);
-  border-radius: 0 0.5rem 0 0.5rem;
+  border-radius: 0.5rem;
 
   section:first-child h2 {
     position: absolute;
     top: -2.4rem;
     left: -0.8rem;
 
-    background: var(--background-secondary);
+    background: var(--background-primary);
     padding: 0 2rem;
 
     font-size: 2.6rem;
@@ -135,7 +126,7 @@ export const TotalPrice = styled.p`
 
   font-size: 2rem;
 
-  background: var(--background-secondary);
+  background: var(--background-primary);
   padding: 0 2rem;
 
   &:after {
@@ -150,4 +141,18 @@ export const TotalPrice = styled.p`
     background: var(--brand);
     border-radius: 0.5rem;
   }
+`;
+
+export const Message = styled.div`
+  margin: 4rem auto;
+  text-align: center;
+  font-size: 1.8rem;
+`;
+
+export const SadIcon = styled(EmojiSad)`
+  margin: 2rem 0;
+
+  color: var(--brand);
+  width: 8rem;
+  height: 8rem;
 `;

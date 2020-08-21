@@ -10,12 +10,11 @@ export { ShoppingBag } from "styled-icons/remix-fill";
 export { City } from "@styled-icons/boxicons-solid";
 export { Streetview } from "@styled-icons/material-sharp";
 export { Location } from "@styled-icons/typicons";
-export { DoneAll } from "@styled-icons/material";
+export { DoneAll, LibraryAdd } from "@styled-icons/material";
 export {
   User,
   UserCircle,
   BuildingHouse,
-  Plus,
 } from "@styled-icons/boxicons-regular";
 export {
   FacebookSquare,
@@ -27,4 +26,4 @@ export {
 } from "@styled-icons/boxicons-logos";
 export { ArrowIosForwardOutline } from "@styled-icons/evaicons-outline";
 export { UserAlt } from "@styled-icons/fa-solid";
-export { Camera } from "@styled-icons/entypo";
+export { Camera, EmojiSad, LogOut } from "@styled-icons/entypo";

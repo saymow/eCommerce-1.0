@@ -15,6 +15,8 @@ import {
   ProductList,
   Product,
   TotalPrice,
+  Message,
+  SadIcon,
 } from "./styles";
 
 interface OrderHistoryAddress extends Address {
@@ -102,101 +104,109 @@ const History: React.FC = () => {
     <LoadingBars />
   ) : (
     <Container>
-      <ItemList>
-        {orderHistory.map(
-          (
-            {
-              id,
-              raw_price,
-              shipment_price,
-              total_price,
-              createdDate,
-              createdHour,
-              delivered_at,
-              status,
-              address: { state, city, neighborhood, cep, street, number },
-              products,
-            },
-            i
-          ) => (
-            <ListItem key={i}>
-              <MainInfo>
-                <h2>
-                  <span>Id</span>: {id}
-                </h2>
-                <p>
-                  <span>Price</span>: {raw_price}
-                </p>
-                <p>
-                  <span>Shipment_price</span>: {shipment_price}
-                </p>
-                <TotalPrice>
-                  <span>Total</span>: {total_price}
-                </TotalPrice>
-                <p>
-                  <span>Date</span>: {createdDate}
-                </p>
-                <p>
-                  <span>Time</span>: {createdHour}
-                </p>
-                <p>
-                  <span>Status</span>: {status}
-                </p>
-                {delivered_at && (
+      {orderHistory.length === 0 ? (
+        <Message>
+          <h1>You haven't bought anything yet.</h1>
+          <SadIcon />
+          <p>Give us chance!</p>
+        </Message>
+      ) : (
+        <ItemList>
+          {orderHistory.map(
+            (
+              {
+                id,
+                raw_price,
+                shipment_price,
+                total_price,
+                createdDate,
+                createdHour,
+                delivered_at,
+                status,
+                address: { state, city, neighborhood, cep, street, number },
+                products,
+              },
+              i
+            ) => (
+              <ListItem key={i}>
+                <MainInfo>
+                  <h2>
+                    <span>Id</span>: {id}
+                  </h2>
                   <p>
-                    <span>Deliverd at</span>: {delivered_at}
+                    <span>Price</span>: {raw_price}
                   </p>
-                )}
-              </MainInfo>
-              <AddressInfo>
-                <h3>Address</h3>
-                <p>
-                  <span>State</span>: {state}
-                </p>
-                <p>
-                  <span>City</span>: {city}
-                </p>
-                <p>
-                  <span>Neighborhood</span>: {neighborhood}
-                </p>
-                <p>
-                  <span>Cep</span>: {cep}
-                </p>
-                <p>
-                  <span>Street</span>: {street}
-                </p>
-                <p>
-                  <span>Number</span>: {number}
-                </p>
-              </AddressInfo>
+                  <p>
+                    <span>Shipment_price</span>: {shipment_price}
+                  </p>
+                  <TotalPrice>
+                    <span>Total</span>: {total_price}
+                  </TotalPrice>
+                  <p>
+                    <span>Date</span>: {createdDate}
+                  </p>
+                  <p>
+                    <span>Time</span>: {createdHour}
+                  </p>
+                  <p>
+                    <span>Status</span>: {status}
+                  </p>
+                  {delivered_at && (
+                    <p>
+                      <span>Deliverd at</span>: {delivered_at}
+                    </p>
+                  )}
+                </MainInfo>
+                <AddressInfo>
+                  <h3>Address</h3>
+                  <p>
+                    <span>State</span>: {state}
+                  </p>
+                  <p>
+                    <span>City</span>: {city}
+                  </p>
+                  <p>
+                    <span>Neighborhood</span>: {neighborhood}
+                  </p>
+                  <p>
+                    <span>Cep</span>: {cep}
+                  </p>
+                  <p>
+                    <span>Street</span>: {street}
+                  </p>
+                  <p>
+                    <span>Number</span>: {number}
+                  </p>
+                </AddressInfo>
 
-              <ProductList>
-                {products.map(({ name, price, image }, i) => (
-                  <Product key={i}>
-                    <div>
-                      <a
-                        href={"http://localhost:3000/product/" + name}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img src={image} alt="product" />
-                      </a>
-                    </div>
-                    <div>
-                      <p>
-                        <span>Name</span>: {name}
-                      </p>
-                      <p>
-                        <span>Price</span>: {price}
-                      </p>
-                    </div>
-                  </Product>
-                ))}
-              </ProductList>
-            </ListItem>
-          )
-        )}
-      </ItemList>
+                <ProductList>
+                  {products.map(({ name, price, image }, i) => (
+                    <Product key={i}>
+                      <div>
+                        <a
+                          href={"http://localhost:3000/product/" + name}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img src={image} alt="product" />
+                        </a>
+                      </div>
+                      <div>
+                        <p>
+                          <span>Name</span>: {name}
+                        </p>
+                        <p>
+                          <span>Price</span>: {price}
+                        </p>
+                      </div>
+                    </Product>
+                  ))}
+                </ProductList>
+              </ListItem>
+            )
+          )}
+        </ItemList>
+      )}
     </Container>
   );
 };

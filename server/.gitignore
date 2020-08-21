@@ -3,4 +3,4 @@ node_modules
 **.sqlite
 types
 config
-images/user
+images/user/**

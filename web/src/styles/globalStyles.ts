@@ -28,6 +28,10 @@ export default createGlobalStyle`
     background: var(--background-primary);
   }
 
+  p, h1, h2, h3, h4, h5, h6, strong {
+    color: var(--primary);
+  }
+
   *, button, input {
     font-family: 'Montserrat', sans-serif;
     border: 0;

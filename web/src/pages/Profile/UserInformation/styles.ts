@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 import { Button as DefaultButton } from "../../../Styles/utils";
+import { LogOut } from "../../../Styles/icons";
 
 export const Container = styled.section`
+  position: relative;
   height: 100%;
 
   display: grid;
@@ -68,4 +70,15 @@ export const ChangeData = styled.div`
 export const Button = styled(DefaultButton)`
   background: var(--brand);
   width: 25%;
+`;
+
+export const LogoutButton = styled(LogOut)`
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  fill: var(--brand);
+  height: 3rem;
+  width: 3rem;
 `;
