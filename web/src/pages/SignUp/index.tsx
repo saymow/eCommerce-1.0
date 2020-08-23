@@ -6,7 +6,7 @@ import { useGlobalState } from "../../Context";
 
 import SignUpForm from "../../Components/SignUpForm";
 
-import { Container, AuthContainer, LinkWrapper, SignInIcon } from "./styles";
+import { Container, AuthContainer, FormContainer, LinkWrapper, SignInIcon } from "./styles";
 
 interface DataProps {
   name: string;
@@ -57,7 +57,9 @@ const SignUp: React.FC = () => {
   return (
     <Container>
       <AuthContainer>
-        <SignUpForm handleSubmit={handleSubmit} />
+        <FormContainer>
+          <SignUpForm handleSubmit={handleSubmit} />
+        </FormContainer>
         <LinkWrapper>
           <Link to="/signin">
             <SignInIcon /> Sign in

@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const AuthContainer = styled.main`
   position: relative;
   max-width: 560px;
-  width: 100%;
+  width: 90%;
   padding: 2rem 1rem 7rem 1rem;
   background-color: var(--shadow-lv1);
   margin: 10rem auto 0 auto;

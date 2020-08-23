@@ -9,10 +9,10 @@ export const Container = styled.div`
   min-height: 100vh;
 `;
 
-export const AuthContainer = styled.main`
+export const AuthContainer = styled.div`
   position: relative;
   max-width: 860px;
-  width: 100%;
+  width: 90%;
   padding: 2rem 1rem 5rem 1rem;
   background-color: var(--shadow-lv1);
   margin: 10rem auto 0 auto;
@@ -23,6 +23,15 @@ export const AuthContainer = styled.main`
 
   &:hover {
     background-color: var(--shadow-lv2);
+  }
+`;
+
+export const FormContainer = styled.main`
+  margin: auto;
+  width: 70%;
+
+  @media (max-width: 640px) {
+    width: 100%;
   }
 `;
 

@@ -21,14 +21,14 @@ export const Form = styled(FormikForm)`
 `;
 
 export const InputField = styled.div`
-  width: 65%;
+  width: 100%;
   margin: 1.2rem;
 `;
 
 const IconsCSS = css`
   position: absolute;
   display: block;
-  border-right: 2px solid var(--shadow-lv1);;
+  border-right: 2px solid var(--shadow-lv1);
   width: 4.2rem;
   height: 4.2rem;
 `;
@@ -55,10 +55,16 @@ export const DateIcon = styled(DateRange)`
 
 export const TwoInputsField = styled.div`
   margin: 1.2rem;
-  width: 65%;
+  width: 100%;
   display: grid;
   grid-template-columns: 3fr 2fr;
   grid-gap: 0.5rem;
+
+  @media (max-width: 420px) {
+    grid-template-columns: unset;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 2.4rem;
+  }
 `;
 
 export const Button = styled(DefaultButton)`
