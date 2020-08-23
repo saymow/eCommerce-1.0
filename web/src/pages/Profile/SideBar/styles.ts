@@ -10,9 +10,14 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
 
+  background: var(--background-primary);
   border-radius: 0.5rem;
 
   box-shadow: var(--box-shadow);
+
+  @media (max-width: 920px) {
+    height: 100%;
+  }
 `;
 
 export const Profile = styled.div`

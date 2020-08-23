@@ -8,11 +8,17 @@ export const Container = styled.section`
   height: 100%;
 
   display: grid;
-  grid-template-rows: 70% 30%;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 7fr 3fr;
+  grid-template-columns: 3fr 2fr;
   grid-template-areas:
     "info progress"
     "edit edit";
+
+  @media (max-width: 600px) {
+    grid-template-areas: "info" "progress" "edit";
+    grid-template-columns: unset;
+    grid-template-rows: 1fr 0.7fr 0.5fr;
+  }
 `;
 
 export const Info = styled.main`
@@ -69,7 +75,7 @@ export const ChangeData = styled.div`
 
 export const Button = styled(DefaultButton)`
   background: var(--brand);
-  width: 25%;
+  width: max(14.5rem, 25%);
 `;
 
 export const LogoutButton = styled(LogOut)`

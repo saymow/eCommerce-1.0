@@ -12,18 +12,11 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-export const PassIcon = styled(LockPassword)`
-  position: absolute;
-  display: block;
-  border-right: 2px solid var(--shadow-lv1);
-  width: 4.2rem;
-  height: 4.2rem;
-`;
-
 export const FormContainer = styled.main`
   position: relative;
 
-  max-width: 360px;
+  width: 90%;
+  max-width: 40rem;
   margin: 1rem;
   padding: 1rem 2rem;
 
@@ -31,47 +24,32 @@ export const FormContainer = styled.main`
   border-radius: 0.5rem;
 
   > form {
-    margin: 2.2rem 0;
-  }
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -3rem;
-
-    width: 1rem;
-    height: 6rem;
-    border-radius: 1rem;
-    background: var(--brand);
-  }
-
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: -3rem;
-
-    width: 1rem;
-    height: 6rem;
-    border-radius: 1rem;
-    background: var(--brand);
+    margin: 3rem 0;
   }
 `;
 
 export const Text = styled.div`
   h1 {
     font-size: 2.7rem;
+    margin-bottom: 1.2rem;
   }
   p {
+    font-size: 1.4rem;
     margin-top: 0.6rem;
     color: var(--secondary);
-    font-size: 1.3rem;
   }
 `;
 
 export const FieldSet = styled.div`
   margin: 1.9rem 0;
+`;
+
+export const PassIcon = styled(LockPassword)`
+  position: absolute;
+  display: block;
+  border-right: 2px solid var(--shadow-lv1);
+  width: 4.2rem;
+  height: 4.2rem;
 `;
 
 export const Button = styled(DefaultButton)`

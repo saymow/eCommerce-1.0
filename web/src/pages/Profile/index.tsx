@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import SideBar from "./SideBar";
@@ -7,13 +7,32 @@ import History from "./History";
 import Addresses from "./Addresses";
 import ChangePass from "./ChangePass";
 
-import { Container, ProfileWrapper, ContentWrapper } from "./styles";
+import {
+  Container,
+  ProfileWrapper,
+  RouteNavigatorWrapper,
+  ContentWrapper,
+  Drawer,
+} from "./styles";
 
 const Profile: React.FC = () => {
+  const [showRouteNavigator, setShowRouteNavigator] = useState(false);
+
+  function toggleRouteNavigator() {
+    setShowRouteNavigator(!showRouteNavigator);
+  }
+
   return (
     <Container>
       <ProfileWrapper>
-        <div>
+        <RouteNavigatorWrapper className={showRouteNavigator ? "opened" : ""}>
+          <Drawer onClick={toggleRouteNavigator}>
+            <div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </Drawer>
           <SideBar
             listItem={[
               {
@@ -34,7 +53,7 @@ const Profile: React.FC = () => {
               },
             ]}
           />
-        </div>
+        </RouteNavigatorWrapper>
         <ContentWrapper>
           <Switch>
             <Route path="/profile/me" component={UserInformation} />

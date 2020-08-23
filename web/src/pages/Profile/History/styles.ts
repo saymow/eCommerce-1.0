@@ -26,6 +26,24 @@ export const ListItem = styled.li`
   border: 1px solid var(--shadow-lv2);
   border-radius: 0.5rem;
 
+  @media (max-width: 680px) {
+    grid-template-areas: "info address" "products products";
+
+    grid-template-columns: unset;
+
+    section:nth-child(1) {
+      grid-area: info;
+    }
+
+    section:nth-child(2) {
+      grid-area: address;
+    }
+
+    ul:nth-child(3) {
+      grid-area: products;
+    }
+  }
+
   section:first-child h2 {
     position: absolute;
     top: -2.4rem;
@@ -76,7 +94,7 @@ export const AddressInfo = styled.section`
 
 export const ProductList = styled.ul`
   height: 80%;
-  margin: 1rem;
+  margin: 1rem 0 2rem 0;
 
   display: flex;
   align-items: flex-start;

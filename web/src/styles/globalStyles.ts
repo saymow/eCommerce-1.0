@@ -10,7 +10,7 @@ export default createGlobalStyle`
   :root {
     --brand: #6462a6;
     --background-primary: #fff;
-    --background-secondary: #f7f7f9;
+    --background-secondary: #ece7fe59;
     --primary: #353438;
     --secondary: #898980;
     --tertiary: #6c9a8b;
@@ -22,6 +22,10 @@ export default createGlobalStyle`
 
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
+
+    @media(max-width: 960px) {
+      font-size: 56.25%;
+    }
 
     @media (max-width: 720px) {
       font-size: 50%;
