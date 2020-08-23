@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { ShoppingCart, ShoppingBags, DeleteBack2 } from "./../../Styles/icons";
+import { Button as defaultButton } from "./../../Styles/utils";
 
 interface ShoppingProps {
   qntd: number;
@@ -23,8 +24,8 @@ export const Container = styled.div<ShoppingProps>`
     
     
     padding: .1rem;
-    width: 12px;
-    height: 12px;
+    width: 1.2rem;
+    height: 1.2rem;
     border-radius: 50%;
 
     color: #fff;
@@ -35,6 +36,11 @@ export const Container = styled.div<ShoppingProps>`
 export const ShoppingIcon = styled(ShoppingCart)`
   height: 3.4rem;
   width: 3.4rem;
+
+  @media (max-width: 480px) {
+    height: 2.7rem;
+    width: 2.7rem;
+  }
 `;
 
 export const Cart = styled.div`
@@ -45,7 +51,7 @@ export const Cart = styled.div`
   top: 48px;
   right: 0;
 
-  width: 320px;
+  width: min(32rem, 80vw);
   border-radius: 0 0 0.5rem 0.5rem;
   padding: 1rem 1rem 1rem 0.5rem;
   box-shadow: 1px 1px 3px var(--primary);
@@ -133,24 +139,7 @@ export const Checkout = styled.div`
   }
 `;
 
-export const Button = styled.button`
-  font-size: 1.6rem;
-  width: 305px;
-  padding: 0.8rem;
-  cursor: pointer;
-
-  background-color: var(--primary);
-  color: var(--background);
-  border: 1px solid var(--background-primary);
-  border-radius: 0.5rem;
-
-  transition: all 200ms ease-in-out;
-
-  &:hover {
-    color: var(--primary);
-    background: var(--background-primary);
-    border-color: var(--primary);
-  }
+export const Button = styled(defaultButton)`
 `;
 
 export const EmptyBag = styled.div`

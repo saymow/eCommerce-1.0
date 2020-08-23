@@ -65,8 +65,6 @@ const History: React.FC = () => {
     (async () => {
       const data = await UserApi.getOrderHistory();
 
-      console.log(data);
-
       const serializedData = data.map(
         ({
           raw_price,

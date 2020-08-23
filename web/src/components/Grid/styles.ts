@@ -9,7 +9,23 @@ export const Container = styled.div`
     "el5 el5 el3 el3 el6";
   width: 100%;
   grid-gap: 2rem;
-  border-radius: 1rem;
+
+  @media (max-width: 980px) {
+    grid-template-areas:
+      "el1 el1 el2 el2 el2"
+      "el1 el1 el2 el2 el2"
+      "el5 el5 el3 el3 el3"
+      "el5 el5 el3 el3 el3"
+      "el4 el4 el6 el6 el6";
+
+    grid-gap: 1.4rem;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-areas: "el1" "el3" "el4";
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 4rem;
+  }
 `;
 
 export const Section = styled.section`
@@ -47,12 +63,24 @@ export const Section = styled.section`
     }
   }
 
+  @media (max-width: 640px) {
+    &:not(.hasText) {
+      display: none;
+    }
+  }
+
   min-height: 120px;
   box-shadow: 3px 3px 10px var(--primary);
 
   div h3 {
     font-size: 2.5rem;
+    margin-bottom: 1rem;
     color: var(--primary);
+  }
+
+  h3,
+  p {
+    word-wrap: break-word;
   }
 
   div p {
@@ -61,6 +89,6 @@ export const Section = styled.section`
   }
 
   div:last-child {
-    padding: 0.5rem;
+    padding: 1.2rem;
   }
 `;

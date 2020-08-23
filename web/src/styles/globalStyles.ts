@@ -22,6 +22,10 @@ export default createGlobalStyle`
 
     font-family: 'Montserrat', sans-serif;
     font-size: 62.5%;
+
+    @media (max-width: 720px) {
+      font-size: 50%;
+    }
   }
 
   body {

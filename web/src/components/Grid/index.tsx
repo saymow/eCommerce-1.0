@@ -5,12 +5,12 @@ import { Container, Section } from "./styles";
 const Grid: React.FC = () => {
   return (
     <Container>
-      <Section className="el1 hasImage">
+      <Section className="el1 hasImage hasText">
         <div>
           <img src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="More status" />
         </div>
         <div>
-          <h3>Lorem, ipsum</h3>
+          <h3>Dolor sit</h3>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime
             quos cumque sint quasi dolorum praesentium cum velit. Nisi, aperiam
@@ -24,12 +24,12 @@ const Grid: React.FC = () => {
         
       </Section>
       
-      <Section className="el3 hasImage">
+      <Section className="el3 hasImage hasText">
         <div>
           <img src="https://images.pexels.com/photos/1122530/pexels-photo-1122530.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="More status" />
         </div>
         <div>
-          <h3>Lorem, ipsum</h3>
+          <h3>Consectetur</h3>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime
             quos cumque sint quasi dolorum praesentium cum velit. Nisi, aperiam
@@ -38,9 +38,9 @@ const Grid: React.FC = () => {
         </div>
       </Section>
 
-      <Section className="el4">
+      <Section className="el4 hasText">
         <div>
-          <h3>Lorem, ipsum</h3>
+          <h3>Praesentium</h3>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime
             quos cumque sint quasi dolorum praesentium cum velit. Nisi, aperiam

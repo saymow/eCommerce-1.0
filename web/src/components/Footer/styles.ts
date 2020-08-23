@@ -30,6 +30,11 @@ export const FooterContainer = styled.div`
 export const Main = styled.main`
   display: grid;
   grid-template-columns: 3fr 1fr;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 1fr;
+  }
 `;
 
 export const Source = styled.div`
@@ -43,6 +48,10 @@ export const Source = styled.div`
     > p {
       color: var(--background-primary);
       line-height: 1.8rem;
+
+      strong {
+        color: var(--background-primary);
+      }
     }
   }
 `;
@@ -50,6 +59,11 @@ export const Source = styled.div`
 export const Infomation = styled.div`
   display: flex;
   justify-content: space-evenly;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 export const Title = styled.h2`
@@ -84,7 +98,16 @@ export const RecentReleases = styled.div`
   }
 `;
 
-export const Contact = styled.div``;
+export const Contact = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @media (max-width: 640px) {
+    margin-top: 2rem;
+    align-items: center;
+  }
+`;
 
 export const SignUpForm = styled.form`
   display: flex;

@@ -21,7 +21,7 @@ export const MainContent = styled.div`
 `;
 
 export const Content = styled.div`
-  max-width: 60%;
+  max-width: 46rem;
 
   h1,
   p {
@@ -37,6 +37,16 @@ export const Content = styled.div`
   p {
     font-size: 2.5rem;
     line-height: 3.5rem;
+  }
+
+  @media (max-width: 420px) {
+    h1 {
+      font-size: 4rem;
+    }
+
+    p {
+      font-size: 2rem;
+    }
   }
 `;
 

@@ -42,8 +42,25 @@ export const LogoContainer = styled.div`
   > strong {
     color: var(--background-primary);
     line-height: 3rem;
-    margin-left: 0.5rem;
     font-size: 3rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-right: 0;
+
+    > strong {
+      line-height: unset;
+      font-size: 2rem;
+    }
+
+    > svg {
+      height: 3.2rem;
+      width: 3.2rem;
+    }
+
+    + li {
+      font-size: 1.6rem;
+    }
   }
 `;
 
@@ -54,6 +71,10 @@ export const LogoIcon = styled(ShoppingBag)`
 
 export const UserIcon = styled(UserCircle)`
   height: 3.4rem;
+
+  @media (max-width: 480px) {
+    height: 2.7rem;
+  }
 `;
 
 export const ItemList = styled.ul`
@@ -68,6 +89,10 @@ export const ListItem = styled.li`
   position: relative;
   font-size: 2.2rem;
   margin-left: 2rem;
+
+  @media (max-width: 480px) {
+    margin-left: 1rem;
+  }
 
   &::after {
     border-bottom: 2px solid var(--background-primary);
