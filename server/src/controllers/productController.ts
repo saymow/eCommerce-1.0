@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import connection from "../database/connection";
 import AppError from "../errors/AppError";
 
+import { cachefy } from "../services/cache";
+
 interface QueryList {
   page?: number;
   limit?: number;
@@ -41,6 +43,8 @@ class productManager {
       res.setHeader("X-Total-Count", count["count(*)"]);
     }
 
+    cachefy("products", serializedProducts);
+
     return res.json(serializedProducts);
   }
 
@@ -57,6 +61,8 @@ class productManager {
       ...product,
       image: `http://localhost:3333/images/products/${product.image}.jpg`,
     };
+
+    cachefy(`product ${name}`, serializedProduct);
 
     return res.json(serializedProduct);
   }

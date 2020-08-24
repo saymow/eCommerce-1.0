@@ -4,6 +4,7 @@ import knex from "./database/connection";
 import multerProducts from "./config/multer";
 import multerUser from "./config/userMulter";
 
+import { cache, productSpecializedCache } from "./services/cache";
 import Middleware from "./middleware/auth";
 import OrderModel from "./models/order_model";
 import ValidateOrder from "./middleware/validate_order";
@@ -63,8 +64,12 @@ Routes.post(
   productController.create
 );
 
-Routes.get("/", productController.list);
-Routes.get("/product/:name", productController.detailed);
+Routes.get("/products", cache("products"), productController.list);
+Routes.get(
+  "/product/:name",
+  productSpecializedCache,
+  productController.detailed
+);
 
 Routes.post(
   "/checkout",
