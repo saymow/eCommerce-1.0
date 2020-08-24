@@ -17,7 +17,7 @@ export const Form = styled.form`
   flex-direction: column;
 
   padding: 0.5rem;
-  border: 2px solid var(--primary);
+  border: 1px solid var(--primary);
   border-radius: 0.5rem;
   max-height: calc(1rem + 2rem + 20px);
 `;

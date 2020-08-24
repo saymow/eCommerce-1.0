@@ -65,7 +65,7 @@ export const Button = styled(DefaultButton)``;
 
 export const Shipping = styled.div`
   margin-top: 1rem;
-  width: 70%;
+  width: max(70%, 34rem);
   display: flex;
   flex-direction: column;
 `;

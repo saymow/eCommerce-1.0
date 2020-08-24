@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { DrawerHandler } from "../../Styles/utils";
+
 export const Container = styled.div`
   margin: auto;
   width: 100%;
@@ -44,44 +46,7 @@ export const RouteNavigatorWrapper = styled.div`
   }
 `;
 
-export const Drawer = styled.div`
-  cursor: pointer;
-  position: absolute;
-  right: -2.6rem;
-  top: 50%;
-  z-index: 3rem;
-
-
-  width: 2.6rem;
-  height: 3rem;
-  border-radius: 0 0.5rem 0.5rem 0;
-
-  background: var(--background-secondary);
-
-  display: block;
-  justify-content: center;
-  align-items: center;
-
-  div {
-    height: 70%;
-    width: 75%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-
-    div {
-      width: 100%;
-      height: 0.1rem;
-      background: var(--brand);
-    }
-  }
-
-  @media (max-width: 920px) {
-    display: flex;
-  }
-`;
+export const Drawer = styled(DrawerHandler)``;
 
 export const ContentWrapper = styled.div`
   box-shadow: var(--box-shadow);

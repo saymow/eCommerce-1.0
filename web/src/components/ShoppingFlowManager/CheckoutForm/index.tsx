@@ -81,6 +81,7 @@ const CheckoutForm: React.FC = () => {
               options={{
                 style: {
                   base: {
+                    backgroundColor: "var(--background-secondary)",
                     fontSize: "30px",
                     color: "var(--primary)",
                   },

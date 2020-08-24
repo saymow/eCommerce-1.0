@@ -11,6 +11,10 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
+export const SignUpContainer = styled.div`
+  max-width: 60rem;
+`;
+
 export const LinkWrapper = styled.span`
   position: absolute;
   bottom: 0;

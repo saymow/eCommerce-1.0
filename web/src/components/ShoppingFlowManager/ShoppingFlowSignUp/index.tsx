@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useGlobalState } from "../../../Context";
 import { useBuyingFlowState } from "../Controller";
 
-import { Container, LinkWrapper, LoginIcon } from "./styles";
+import { Container, SignUpContainer, LinkWrapper, LoginIcon } from "./styles";
 import SignUpForm from "../../SignUpForm";
 
 interface DataProps {
@@ -60,7 +60,9 @@ const SignUp: React.FC = () => {
 
   return (
     <Container>
-      <SignUpForm handleSubmit={handleSubmit} />
+      <SignUpContainer>
+        <SignUpForm handleSubmit={handleSubmit} />
+      </SignUpContainer>
       <LinkWrapper>
         <LoginIcon />
         <Link to="/checkout/authenticate">Sign in</Link>

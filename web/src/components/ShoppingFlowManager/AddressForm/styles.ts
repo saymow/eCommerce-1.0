@@ -21,7 +21,7 @@ export const Container = styled.div`
 `;
 
 export const Form = styled(formikForm)`
-  width: 70%;
+  max-width: 60rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

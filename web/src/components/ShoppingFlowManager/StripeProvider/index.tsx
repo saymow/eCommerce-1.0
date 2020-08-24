@@ -4,8 +4,6 @@ import { Elements } from "@stripe/react-stripe-js";
 
 import Checkout from "../CheckoutForm";
 
-// import { Container } from './styles';
-
 const Stripe: React.FC = () => {
   const ApiKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string;
   const StripePromise = loadStripe(ApiKey);

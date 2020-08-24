@@ -15,8 +15,8 @@ export const Container = styled.div<ShoppingProps>`
     content: "${(props) => props.qntd}";
    
     position: absolute;
-    top: 12px;
-    left: 20px;
+    top: 1.2rem;
+    left: 2rem;
 
     font-size: 1rem;
     font-weight: bold;
@@ -48,7 +48,7 @@ export const Cart = styled.div`
   display: none;
   position: absolute;
   z-index: 3;
-  top: 48px;
+  top: 4.8rem;
   right: 0;
 
   width: min(32rem, 80vw);
@@ -89,7 +89,7 @@ export const Item = styled.div`
   display: flex;
   align-items: flex-start;
 
-  height: 62px;
+  height: 6.2rem;
 
   color: #000;
 
@@ -101,23 +101,23 @@ export const Item = styled.div`
     margin-right: 0.3rem;
   }
 
-  > div > a > img {
-    height: 60px;
-  }
+  > div {
+    a > img {
+      height: 6rem;
+    }
+    p,
+    span {
+      font-size: 1.2rem;
+    }
+    div > span {
+      position: absolute;
+      bottom: 0;
+      right: 0;
 
-  > div > p,
-  span {
-    font-size: 1.2rem;
-  }
-
-  > div > span {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-
-    font-weight: bold;
-    color: var(--primary);
-    margin: 0.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 0.5rem;
+    }
   }
 `;
 
@@ -139,8 +139,7 @@ export const Checkout = styled.div`
   }
 `;
 
-export const Button = styled(defaultButton)`
-`;
+export const Button = styled(defaultButton)``;
 
 export const EmptyBag = styled.div`
   height: 20vh;

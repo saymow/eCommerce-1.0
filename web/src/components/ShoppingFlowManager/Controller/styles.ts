@@ -59,8 +59,8 @@ export const Step = styled.span.attrs(
 
   > div {
     margin-top: 3px;
-    height: 10px;
-    width: 10px;
+    height: 1rem;
+    width: 1rem;
     background-color: ${(props) =>
       props.reached ? "#0f0" : "rgba(0, 255, 0, .1)"};
     border-radius: 50%;

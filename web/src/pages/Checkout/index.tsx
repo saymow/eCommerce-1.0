@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { useGlobalState } from "../../Context/index";
@@ -15,6 +15,7 @@ import {
   Product,
   DeleteIcon,
   Information,
+  Drawer,
 } from "./styles";
 
 const Checkout: React.FC = () => {
@@ -23,6 +24,8 @@ const Checkout: React.FC = () => {
     cartManager: { cart, totalCart, totalCartConverted, dispatch },
     buyingController: { deliveryMethod, step },
   } = useGlobalState();
+
+  const [showCart, setShowCart] = useState(false);
 
   function handleDeleteProduct(id: number) {
     dispatch({
@@ -39,10 +42,21 @@ const Checkout: React.FC = () => {
     return routes.includes(pathname);
   }, [pathname]);
 
+  function handleToggleShowCart() {
+    setShowCart(!showCart);
+  }
+
   return (
     <Container>
       <CheckoutContainer onlyRightSide={onlyRightSide}>
-        <ProductRelated>
+        <ProductRelated className={showCart ? "show" : ""}>
+          <Drawer onClick={handleToggleShowCart}>
+            <div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </Drawer>
           <Products>
             {cart.map((product) => (
               <Product key={product.id} onlyRightSide={onlyRightSide}>

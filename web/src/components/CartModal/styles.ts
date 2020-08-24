@@ -6,8 +6,8 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   grid-gap: 1rem;
-  height: 420px;
-  width: 620px;
+  height: 42rem;
+  width: 62rem;
 `;
 
 export const CartProducts = styled.div`
