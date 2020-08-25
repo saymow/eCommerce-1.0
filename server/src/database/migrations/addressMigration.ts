@@ -8,7 +8,7 @@ export function up(knex: Knex) {
     table.string("neighborhood").notNullable();
     table.string("street").notNullable();
     table.integer("number", 4).notNullable();
-    table.string("cep", 9).notNullable();
+    table.string("postalCode", 9).notNullable(); //format 99999-999
 
     table.integer("user_id").notNullable().references("id").inTable("users");
   });

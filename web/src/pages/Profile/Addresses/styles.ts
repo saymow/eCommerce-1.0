@@ -16,6 +16,7 @@ export const AddressesContainer = styled.article`
     margin: 1rem;
     padding: 0.5rem;
 
+    background: var(--background-secondary);
     border: 1px solid var(--shadow-lv2);
     border-radius: 0.5rem;
   }
@@ -42,6 +43,7 @@ export const AddAddress = styled.section`
   justify-content: center;
 
   > div {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,7 +62,6 @@ export const Message = styled.div`
   font-size: 1.8rem;
 `;
 export const ButtonAdd = styled(LibraryAdd)`
-  cursor: pointer;
   margin: 1.6rem 0;
 
   width: 5rem;

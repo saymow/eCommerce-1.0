@@ -25,7 +25,7 @@ const Products: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    Api.get("/").then((response) => {
+    Api.get("/products").then((response) => {
       const data = response.data;
 
       const serializedProduct = data.map(

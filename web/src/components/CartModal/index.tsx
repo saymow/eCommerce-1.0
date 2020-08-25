@@ -15,9 +15,11 @@ import {
   DeleteIcon,
 } from "./styles";
 
-import { Modal } from "../../Types/modalRelated_types";
+interface Props {
+  closeModal: () => void;
+}
 
-const CartModal: React.FC<Modal> = ({ setShowModal }) => {
+const CartModal: React.FC<Props> = ({ closeModal }) => {
   const {
     cartManager: { cart, dispatch, totalCartConverted },
   } = useGlobalState();
@@ -25,12 +27,12 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
 
   function handleContinueBuying() {
     history.replace("/products");
-    setShowModal(false);
+    closeModal();
   }
 
   function handleCheckout() {
     history.push("/checkout");
-    setShowModal(false);
+    closeModal();
   }
 
   function handleDeleteProduct(id: number) {
@@ -43,14 +45,14 @@ const CartModal: React.FC<Modal> = ({ setShowModal }) => {
   }
 
   return (
-    <ModalMockup setShowModal={() => setShowModal(false)}>
+    <ModalMockup closeModal={closeModal}>
       <Container>
         <CartProducts>
           {cart.map((item) => (
             <CartProduct key={item.name}>
               <div>
                 <Link
-                  onClick={() => setShowModal(false)}
+                  onClick={closeModal}
                   to={{
                     pathname: `product/${item.name}`,
                     state: {

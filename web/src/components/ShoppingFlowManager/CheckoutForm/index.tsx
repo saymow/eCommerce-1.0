@@ -40,7 +40,7 @@ const CheckoutForm: React.FC = () => {
 
       setIsLoading(true);
 
-      const response = await UserApi.checkout({
+      const response = await UserApi.postOrder({
         token,
         address,
         shippment: deliveryMethod,

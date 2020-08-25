@@ -8,6 +8,7 @@ interface LocationByCep {
   bairro: string;
   uf: string;
   localidade: string;
+  cep: string;
 }
 
 export default class DeliveryManager {
@@ -16,6 +17,7 @@ export default class DeliveryManager {
     city: string;
     neighborhood: string;
     street: string;
+    cep: string;
   };
   constructor() {
     this.locationByCep = {
@@ -23,6 +25,7 @@ export default class DeliveryManager {
       city: "",
       neighborhood: "",
       street: "",
+      cep: "",
     };
   }
 
@@ -79,11 +82,14 @@ export default class DeliveryManager {
   async searchLocationByCep(cep: string) {
     await consultarCep(cep)
       .then((data: LocationByCep) => {
+        console.log(data);
+
         this._setLocationByCep({
           uf: data.uf,
           city: data.localidade,
           neighborhood: data.bairro,
           street: data.logradouro,
+          cep: data.cep,
         });
       })
       .catch((error: any) => console.log(error));
@@ -94,6 +100,7 @@ export default class DeliveryManager {
     city: string;
     neighborhood: string;
     street: string;
+    cep: string;
   }) {
     this.locationByCep = {
       ...data,

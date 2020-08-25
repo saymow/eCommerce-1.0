@@ -3,15 +3,31 @@ import React from "react";
 import { useGlobalState } from "../../Context";
 
 import CartModal from "../CartModal";
+import CreateAddressModal from "../CreateAddressModal";
 
 const ModalManager: React.FC = () => {
   const {
-    modalController: { showModal, setShowModal },
+    modalController: { config, dispatch },
   } = useGlobalState();
 
-  switch (showModal) {
-    case "cart": 
-      return <CartModal setShowModal={setShowModal}/>
+  function closeModal() {
+    dispatch({
+      type: "closed",
+    });
+  }
+
+  switch (config.name) {
+    case "closed":
+      return null;
+    case "cart":
+      return <CartModal closeModal={closeModal} />;
+    case "create-address":
+      return (
+        <CreateAddressModal
+          closeModal={closeModal}
+          cb={config.cb as () => Promise<void>}
+        />
+      );
     default:
       return null;
   }

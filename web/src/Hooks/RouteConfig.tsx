@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 
 import CepSearcher from "../Components/ShoppingFlowManager/CepSearcher";
 import Authenticate from "../Components/ShoppingFlowManager/Authenticate";
-import AddressForm from "../Components/ShoppingFlowManager/AddressForm";
+import AddressForm from "../Components/ShoppingFlowManager/Address";
 import Stripe from "../Components/ShoppingFlowManager/StripeProvider";
 import CompletedBuy from "../Components/ShoppingFlowManager/CompletedBuy";
 

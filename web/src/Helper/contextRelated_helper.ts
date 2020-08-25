@@ -8,12 +8,16 @@ import {
 } from "./cartRelated_helper";
 
 import { flowAction } from "./buyingFlowRelated_helper";
-
 import { userAction } from "./userRelated_helper";
+import {
+  initialState as modalInitialState,
+  modalAction,
+} from "./modalRelated_helper";
 
 import { Action as UserAction } from "../Types/userRelated_types";
 import { Action as CartAction } from "../Types/cartRelated_types";
 import { Action as FlowAction, Steps } from "../Types/buyingFlowRelated_types";
+import { Action as ModalAction } from "../Types/modalRelated_types";
 
 import { ContextData } from "../Types/contextRelated_types";
 
@@ -31,8 +35,8 @@ export const InitialContext: ContextData = {
     dispatch: (Action: CartAction) => null,
   },
   modalController: {
-    showModal: false,
-    setShowModal: (prevState: Boolean | string) => null,
+    config: modalInitialState,
+    dispatch: (Action: ModalAction) => null,
   },
   buyingController: {
     step: 1,
@@ -62,4 +66,6 @@ export {
   updatePrice,
   flowAction,
   userAction,
+  modalInitialState,
+  modalAction,
 };

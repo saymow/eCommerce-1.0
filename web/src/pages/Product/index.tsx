@@ -21,7 +21,7 @@ const Product: React.FC = () => {
   const { name } = useParams();
   const {
     cartManager: { dispatch },
-    modalController: { setShowModal },
+    modalController: { dispatch: modalDispatch },
   } = useGlobalState();
   const imgRef = useRef<HTMLDivElement>(null);
   const [product, setProduct] = useState<DetailedProduct | undefined>();
@@ -66,7 +66,9 @@ const Product: React.FC = () => {
         qntd,
       },
     });
-    setShowModal("cart");
+    modalDispatch({
+      type: "cart",
+    });
   }
 
   return (

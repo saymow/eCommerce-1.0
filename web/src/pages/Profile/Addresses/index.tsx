@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { useGlobalState } from "../../../Context";
 
@@ -20,14 +20,32 @@ interface AddressBackEndFormated extends AddressType {
 }
 
 const Addresses: React.FC = () => {
-  const { UserApi } = useGlobalState();
+  const {
+    UserApi,
+    modalController: { dispatch },
+  } = useGlobalState();
   const [addresses, setAddresses] = useState<AddressBackEndFormated[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    UserApi.getAddresses().then((response) => setAddresses(response.data));
-    setIsLoading(false);
+  const fetchAddresses = useCallback(async () => {
+    setIsLoading(true);
+    await UserApi.getAddresses().then((response) => {
+      console.log(response);
+      setAddresses(response.data);
+      setIsLoading(false);
+    });
   }, [UserApi]);
+
+  useEffect(() => {
+    fetchAddresses();
+  }, [fetchAddresses]);
+
+  function handleCreateAddress() {
+    dispatch({
+      type: "create-address",
+      cb: fetchAddresses,
+    });
+  }
 
   return isLoading ? (
     <LoadingBars />
@@ -42,7 +60,7 @@ const Addresses: React.FC = () => {
       ) : (
         <AddressesContainer>
           {addresses.map(
-            ({ city, neighborhood, number, state, street, cep }, i) => (
+            ({ city, neighborhood, number, state, street, postalCode }, i) => (
               <Address key={i}>
                 <p>
                   <span>Street</span>: {street}, {number}
@@ -51,7 +69,7 @@ const Addresses: React.FC = () => {
                   <span>Neighborhood</span>: {neighborhood}
                 </p>
                 <p>
-                  <span>Cep</span>: {cep}
+                  <span>Postal Code</span>: {postalCode}
                 </p>
                 <p>
                   <span>Location</span>: {city} - {state}
@@ -60,7 +78,7 @@ const Addresses: React.FC = () => {
             )
           )}
           <AddAddress>
-            <div>
+            <div onClick={handleCreateAddress}>
               <ButtonAdd />
             </div>
           </AddAddress>

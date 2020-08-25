@@ -54,7 +54,7 @@ const SideBar: React.FC<Props> = ({ listItem, image }) => {
 
     data.append("image", event.target.files[0]);
 
-    const response = await UserApi.uploadAvatar(data);
+    const response = await UserApi.postAvatar(data);
 
     console.log(response);
 

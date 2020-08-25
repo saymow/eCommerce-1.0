@@ -63,8 +63,8 @@ export default class ApiManager {
     return response.data;
   }
 
-  async checkout(data: CheckoutProp) {
-    const response = await this.api.post("/checkout", {
+  async postOrder(data: CheckoutProp) {
+    const response = await this.api.post("/order", {
       data,
     });
 
@@ -77,7 +77,7 @@ export default class ApiManager {
     return response.data.charge.receipt_url;
   }
 
-  async uploadAvatar(data: any) {
+  async postAvatar(data: any) {
     const response = await this.api.post("/users/avatar", data);
 
     return response.data;
@@ -90,8 +90,12 @@ export default class ApiManager {
   }
 
   async getAddresses() {
-    const response = await this.api.get("/users/addresses");
+    const response = await this.api.get("/users/address");
     return response;
+  }
+
+  async postAddress(data: Address) {
+    await this.api.post("/users/address", data);
   }
 
   async getPersonalInfo() {
@@ -102,7 +106,7 @@ export default class ApiManager {
   }
 
   async getOrderHistory() {
-    const response = await this.api.get("/users/purchases");
+    const response = await this.api.get("/users/purchase");
 
     return response.data;
   }

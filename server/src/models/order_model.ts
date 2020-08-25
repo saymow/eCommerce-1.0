@@ -27,6 +27,7 @@ export default celebrate({
         id: Joi.number(),
         state: Joi.string().required().length(2),
         city: Joi.string().required(),
+        postalCode: Joi.string().required(),
         neighborhood: Joi.string().required(),
         street: Joi.string().required(),
         number: Joi.number().required().max(9999),

@@ -65,6 +65,9 @@ const AddressSchema = Yup.object({
   city: Yup.string().required("City is required."),
   neighborhood: Yup.string().required("Neighborhood is required."),
   street: Yup.string().required("Street is required"),
+  postalCode: Yup.string()
+    .required("Postal code is required")
+    .matches(/(\d{5})(-{1})(\d{3})/, "Invalid format"),
   number: Yup.number()
     .required("House number is required.")
     .integer("Number must be integer.")
@@ -91,6 +94,8 @@ const cpfMask = [
 
 const dateMask = [/\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/];
 
+const postalCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/];
+
 export {
   LoginSchema,
   RegisterSchema,
@@ -98,4 +103,5 @@ export {
   AddressSchema,
   cpfMask,
   dateMask,
+  postalCodeMask,
 };

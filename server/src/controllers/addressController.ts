@@ -11,7 +11,7 @@ class AddressController {
   }
 
   async store(req: Request, res: Response) {
-    const { state, city, neighborhood, street, cep, number } = req.body;
+    const { state, city, neighborhood, street, postalCode, number } = req.body;
     const { id: user_id } = req.user;
 
     await knex("address").insert({
@@ -19,7 +19,7 @@ class AddressController {
       city,
       neighborhood,
       street,
-      cep,
+      postalCode,
       number,
       user_id,
     });

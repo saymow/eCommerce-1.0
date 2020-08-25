@@ -15,6 +15,7 @@ export {
   User,
   UserCircle,
   BuildingHouse,
+  Detail,
 } from "@styled-icons/boxicons-regular";
 export {
   FacebookSquare,

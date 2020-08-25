@@ -1,7 +1,9 @@
-export interface Modal {
-  setShowModal: (arg0: boolean) => void;
+export interface Data {
+  name: string;
+  cb?: (succeed: boolean) => Promise<void> | null;
 }
 
-export interface ModalMockup {
-  setShowModal: () => void;
-}
+export type Action =
+  | { type: "closed" }
+  | { type: "cart" }
+  | { type: "create-address"; cb: (succeed: boolean) => Promise<void> };

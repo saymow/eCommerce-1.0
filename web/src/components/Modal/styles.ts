@@ -30,4 +30,7 @@ export const ModalBox = styled.div`
   z-index: 101;
   padding: 1rem;
   border-radius: 1rem;
+
+  width: 90%;
+  max-width: 68rem;
 `;

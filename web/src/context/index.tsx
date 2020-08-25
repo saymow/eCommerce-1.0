@@ -1,7 +1,6 @@
 import React, {
   createContext,
   useContext,
-  useState,
   useEffect,
   useMemo,
   useReducer,
@@ -17,6 +16,8 @@ import {
   flowAction,
   InitialFlow,
   userAction,
+  modalAction,
+  modalInitialState,
 } from "../Helper/contextRelated_helper";
 
 import UserApiManager from "../Services/userApi";
@@ -30,7 +31,10 @@ const AppContext: React.FC = ({ children }) => {
     loadStoragedData
   );
   const [buyingFlow, buyingFlowDispatch] = useReducer(flowAction, InitialFlow);
-  const [showModal, setShowModal] = useState<string | boolean>(false);
+  const [modalConfig, modalDispatcher] = useReducer(
+    modalAction,
+    modalInitialState
+  );
 
   const [user, userDispatch] = useReducer(userAction, undefined);
 
@@ -82,8 +86,8 @@ const AppContext: React.FC = ({ children }) => {
         },
         UserApi,
         modalController: {
-          showModal,
-          setShowModal,
+          config: modalConfig,
+          dispatch: modalDispatcher,
         },
         cartManager: {
           cart: cartData.cart,

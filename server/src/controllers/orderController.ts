@@ -20,7 +20,7 @@ interface IPurchase {
   neighborhood: string;
   street: string;
   number: number;
-  cep: string;
+  postalCode: string;
   products: string;
 }
 
@@ -45,7 +45,6 @@ class OrderController {
       if (!address.id) {
         let [address_id] = await trx("address").insert({
           ...address,
-          cep: shippment.cep,
           user_id: id,
         });
 
@@ -104,7 +103,7 @@ class OrderController {
         "address.state",
         "address.city",
         "address.neighborhood",
-        "address.cep",
+        "address.postalCode",
         "address.street",
         "address.number",
         knex.raw(
@@ -128,7 +127,7 @@ class OrderController {
         city,
         neighborhood,
         street,
-        cep,
+        postalCode,
         number,
         ...props
       }) => {
@@ -147,7 +146,7 @@ class OrderController {
         return {
           ...props,
           products: orderProductsFormatedArray,
-          address: { state, city, neighborhood, street, number, cep },
+          address: { state, city, neighborhood, street, number, postalCode },
         };
       }
     );

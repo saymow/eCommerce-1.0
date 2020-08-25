@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Form as formikForm } from "formik";
 
-import { Button as DefaultButton } from "../../../Styles/utils";
+import { Button as DefaultButton } from "../../Styles/utils";
 
 import {
   City,
@@ -9,16 +9,8 @@ import {
   Home,
   BuildingHouse,
   Location,
-} from "../../../Styles/icons";
-
-export const Container = styled.div`
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+  Detail,
+} from "../../Styles/icons";
 
 export const Form = styled(formikForm)`
   max-width: 60rem;
@@ -56,15 +48,15 @@ const IconsCSS = css`
   height: 4.2rem;
 `;
 
-export const neighborhoodIcon = styled(BuildingHouse)`
+export const NeighborhoodIcon = styled(BuildingHouse)`
   ${IconsCSS}
 `;
 
-export const streetIcon = styled(Streetview)`
+export const StreetIcon = styled(Streetview)`
   ${IconsCSS}
 `;
 
-export const houseNumberIcon = styled(Home)`
+export const HouseNumberIcon = styled(Home)`
   ${IconsCSS}
 `;
 
@@ -73,5 +65,9 @@ export const CityIcon = styled(City)`
 `;
 
 export const StateIcon = styled(Location)`
+  ${IconsCSS}
+`;
+
+export const CepIcon = styled(Detail)`
   ${IconsCSS}
 `;

@@ -17,11 +17,17 @@ export const ListItem = styled.li`
   position: relative;
 
   padding-bottom: 1.6rem;
-  margin: 2.2rem 1.6rem;
+  margin: 4rem 1.6rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
 
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
   align-items: flex-start;
+
+  background: var(--background-secondary);
 
   border: 1px solid var(--shadow-lv2);
   border-radius: 0.5rem;

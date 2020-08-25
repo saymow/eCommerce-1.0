@@ -33,6 +33,7 @@ function flowAction(state: BuyingFlowState, action: Action): BuyingFlowState {
         street,
         number,
         id,
+        postalCode,
       } = action.payload;
 
       return {
@@ -45,6 +46,7 @@ function flowAction(state: BuyingFlowState, action: Action): BuyingFlowState {
           neighborhood,
           street,
           number,
+          postalCode,
         },
       };
 
