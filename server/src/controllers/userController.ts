@@ -34,6 +34,7 @@ class UserController {
           password: hash,
           cpf,
           birth_date: birthDate,
+          sex: 0,
         });
 
         // Confirmation email to be done.
@@ -92,6 +93,23 @@ class UserController {
     });
   }
 
+  async update(req: Request, res: Response) {
+    const { name, sex, birthDate, cpf, telephone } = req.body;
+    const { id } = req.user;
+
+    const response = await knex("users")
+      .update({
+        name,
+        sex,
+        cpf,
+        telephone,
+        birth_date: birthDate,
+      })
+      .where({ id });
+
+    return res.send({ response });
+  }
+
   async index(req: Request, res: Response) {
     const { id } = req.user;
 
@@ -129,6 +147,19 @@ class UserController {
       console.log(err);
       throw new AppError("Internal server error.", 500);
     }
+  }
+
+  async validifyToken(req: Request, res: Response) {
+    const { id } = req.user;
+
+    const data = await knex("users").where({ id }).first();
+
+    const { email, name } = data;
+
+    return res.send({
+      email,
+      name,
+    });
   }
 }
 
