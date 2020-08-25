@@ -22,13 +22,15 @@ routes.post("/register", userController.register);
 
 routes.get("/account", middleWare.Auth, userController.validifyToken);
 
-routes.get("/users/addresses", middleWare.Auth, addressController.index);
+routes.get("/users/address", middleWare.Auth, addressController.index);
+
+routes.post("/users/address", middleWare.Auth, addressController.store);
 
 routes.get("/users/me", middleWare.Auth, userController.index);
 
 routes.put("/users/me", middleWare.Auth, userController.update);
 
-routes.get("/users/purchases", middleWare.Auth, orderController.list);
+routes.get("/users/purchase", middleWare.Auth, orderController.list);
 
 routes.put(
   "/users/change_password",

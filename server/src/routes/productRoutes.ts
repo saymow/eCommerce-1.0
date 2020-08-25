@@ -16,14 +16,10 @@ routes.post(
   middleWare.Auth,
   middleWare.adminAuth,
   multerProducts.single("image"),
-  productController.create
+  productController.store
 );
 
-routes.get("/products", cache("products"), productController.list);
-routes.get(
-  "/product/:name",
-  productSpecializedCache,
-  productController.detailed
-);
+routes.get("/products", cache("products"), productController.index);
+routes.get("/product/:name", productSpecializedCache, productController.show);
 
 export default routes;

@@ -97,7 +97,7 @@ class UserController {
     const { name, sex, birthDate, cpf, telephone } = req.body;
     const { id } = req.user;
 
-    const response = await knex("users")
+    await knex("users")
       .update({
         name,
         sex,
@@ -107,7 +107,7 @@ class UserController {
       })
       .where({ id });
 
-    return res.send({ response });
+    return res.send();
   }
 
   async index(req: Request, res: Response) {

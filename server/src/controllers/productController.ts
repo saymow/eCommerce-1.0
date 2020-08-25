@@ -10,7 +10,7 @@ interface QueryList {
 }
 
 class productManager {
-  async create(req: Request, res: Response) {
+  async store(req: Request, res: Response) {
     const { name, description, price, qntd } = req.body;
     const image = req.file.filename;
 
@@ -25,7 +25,7 @@ class productManager {
     return res.json();
   }
 
-  async list(req: Request, res: Response) {
+  async index(req: Request, res: Response) {
     const { page = 0, limit = 999 }: QueryList = req.query;
 
     const products = await connection("products")
@@ -48,7 +48,7 @@ class productManager {
     return res.json(serializedProducts);
   }
 
-  async detailed(req: Request, res: Response) {
+  async show(req: Request, res: Response) {
     const { name } = req.params;
 
     if (!name) throw new AppError("No product name provided.", 400);
