@@ -98,6 +98,18 @@ export default class ApiManager {
     await this.api.post("/users/address", data);
   }
 
+  async deleteAddress(id: number) {
+    await this.api.delete("/users/address", {
+      data: {
+        id,
+      },
+    });
+  }
+
+  async updateAddress(data: Address) {
+    await this.api.put("/users/address", data);
+  }
+
   async getPersonalInfo() {
     console.log(this.api.defaults.headers);
     const response = await this.api.get("/users/me");

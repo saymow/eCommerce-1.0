@@ -1,7 +1,10 @@
 export { Home, LocalShipping, DateRange } from "@styled-icons/material";
 export { LockPassword, DeleteBack2 } from "@styled-icons/remix-line";
 export { ShoppingBags, CartAdd } from "@styled-icons/boxicons-solid";
-export { EmailOutline } from "@styled-icons/evaicons-outline";
+export {
+  EmailOutline,
+  ArrowIosForwardOutline,
+} from "@styled-icons/evaicons-outline";
 export { PermIdentity } from "@styled-icons/material-sharp";
 export { SignInAlt } from "@styled-icons/fa-solid";
 export { UserPlus } from "@styled-icons/feather/";
@@ -25,6 +28,6 @@ export {
   LinkedinSquare,
   Youtube,
 } from "@styled-icons/boxicons-logos";
-export { ArrowIosForwardOutline } from "@styled-icons/evaicons-outline";
 export { UserAlt } from "@styled-icons/fa-solid";
 export { Camera, EmojiSad, LogOut } from "@styled-icons/entypo";
+export { ThreeBars } from "@styled-icons/octicons";

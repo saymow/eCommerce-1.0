@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Formik } from "formik";
 
 import { useGlobalState } from "../../../Context";
-import { changePassSchema } from "../../../Helper/formRelated_helper";
+import { changePassSchema } from "../../../Helpers/formRelated_helper";
 
 import Input from "../../../Components/Input";
 

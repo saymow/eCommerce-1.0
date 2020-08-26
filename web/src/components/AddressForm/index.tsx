@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, FormikHelpers } from "formik";
 
 import api from "../../Services/api";
-import { AddressSchema, postalCodeMask } from "../../Helper/formRelated_helper";
+import { AddressSchema, postalCodeMask } from "../../Helpers/formRelated_helper";
 
 import Input from "../Input";
 import Select from "../Select";

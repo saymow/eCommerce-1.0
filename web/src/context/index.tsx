@@ -18,7 +18,7 @@ import {
   userAction,
   modalAction,
   modalInitialState,
-} from "../Helper/contextRelated_helper";
+} from "../Helpers/contextRelated_helper";
 
 import UserApiManager from "../Services/userApi";
 

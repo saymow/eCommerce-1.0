@@ -19,7 +19,7 @@ import {
   RegisterSchema,
   cpfMask,
   dateMask,
-} from "../../Helper/formRelated_helper";
+} from "../../Helpers/formRelated_helper";
 
 interface DataProps {
   name: string;

@@ -3,7 +3,8 @@ import React from "react";
 import { useGlobalState } from "../../Context";
 
 import CartModal from "../CartModal";
-import CreateAddressModal from "../CreateAddressModal";
+import CreateAddressModal from "../../Pages/Profile/Addresses/CreateAddressModal";
+import UpdateAddressModal from "../../Pages/Profile/Addresses/UpdateAddressModal";
 
 const ModalManager: React.FC = () => {
   const {
@@ -28,6 +29,15 @@ const ModalManager: React.FC = () => {
           cb={config.cb as () => Promise<void>}
         />
       );
+    case "update-address":
+      return (
+        <UpdateAddressModal
+          closeModal={closeModal}
+          cb={config.cb as () => Promise<void>}
+          address={config.payload.address}
+        />
+      );
+
     default:
       return null;
   }

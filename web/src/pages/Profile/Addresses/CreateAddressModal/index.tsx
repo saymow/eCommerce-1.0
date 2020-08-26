@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import { useGlobalState } from "../../Context";
+import { useGlobalState } from "../../../../Context";
 
-import ModalMockup from "../Modal";
-import AddressForm from "../AddressForm";
-import LoadingBars from "../LoadingBars";
+import ModalMockup from "../../../../Components/Modal";
+import AddressForm from "../../../../Components/AddressForm";
+import LoadingBars from "../../../../Components/LoadingBars";
 
 import { Container } from "./styles";
 
-import { Address } from "../../Types/buyingFlowRelated_types";
+import { Address } from "../../../../Types/buyingFlowRelated_types";
 
 interface Props {
   closeModal: () => void;
@@ -25,12 +25,12 @@ const CreateAddressModal: React.FC<Props> = ({ closeModal, cb }) => {
       setIsLoading(true);
       await UserApi.postAddress(data);
       cb();
-      closeModal();
     } catch (err) {
       alert("Something went wrong :(");
     }
 
     setIsLoading(false);
+    closeModal();
   }
 
   return (

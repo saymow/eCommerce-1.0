@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, FormikHelpers } from "formik";
 
-import { LoginSchema } from "../../Helper/formRelated_helper";
+import { LoginSchema } from "../../Helpers/formRelated_helper";
 
 import Input from "../Input";
 

@@ -20,15 +20,19 @@ routes.post("/login", userController.login);
 
 routes.post("/register", userController.register);
 
+routes.get("/users/me", middleWare.Auth, userController.index);
+
+routes.put("/users/me", middleWare.Auth, userController.update);
+
 routes.get("/account", middleWare.Auth, userController.validifyToken);
 
 routes.get("/users/address", middleWare.Auth, addressController.index);
 
 routes.post("/users/address", middleWare.Auth, addressController.store);
 
-routes.get("/users/me", middleWare.Auth, userController.index);
+routes.put("/users/address", middleWare.Auth, addressController.update);
 
-routes.put("/users/me", middleWare.Auth, userController.update);
+routes.delete("/users/address", middleWare.Auth, addressController.destroy);
 
 routes.get("/users/purchase", middleWare.Auth, orderController.list);
 

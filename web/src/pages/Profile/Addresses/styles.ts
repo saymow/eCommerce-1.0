@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-import { LibraryAdd } from "../../../Styles/icons";
+import {
+  LibraryAdd,
+  ThreeBars,
+} from "../../../Styles/icons";
 
 export const Container = styled.div`
   height: 100%;
@@ -27,6 +30,8 @@ export const AddressesContainer = styled.article`
 `;
 
 export const Address = styled.section`
+  position: relative;
+
   p {
     font-size: 1.8rem;
     line-height: 2.6rem;
@@ -35,6 +40,51 @@ export const Address = styled.section`
       font-weight: 500;
     }
   }
+`;
+
+export const OptionsDropdown = styled.div`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+
+  &:hover ul {
+    display: flex;
+  }
+
+  ul {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+    list-style: none;
+
+    border: 1px solid var(--shadow-lv2);
+    background: var(--background-primary);
+
+    width: 10rem;
+
+    li {
+      cursor: pointer;
+
+      width: 100%;
+      padding: 0.3rem;
+      text-align: left;
+      border-top: 1px solid var(--shadow-lv2);
+      color: var(--secondary);
+      font-size: 1.2rem;
+    }
+  }
+`;
+
+export const OptionsIcon = styled(ThreeBars)`
+  display: block;
+  margin-left: auto;
+  cursor: pointer;
+
+  fill: var(--brand);
+
+  width: 2rem;
+  height: 2rem;
 `;
 
 export const AddAddress = styled.section`

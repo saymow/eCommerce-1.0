@@ -11,7 +11,7 @@ import React, {
 import { Switch, useHistory } from "react-router-dom";
 
 import { useGlobalState } from "../../../Context";
-import DeliveryApiManager from "../../../Helper/deliveryRelated_helper";
+import DeliveryApiManager from "../../../Helpers/deliveryRelated_helper";
 import { useShoppingRoutes } from "../../../Hooks/RouteConfig";
 
 import RestrictedRoute from "../ShoppingFlowRestrictedRoute";
