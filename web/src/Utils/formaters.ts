@@ -12,8 +12,38 @@ function priceFormater(number: number): string {
       formatedNumberArray.unshift(stringfiedNumber[i]);
     }
   }
-  
+
   return "R$" + formatedNumberArray.join("");
 }
 
-export { priceFormater };
+const genderOptions = [
+  {
+    value: 0,
+    name: "No known",
+  },
+  {
+    value: 1,
+    name: "Male",
+  },
+  {
+    value: 2,
+    name: "Female",
+  },
+  {
+    value: 9,
+    name: "Not applicable",
+  },
+];
+
+const genderFormaterNumToStr = (num: string) =>
+  genderOptions.find(({ value }) => value === Number(num))?.name;
+
+const genderFormaterStrToNum = (value: string) =>
+  genderOptions.find(({ name }) => name === value)?.name;
+
+export {
+  priceFormater,
+  genderFormaterNumToStr,
+  genderFormaterStrToNum,
+  genderOptions,
+};

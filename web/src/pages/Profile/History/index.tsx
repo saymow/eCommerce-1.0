@@ -106,7 +106,7 @@ const History: React.FC = () => {
         <Message>
           <h1>You haven't bought anything yet.</h1>
           <SadIcon />
-          <p>Give us chance!</p>
+          <p>Give us a chance!</p>
         </Message>
       ) : (
         <ItemList>

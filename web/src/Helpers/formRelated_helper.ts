@@ -60,6 +60,29 @@ const changePassSchema = Yup.object({
     ),
 });
 
+const DetailedUserSchema = Yup.object({
+  name: Yup.string()
+    .required("Name is required.")
+    .min(4, "Name must have at least 4 characters.")
+    .max(60, "Name must have 60 characters or less."),
+  cpf: Yup.string()
+    .required("Cpf is required.")
+    .matches(
+      /(\d{3})(.{1})(\d{3})(.{1})(\d{3})(-{1})(\d{2})/,
+      "Invalid format of CPF."
+    ),
+  birth_date: Yup.string().required("Birth date is required"),
+  sex: Yup.number()
+    .required("Sex options must be filled")
+    .oneOf([0, 1, 2, 9], "Sex option invalid"),
+  telephone: Yup.string()
+    .nullable()
+    .matches(
+      /(\d{2})( {1})(\d{1})( {1})(\d{4})( {1})(\d{4})/,
+      "Invalid telephone format"
+    ),
+});
+
 const AddressSchema = Yup.object({
   state: Yup.string().required("State is required."),
   city: Yup.string().required("City is required."),
@@ -96,12 +119,31 @@ const dateMask = [/\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/];
 
 const postalCodeMask = [/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/];
 
+const telephoneMask = [
+  /\d/,
+  /\d/,
+  " ",
+  /\d/,
+  " ",
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  " ",
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];
+
 export {
   LoginSchema,
+  DetailedUserSchema,
   RegisterSchema,
   changePassSchema,
   AddressSchema,
   cpfMask,
   dateMask,
   postalCodeMask,
+  telephoneMask,
 };

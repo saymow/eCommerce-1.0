@@ -26,6 +26,12 @@ function modalAction(state: Data, action: Action): Data {
       return { name: "update-address", payload, cb };
     }
 
+    case "update-user": {
+      const { payload, cb } = action;
+
+      return { name: "update-user", payload, cb };
+    }
+
     default:
       return state;
   }

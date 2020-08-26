@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
-import {
-  LibraryAdd,
-  ThreeBars,
-} from "../../../Styles/icons";
+import { LibraryAdd, ThreeBars } from "../../../Styles/icons";
 
 export const Container = styled.div`
   height: 100%;
@@ -108,9 +105,28 @@ export const AddAddress = styled.section`
 
 export const Message = styled.div`
   margin: 4rem auto;
-  text-align: center;
   font-size: 1.8rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > div {
+    cursor: pointer;
+    width: 12rem;
+    height: 12rem;
+
+    margin: 2rem 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: var(--shadow-lv1);
+  }
 `;
+
 export const ButtonAdd = styled(LibraryAdd)`
   margin: 1.6rem 0;
 

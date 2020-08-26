@@ -73,7 +73,9 @@ const Addresses: React.FC = () => {
       {addresses.length === 0 ? (
         <Message>
           <h1>You have no addresses registered yet.</h1>
-          <ButtonAdd />
+          <div onClick={handleCreateAddress}>
+            <ButtonAdd />
+          </div>
           <p>Try out register one!</p>
         </Message>
       ) : (

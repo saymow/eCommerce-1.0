@@ -111,10 +111,13 @@ export default class ApiManager {
   }
 
   async getPersonalInfo() {
-    console.log(this.api.defaults.headers);
     const response = await this.api.get("/users/me");
 
     return response.data;
+  }
+
+  async updatePersonalInfo(data: any) {
+    await this.api.put("/users/me", data);
   }
 
   async getOrderHistory() {

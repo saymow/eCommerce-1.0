@@ -174,9 +174,9 @@ export const Message = styled.div`
 `;
 
 export const SadIcon = styled(EmojiSad)`
-  margin: 2rem 0;
+  margin: 3rem 0;
 
   color: var(--brand);
-  width: 8rem;
-  height: 8rem;
+  width: 9rem;
+  height: 9rem;
 `;

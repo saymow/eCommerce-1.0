@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import { useGlobalState } from "../../../Context";
+
+import {
+  genderFormaterNumToStr,
+  genderFormaterStrToNum,
+} from "../../../Utils/formaters";
 
 import LoadingBars from "../../../Components/LoadingBars";
 
@@ -14,34 +19,65 @@ import {
   LogoutButton,
 } from "./styles";
 
+import { UserDetailed } from "../../../Types/userRelated_types";
+
 interface UserInfo {
   email: string;
   name: string;
   birth_date: string;
   cpf: string;
   confirmed: boolean;
+  sex?: number;
+  telephone?: string;
 }
 
 const Address: React.FC = () => {
   const {
     UserApi,
     userController: { dispatch },
+    modalController: { dispatch: modalDispatch },
   } = useGlobalState();
 
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
 
-  useEffect(() => {
-    (async function getUser() {
-      const data = await UserApi.getPersonalInfo();
+  const fetchUserData = useCallback(async () => {
+    const data = await UserApi.getPersonalInfo();
 
-      setUserInfo(data);
-    })();
+    const serializedData = {
+      ...data,
+      sex: genderFormaterNumToStr(data.sex),
+    };
+
+    setUserInfo(serializedData);
   }, [UserApi]);
+
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]);
 
   function logOut() {
     UserApi.logOut();
     dispatch({
       type: "unset-loggedIn",
+    });
+  }
+
+  function handleUpdateInformation() {
+    const userDetailed = ({
+      ...userInfo,
+      sex: genderFormaterStrToNum(userInfo?.sex as unknown as string),
+      confirmed: undefined,
+      email: undefined,
+    } as unknown) as UserDetailed;
+
+    modalDispatch({
+      type: "update-user",
+      payload: {
+        user: userDetailed,
+      },
+      cb: async () => {
+        await fetchUserData();
+      },
     });
   }
 
@@ -62,13 +98,13 @@ const Address: React.FC = () => {
           </Item>
           <Item>
             <p>Sex:</p>
-            <p>Não definido</p>
+            <p>{userInfo.sex}</p>
           </Item>
         </div>
         <div>
           <Item>
             <p>Telephone:</p>
-            <p>Não definido</p>
+            <p>{userInfo.telephone || "Undefined"}</p>
           </Item>
           <Item>
             <p>Email:</p>
@@ -88,7 +124,7 @@ const Address: React.FC = () => {
             I wish to receive promotions and news.
           </label>
         </div>
-        <Button>Editar informações</Button>
+        <Button onClick={handleUpdateInformation}>Edit information</Button>
       </ChangeData>
     </Container>
   );

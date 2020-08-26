@@ -17,6 +17,14 @@ export interface UserRegister {
   birthDate: string;
 }
 
+export interface UserDetailed {
+  name: string;
+  birth_date: string;
+  cpf: string;
+  sex?: number;
+  telephone?: string;
+}
+
 export interface User {
   email: string;
   name: string;
@@ -24,4 +32,4 @@ export interface User {
 
 export type Action =
   | { type: "set-loggedIn"; payload: User }
-  | { type: "unset-loggedIn"}
+  | { type: "unset-loggedIn" };
