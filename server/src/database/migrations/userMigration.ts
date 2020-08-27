@@ -12,6 +12,7 @@ export const up = (knex: Knex) => {
     table.specificType("telephone", "cha(14)"); //031 99999-9999
     table.specificType("cpf", "char(11)").notNullable(); //99999999 99 format
     table.boolean("confirmed").defaultTo(false).notNullable();
+    table.boolean("email_signed").defaultTo(false).notNullable();
     table.boolean("adminPermission").defaultTo(false).notNullable();
   });
 };

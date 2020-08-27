@@ -63,6 +63,14 @@ export default class ApiManager {
     return response.data;
   }
 
+  async sendConfirmationEmail() {
+    await this.api.post("/users/confirmation");
+  }
+
+  async toggleSignedEmail() {
+    await this.api.post("/users/newsletter");
+  }
+
   async postOrder(data: CheckoutProp) {
     const response = await this.api.post("/order", {
       data,

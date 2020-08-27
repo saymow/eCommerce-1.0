@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 
 const Transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: Number(process.env.SMPT_PORT),
+  port: Number(process.env.SMTP_PORT),
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -31,6 +31,6 @@ export default {
       },
       subject: message.subject,
       html: message.body,
-    });
+    }).catch((error) => console.log(error));
   },
 };
