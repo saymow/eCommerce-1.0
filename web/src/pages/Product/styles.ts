@@ -22,12 +22,19 @@ export const ProductContainer = styled.div`
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: var(--box-shadow);
-  width: 100%;
-  max-width: 960px;
+  width: 90%;
+  max-width: 110rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
 
   transition: 300ms ease;
+
+  @media (max-width: 680px) {
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
   &:hover {
     background-color: var(--shadow-lv2);
@@ -44,9 +51,10 @@ export const ImageFigure = styled.figure.attrs(
   })
 )<FigureParams>`
   cursor: move;
-  width: 100%;
+  max-width: 100%;
 
   > img {
+    object-fit: contain;
     display: block;
     width: 100%;
   }
@@ -73,6 +81,37 @@ export const ProductInfo = styled.div`
   > div,
   p {
     font-size: 1.6rem;
+  }
+
+  @media (max-width: 680px) {
+    padding-left: 0;
+
+    div:first-child {
+      margin-bottom: 4rem;
+    }
+  }
+
+  @media (max-width: 460px) {
+    > div,
+    h1 {
+      font-size: 3rem;
+      strong {
+        font-size: 2.6rem;
+      }
+
+      button {
+        margin-left: 0;
+        min-width: 8rem;
+      }
+
+      select {
+        font-size: 1.6rem !important;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
   }
 `;
 

@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
 import { DeleteBack2 } from "../../Styles/icons";
+import { Button as DefaultButton } from "../../Styles/utils";
 
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 3fr 2fr;
   grid-gap: 1rem;
   height: 42rem;
-  width: 62rem;
+
+  @media (max-width: 580px) {
+  }
 `;
 
 export const CartProducts = styled.div`
@@ -39,27 +42,38 @@ export const CartProduct = styled.div`
 
   div > a > img {
     display: block;
-    max-height: 80px;
-    height: 100%;
-    width: 100%;
+    height: 8rem;
   }
 
-  div:last-child > p {
-    font-size: 1.6rem;
-  }
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
 
-  div:last-child > span {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
+    width: 70%;
+    margin: 1rem auto;
+
+    div > a > img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   div:last-child {
     padding: 0.5rem;
-  }
 
-  div:last-child > p > strong {
-    margin-right: 0.2rem;
+    > p {
+      font-size: 1.6rem;
+
+      strong {
+        margin-right: 0.2rem;
+      }
+    }
+
+    > span {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+    }
   }
 `;
 
@@ -79,20 +93,8 @@ export const ButtonsContainer = styled.div`
   flex-direction: column;
 `;
 
-export const Button = styled.button`
-  cursor: pointer;
+export const Button = styled(DefaultButton)`
   margin-top: 2rem;
-  padding: 1rem;
-  background-color: var(--primary);
-  color: #fff;
-  border: 1px solid var(--primary);
-
-  transition: all 200ms ease;
-
-  &:hover {
-    background-color: #fff;
-    color: var(--primary);
-  }
 `;
 
 export const DeleteIcon = styled(DeleteBack2)`

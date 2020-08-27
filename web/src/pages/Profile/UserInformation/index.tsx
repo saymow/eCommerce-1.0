@@ -42,8 +42,6 @@ const Address: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
   const [isEmailSigned, setIsEmailSigned] = useState(false);
 
-  console.log(userInfo);
-
   const fetchUserData = useCallback(async () => {
     const data = await UserApi.getPersonalInfo();
 
