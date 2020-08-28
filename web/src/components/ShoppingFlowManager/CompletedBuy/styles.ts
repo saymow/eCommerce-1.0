@@ -12,11 +12,12 @@ export const Container = styled.div`
 
 export const CheckMarkIcon = styled(DoneAll)`
   fill: #0f0;
-  width: 45%;
+  width: 40%;
 `;
 
 export const Text = styled.p`
   margin: 2rem;
+  max-width: 40rem;
 
   font-size: 1.8rem;
   text-align: center;

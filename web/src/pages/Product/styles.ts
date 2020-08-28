@@ -94,6 +94,7 @@ export const ProductInfo = styled.div`
   @media (max-width: 460px) {
     > div,
     h1 {
+      margin: .5rem 0 1rem;
       font-size: 3rem;
       strong {
         font-size: 2.6rem;
@@ -106,10 +107,6 @@ export const ProductInfo = styled.div`
 
       select {
         font-size: 1.6rem !important;
-      }
-
-      p {
-        font-size: 1rem;
       }
     }
   }
@@ -155,7 +152,6 @@ export const ProductInputs = styled.div`
 `;
 
 export const Button = styled(DefaultButton)`
-  background: var(--primary);
   margin-left: 1.2rem;
   min-width: 12rem;
 `;

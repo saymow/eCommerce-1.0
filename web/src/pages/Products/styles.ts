@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { EmojiSad } from "../../Styles/icons";
+
 export const Container = styled.div`
   margin: auto;
   width: 100%;
@@ -15,12 +17,95 @@ export const LoadingContainer = styled.div`
 export const ProductsWrapper = styled.div`
   margin: 10rem auto;
   width: 100%;
+  max-width: 1080px;
+`;
+
+export const FiltersWrapper = styled.header`
+  width: 100%;
+  max-width: 1080px;
+  margin: 2rem;
+  padding: 0 2rem;
+
+  > div {
+    float: right;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0.5rem;
+
+    > div:first-child {
+      display: flex;
+      align-items: center;
+
+      strong {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+      }
+
+      select {
+        margin-left: 0.5rem;
+        font-size: 1.4rem;
+        padding: 0.3rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      > div {
+        strong {
+          text-align: right;
+        }
+
+        select {
+          margin-left: 0.2rem;
+          width: 60%;
+        }
+      }
+
+      input {
+        margin-left: 1rem;
+        width: 65%;
+      }
+    }
+  }
+`;
+
+export const SearcherInput = styled.input`
+  margin-left: 1.8rem;
+
+  font-size: 2.2rem;
+  background: var(--background-secondary);
+  padding: 1rem;
+  border-radius: 0.5rem;
+`;
+
+export const NoQueryMatches = styled.div`
+  padding-top: 8rem;
+
+  width: 60%;
+  max-width: 50rem;
+
+  margin: auto;
+
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+`;
+
+export const SadIcon = styled(EmojiSad)`
+  display: block;
+  width: 9rem;
+  height: 9rem;
+
+  margin: 2rem auto;
+
+  fill: var(--brand);
 `;
 
 export const ProductList = styled.section`
-  margin: auto;
   width: 100%;
-  max-width: 1080px;
+
   padding: 0 2rem;
 
   display: flex;
@@ -32,7 +117,7 @@ export const ProductSelf = styled.div`
   margin: 3%;
   flex-basis: 27.33%;
 
-  padding: .6rem;
+  padding: 0.6rem;
   border: 1px solid var(--shadow-lv2);
 
   @media (max-width: 780px) {
