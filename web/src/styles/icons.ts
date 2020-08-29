@@ -1,16 +1,20 @@
 export { Home, LocalShipping, DateRange } from "@styled-icons/material";
 export { LockPassword, DeleteBack2 } from "@styled-icons/remix-line";
-export { ShoppingBags, CartAdd } from "@styled-icons/boxicons-solid";
+export {
+  ShoppingBags,
+  CartAdd,
+  City,
+} from "@styled-icons/boxicons-solid";
 export {
   EmailOutline,
   ArrowIosForwardOutline,
+  ArrowIosDownwardOutline
 } from "@styled-icons/evaicons-outline";
 export { PermIdentity } from "@styled-icons/material-sharp";
-export { SignInAlt } from "@styled-icons/fa-solid";
+export { SignInAlt, UserAlt } from "@styled-icons/fa-solid";
 export { UserPlus } from "@styled-icons/feather/";
 export { ShoppingCart } from "styled-icons/evaicons-solid";
 export { ShoppingBag } from "styled-icons/remix-fill";
-export { City } from "@styled-icons/boxicons-solid";
 export { Streetview } from "@styled-icons/material-sharp";
 export { Location } from "@styled-icons/typicons";
 export { DoneAll, LibraryAdd } from "@styled-icons/material";
@@ -28,6 +32,5 @@ export {
   LinkedinSquare,
   Youtube,
 } from "@styled-icons/boxicons-logos";
-export { UserAlt } from "@styled-icons/fa-solid";
 export { Camera, EmojiSad, LogOut } from "@styled-icons/entypo";
 export { ThreeBars } from "@styled-icons/octicons";

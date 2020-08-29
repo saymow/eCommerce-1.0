@@ -82,8 +82,6 @@ export default class DeliveryManager {
   async searchLocationByCep(cep: string) {
     await consultarCep(cep)
       .then((data: LocationByCep) => {
-        console.log(data);
-
         this._setLocationByCep({
           uf: data.uf,
           city: data.localidade,

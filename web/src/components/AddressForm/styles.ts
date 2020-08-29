@@ -35,8 +35,8 @@ export const TwoInputsDiv = styled.div`
 
 export const Button = styled(DefaultButton)`
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 3.5rem;
+  right: 1.5rem;
   width: 40%;
 `;
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { useBuyingFlowState } from "../Controller";
-import { useGlobalState } from "../../../Context";
+import { useGlobalState } from "../../../../Context";
+import { useBuyingFlowState } from "../../Controller";
 
-import AddressForm from "../../AddressForm";
+import AddressForm from "../../../AddressForm";
 
 import { Container } from "./styles";
 
@@ -20,11 +20,10 @@ interface FormProps extends InitialStateFromApi {
   postalCode: string;
 }
 
-const Address: React.FC = () => {
+const CreateAddressForm: React.FC = () => {
   const {
     buyingController: { dispatch },
   } = useGlobalState();
-
   const { next, DeliveryApi } = useBuyingFlowState();
 
   const [initialState, setInitialState] = useState<
@@ -75,9 +74,10 @@ const Address: React.FC = () => {
         initialState={initialState}
         submitHandler={submitHandler}
         action="next"
+        disableDefaultButton={true}
       />
     </Container>
   );
 };
 
-export default Address;
+export default CreateAddressForm;

@@ -56,8 +56,6 @@ const SideBar: React.FC<Props> = ({ listItem, image }) => {
 
     const response = await UserApi.postAvatar(data);
 
-    console.log(response);
-
     setAvatarUrl(response.url);
   }
 

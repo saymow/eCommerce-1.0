@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 
 import CepSearcher from "../Components/ShoppingFlowManager/CepSearcher";
 import Authenticate from "../Components/ShoppingFlowManager/Authenticate";
-import AddressForm from "../Components/ShoppingFlowManager/Address";
+import AddressesManager from "../Components/ShoppingFlowManager/AddressManager";
 import Stripe from "../Components/ShoppingFlowManager/StripeProvider";
 import CompletedBuy from "../Components/ShoppingFlowManager/CompletedBuy";
 
@@ -44,7 +44,7 @@ export function useShoppingRoutes(loggedIn: boolean, currentStep: number) {
         name: "Address",
         path: "/checkout/address",
         auth: true,
-        component: AddressForm,
+        component: AddressesManager,
       },
       {
         name: "Finish Buy",

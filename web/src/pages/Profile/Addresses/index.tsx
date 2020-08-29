@@ -28,7 +28,6 @@ const Addresses: React.FC = () => {
   const fetchAddresses = useCallback(async () => {
     setIsLoading(true);
     await UserApi.getAddresses().then((response) => {
-      console.log(response);
       setAddresses(response.data);
       setIsLoading(false);
     });
@@ -81,11 +80,8 @@ const Addresses: React.FC = () => {
       ) : (
         <AddressesContainer>
           {addresses.map(
-            (
-              { city, neighborhood, number, state, street, postalCode, id },
-              i
-            ) => (
-              <Address key={i}>
+            ({ city, neighborhood, number, state, street, postalCode, id }) => (
+              <Address key={id}>
                 <p>
                   <span>Street</span>: {street}, {number}
                 </p>

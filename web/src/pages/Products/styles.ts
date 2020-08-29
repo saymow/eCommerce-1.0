@@ -23,7 +23,7 @@ export const ProductsWrapper = styled.div`
 export const FiltersWrapper = styled.header`
   width: 100%;
   max-width: 1080px;
-  margin: 2rem;
+  margin: 2rem 0;
   padding: 0 2rem;
 
   > div {

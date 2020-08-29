@@ -1,0 +1,144 @@
+import React, { useState, useEffect, useCallback } from "react";
+
+import { useGlobalState } from "Context";
+import { useBuyingFlowState } from "Components/ShoppingFlowManager/Controller";
+
+import LoadingBars from "Components/LoadingBars";
+
+import { Address as AddressType } from "Types/buyingFlowRelated_types";
+
+import {
+  Container,
+  CenteredContainer,
+  AddressesContainer,
+  Address,
+  OptionsDropdown,
+  OptionsIcon,
+  Button,
+  Message,
+  SadIcon,
+} from "./styles";
+
+const ExistingAddresses: React.FC = () => {
+  const {
+    UserApi,
+    modalController: { dispatch: modalDispatch },
+    buyingController: { dispatch },
+  } = useGlobalState();
+  const { next } = useBuyingFlowState();
+  const [addresses, setAddresses] = useState<AddressType[]>([]);
+  const [selectedAddress, setSelectedAddress] = useState<
+    AddressType | undefined
+  >(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchAddresses = useCallback(async () => {
+    setIsLoading(true);
+    await UserApi.getAddresses().then((response) => {
+      setAddresses(response.data);
+      setIsLoading(false);
+    });
+  }, [UserApi]);
+
+  useEffect(() => {
+    fetchAddresses();
+  }, [fetchAddresses]);
+
+  async function handleDeleteAddress(id: number) {
+    await UserApi.deleteAddress(id);
+    await fetchAddresses();
+  }
+
+  function handleUpdateAddress(id: number) {
+    const address = addresses.find(
+      (eachAddress) => eachAddress.id === id
+    ) as AddressType;
+
+    modalDispatch({
+      type: "update-address",
+      payload: {
+        address,
+      },
+      cb: async () => {
+        await fetchAddresses();
+      },
+    });
+  }
+
+  function handlePickedAddress(id: number) {
+    let addressPicked = addresses.find((address) => address.id === id);
+
+    setSelectedAddress((prev) =>
+      prev === addressPicked ? undefined : addressPicked
+    );
+  }
+
+  function handleSelectedAddress() {
+    dispatch({
+      type: "set-address",
+      payload: selectedAddress as AddressType,
+    });
+
+    next();
+  }
+
+  return isLoading ? (
+    <CenteredContainer>
+      <LoadingBars />
+    </CenteredContainer>
+  ) : addresses.length === 0 ? (
+    <CenteredContainer>
+      <Message>
+        <h1>You don't have any address registered yet.</h1>
+        <SadIcon />
+      </Message>
+    </CenteredContainer>
+  ) : (
+    <Container>
+      <AddressesContainer>
+        {addresses.map(
+          ({ city, neighborhood, number, state, street, postalCode, id }) => (
+            <Address
+              key={id}
+              onClick={() => handlePickedAddress(id as number)}
+              className={
+                selectedAddress && selectedAddress.id === id ? "selected" : ""
+              }
+            >
+              <p>
+                <span>Street</span>: {street}, {number}
+              </p>
+              <p>
+                <span>Neighborhood</span>: {neighborhood}
+              </p>
+              <p>
+                <span>Postal Code</span>: {postalCode}
+              </p>
+              <p>
+                <span>Location</span>: {city} - {state}
+              </p>
+              <OptionsDropdown>
+                <OptionsIcon />
+                <ul>
+                  <li onClick={() => handleUpdateAddress(id as number)}>
+                    Update
+                  </li>
+                  <li onClick={() => handleDeleteAddress(id as number)}>
+                    Delete
+                  </li>
+                </ul>
+              </OptionsDropdown>
+            </Address>
+          )
+        )}
+      </AddressesContainer>
+      <div>
+        <Button onClick={handleSelectedAddress} disabled={!selectedAddress}>
+          Next
+        </Button>
+      </div>
+    </Container>
+  );
+};
+
+export default ExistingAddresses;

@@ -4,13 +4,14 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 2rem;
   width: 100%;
-  background-color: var(--brand);
+  background: var(--brand);
   border: 1px solid var(--primary);
   color: var(--background-primary);
   padding: 1rem;
   border-radius: 0.5rem;
 
-  transition: all 200ms ease;
+  transition: 200ms ease;
+  transition-property: background, color;
 
   &:hover {
     background-color: transparent;

@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Formik, FormikHelpers } from "formik";
 
 import api from "../../Services/api";
-import { AddressSchema, postalCodeMask } from "../../Helpers/formRelated_helper";
+import {
+  AddressSchema,
+  postalCodeMask,
+} from "../../Helpers/formRelated_helper";
 
 import Input from "../Input";
 import Select from "../Select";
@@ -52,12 +55,14 @@ interface Props {
     values: FormProps,
     formik: FormikHelpers<FormProps>
   ): Promise<void>;
+  disableDefaultButton?: boolean;
 }
 
 const AddressForm: React.FC<Props> = ({
   initialState,
   submitHandler,
   action,
+  disableDefaultButton,
 }) => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -76,8 +81,9 @@ const AddressForm: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    const initialValue = initialState ? initialState.state : "RO";
-
+    const initialValue =
+      initialState && initialState.state ? initialState.state : "RO";
+      
     api
       .get(
         `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${
@@ -106,7 +112,7 @@ const AddressForm: React.FC<Props> = ({
       validationSchema={AddressSchema}
       onSubmit={submitHandler}
     >
-      <Form>
+      <Form id={disableDefaultButton ? "AddressForm" : ""}>
         <TwoInputsDiv>
           <InputDiv>
             <Select
@@ -170,7 +176,7 @@ const AddressForm: React.FC<Props> = ({
             />
           </InputDiv>
         </TwoInputsDiv>
-        <Button type="submit">{action}</Button>
+        {!disableDefaultButton && <Button type="submit">{action}</Button>}
       </Form>
     </Formik>
   );
