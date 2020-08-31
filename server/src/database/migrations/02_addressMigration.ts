@@ -1,7 +1,7 @@
 import Knex from "knex";
 
 export function up(knex: Knex) {
-  return knex.schema.createTable("address", (table) => {
+  return knex.schema.createTable("addresses", (table) => {
     table.increments("id").primary();
     table.string("state", 2).notNullable();
     table.string("city").notNullable();

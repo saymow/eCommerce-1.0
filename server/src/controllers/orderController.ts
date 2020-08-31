@@ -43,28 +43,32 @@ class OrderController {
       const amount = Math.round(raw_price + shipment_price);
 
       if (!address.id) {
-        let [address_id] = await trx("address").insert({
+        await trx("addresses").insert({
           ...address,
           user_id: id,
         });
-
-        address.id = address_id;
       }
 
-      const [order_id] = await trx("purchases").insert({
+      let [address_id] = await trx("order_address").insert({
+        ...address,
+      });
+
+      address_id = address_id;
+
+      const [order_id] = await trx("orders").insert({
+        address_id,
         user_id: id,
         status: "Processing",
         raw_price,
         shipment_price,
-        address_id: address.id,
       });
 
       const serializedPurchase_products = products.map((product) => ({
+        order_id,
         product_id: product.id,
-        purchase_id: order_id,
       }));
 
-      await trx("purchase_products").insert(serializedPurchase_products);
+      await trx("order_products").insert(serializedPurchase_products);
 
       const charge = await postCharge({
         name,
@@ -83,8 +87,8 @@ class OrderController {
         charge,
       });
     } catch (err) {
-      await trx.rollback();
       console.log(err);
+      await trx.rollback();
       throw new AppError("Order error, please retry later.", 400);
     }
   }
@@ -92,33 +96,29 @@ class OrderController {
   async list(req: Request, res: Response) {
     const { id } = req.user;
 
-    const data: IPurchase[] = await knex("purchases")
+    const data: IPurchase[] = await knex("orders")
       .select(
-        "purchases.id",
-        "purchases.status",
-        "purchases.raw_price",
-        "purchases.shipment_price",
-        "purchases.created_at",
-        "purchases.delivered_at",
-        "address.state",
-        "address.city",
-        "address.neighborhood",
-        "address.postalCode",
-        "address.street",
-        "address.number",
+        "orders.id",
+        "orders.status",
+        "orders.raw_price",
+        "orders.shipment_price",
+        "orders.created_at",
+        "orders.delivered_at",
+        "order_address.state",
+        "order_address.city",
+        "order_address.neighborhood",
+        "order_address.postalCode",
+        "order_address.street",
+        "order_address.number",
         knex.raw(
           "GROUP_CONCAT(products.name||';'||products.price||';'||products.image) as products"
         )
       )
-      .join("address", "purchases.address_id", "address.id")
-      .join(
-        "purchase_products",
-        "purchase_products.purchase_id",
-        "purchases.id"
-      )
-      .join("products", "products.id", "purchase_products.product_id")
-      .where("purchases.user_id", id)
-      .groupBy("purchases.id");
+      .join("order_address", "orders.address_id", "order_address.id")
+      .join("order_products", "order_products.order_id", "orders.id")
+      .join("products", "products.id", "order_products.product_id")
+      .where("orders.user_id", id)
+      .groupBy("orders.id");
 
     const serializedData = data.map(
       ({

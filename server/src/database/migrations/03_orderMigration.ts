@@ -1,7 +1,7 @@
 import Knex from "knex";
 
 export function up(knex: Knex) {
-  return knex.schema.createTable("purchases", (table) => {
+  return knex.schema.createTable("orders", (table) => {
     table.increments().primary();
     table.integer("user_id").notNullable();
     table.string("status").notNullable();

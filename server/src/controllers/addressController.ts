@@ -5,7 +5,7 @@ class AddressController {
   async index(req: Request, res: Response) {
     const { id } = req.user;
 
-    const response = await knex("address").select("*").where({ user_id: id });
+    const response = await knex("addresses").select("*").where({ user_id: id });
 
     return res.send(response);
   }
@@ -14,7 +14,7 @@ class AddressController {
     const { state, city, neighborhood, street, postalCode, number } = req.body;
     const { id: user_id } = req.user;
 
-    await knex("address").insert({
+    await knex("addresses").insert({
       state,
       city,
       neighborhood,
@@ -39,7 +39,7 @@ class AddressController {
     } = req.body;
     const { id: user_id } = req.user;
 
-    await knex("address")
+    await knex("addresses")
       .update({
         state,
         city,
@@ -60,7 +60,7 @@ class AddressController {
     const { id } = req.body;
     const { id: user_id } = req.user;
 
-    await knex("address").delete().where({ id, user_id });
+    await knex("addresses").delete().where({ id, user_id });
 
     res.send();
   }

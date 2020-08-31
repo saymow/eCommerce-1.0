@@ -1,14 +1,14 @@
 import Knex from "knex";
 
 export function up(knex: Knex) {
-  return knex.schema.createTable("purchase_products", (table) => {
+  return knex.schema.createTable("order_products", (table) => {
     table.increments("id").primary();
 
     table
-      .integer("purchase_id")
+      .integer("order_id")
       .notNullable()
       .references("id")
-      .inTable("purchases");
+      .inTable("orders");
 
     table
       .integer("product_id")
