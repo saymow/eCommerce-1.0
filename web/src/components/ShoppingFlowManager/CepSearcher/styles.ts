@@ -42,11 +42,22 @@ export const Form = styled.form`
   width: 100%;
 
   > div:first-child {
-    margin-top: 2rem;
+    position: relative;
+    padding: 1rem;
+
+    span {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #f00;
+    } 
   }
 
   > div:last-child {
-    margin: 2rem 0;
+    margin: 1rem 0 2rem 0;
   }
 `;
 

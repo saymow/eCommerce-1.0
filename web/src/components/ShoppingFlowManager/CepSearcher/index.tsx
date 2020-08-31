@@ -35,9 +35,14 @@ const CepSearcher: React.FC = () => {
     DeliveryResponse | undefined
   >(undefined);
   const [apiLoading, setApiLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
 
   function handleCepUpdate(value: string) {
     let text = value.replace(/^(\d{5})(\d{1,3})/, "$1-$2");
+
+    if (errorMessage) setErrorMessage(undefined);
 
     setCep(text);
   }
@@ -57,14 +62,14 @@ const CepSearcher: React.FC = () => {
       0
     );
 
-    const options = await DeliveryApi.calcDelivery(cep, qntdProducts);
+    DeliveryApi.calcDelivery(cep, qntdProducts, (err, data) => {
+      if (err || !data) {
+        setErrorMessage(err ? err.message : "Unexpected error");
+      }
+      setshippmentMethods(data);
+      setApiLoading(false);
+    });
 
-    if (!options) {
-      return alert("Error");
-    }
-
-    setshippmentMethods(options);
-    setApiLoading(false);
   }
 
   async function handleCepChoosed() {
@@ -83,8 +88,6 @@ const CepSearcher: React.FC = () => {
       },
     });
 
-    await DeliveryApi.searchLocationByCep(cep);
-
     next();
   }
 
@@ -96,6 +99,7 @@ const CepSearcher: React.FC = () => {
 
       <Form onSubmit={handleFormSubmit}>
         <div>
+          <span>{errorMessage}</span>
           <Input
             type="text"
             placeholder="Type your cep here."

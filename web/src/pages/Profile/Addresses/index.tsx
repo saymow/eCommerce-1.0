@@ -26,16 +26,10 @@ const Addresses: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchAddresses = useCallback(async () => {
-    // setIsLoading(true);
-    // await UserApi.getAddresses().then((response) => {
-    //   setAddresses(response.data);
-    //   setIsLoading(false);
-    // });
-
     try {
       const response = await UserApi.getAddresses();
 
-      setAddresses(response.data);
+      setAddresses(response);
     } catch (err) {
       const { message } = err.response.data;
       modalDispatch({

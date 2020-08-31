@@ -68,7 +68,7 @@ const History: React.FC = () => {
     (async () => {
       try {
         const data = await UserApi.getOrderHistory();
-
+        
         const serializedData = data.map(
           ({
             raw_price,
@@ -135,7 +135,14 @@ const History: React.FC = () => {
                 createdHour,
                 delivered_at,
                 status,
-                address: { state, city, neighborhood, cep, street, number },
+                address: {
+                  state,
+                  city,
+                  neighborhood,
+                  postalCode,
+                  street,
+                  number,
+                },
                 products,
               },
               i
@@ -181,7 +188,7 @@ const History: React.FC = () => {
                     <span>Neighborhood</span>: {neighborhood}
                   </p>
                   <p>
-                    <span>Cep</span>: {cep}
+                    <span>Postal code</span>: {postalCode}
                   </p>
                   <p>
                     <span>Street</span>: {street}

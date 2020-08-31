@@ -11,6 +11,15 @@ interface LocationByCep {
   cep: string;
 }
 
+interface Error {
+  message: string;
+}
+
+type cb = (
+  error: Error | undefined,
+  data: DeliveryResponse[] | undefined
+) => void;
+
 export default class DeliveryManager {
   locationByCep: {
     uf: string;
@@ -29,10 +38,7 @@ export default class DeliveryManager {
     };
   }
 
-  async calcDelivery(
-    cep: string,
-    qntd: number
-  ): Promise<DeliveryResponse[] | undefined> {
+  async calcDelivery(cep: string, qntd: number, cb: cb) {
     let Services = {
       Sedex: "04014",
       Pac: "04510",
@@ -54,29 +60,40 @@ export default class DeliveryManager {
       nCdServico: Services[service as Services],
     }));
 
-    const data: DeliveryResponse[] = await Promise.all(
-      args.map((arg) => {
-        return calcularPrecoPrazo(arg);
-      })
-    );
+    try {
+      const data: DeliveryResponse[] = await Promise.all(
+        args.map((arg) => {
+          return calcularPrecoPrazo(arg);
+        })
+      );
 
-    if (
-      data.find(
-        (option) => option.MsgErro || option?.message === "Failed to fetch"
-      )
-    ) {
-      return;
+      if (
+        data.find(
+          (option) => option.MsgErro || option?.message === "Failed to fetch"
+        )
+      ) {
+        throw Error("Failed to connect with correios api");
+      }
+
+      await this.searchLocationByCep(cep);
+
+      const serializedData = data.map((option) => ({
+        ...option,
+        Metodo: Object.keys(Services).find(
+          (service) => Services[service as Services] === option.Codigo
+        ),
+        Valor: option.Valor.replace(",", "."),
+      }));
+
+      return cb(undefined, serializedData);
+    } catch (err) {
+      return cb(
+        {
+          message: err.message,
+        },
+        undefined
+      );
     }
-
-    const serializedData = data.map((option) => ({
-      ...option,
-      Metodo: Object.keys(Services).find(
-        (service) => Services[service as Services] === option.Codigo
-      ),
-      Valor: option.Valor.replace(",", "."),
-    }));
-
-    return serializedData;
   }
 
   async searchLocationByCep(cep: string) {
@@ -90,7 +107,9 @@ export default class DeliveryManager {
           cep: data.cep,
         });
       })
-      .catch((error: any) => console.log(error));
+      .catch((error: any) => {
+        throw new Error("Invalid postal code.");
+      });
   }
 
   _setLocationByCep(data: {
