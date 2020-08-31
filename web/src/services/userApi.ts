@@ -99,7 +99,7 @@ export default class ApiManager {
 
   async getAddresses() {
     const response = await this.api.get("/users/address");
-    return response;
+    return response.data;
   }
 
   async postAddress(data: Address) {
@@ -148,7 +148,7 @@ export default class ApiManager {
     return this.api
       .get("/account")
       .then((response) => response.data)
-      .catch((error) => false);
+      .catch((error) => localStorage.removeItem("@Auth:"));
   }
 
   async logOut() {

@@ -4,11 +4,12 @@ export {
   ShoppingBags,
   CartAdd,
   City,
+  Error,
 } from "@styled-icons/boxicons-solid";
 export {
   EmailOutline,
   ArrowIosForwardOutline,
-  ArrowIosDownwardOutline
+  ArrowIosDownwardOutline,
 } from "@styled-icons/evaicons-outline";
 export { PermIdentity } from "@styled-icons/material-sharp";
 export { SignInAlt, UserAlt } from "@styled-icons/fa-solid";

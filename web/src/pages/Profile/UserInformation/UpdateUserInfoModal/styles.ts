@@ -12,6 +12,10 @@ import { Button as DefaultButton } from "../../../../Styles/utils";
 
 export const Container = styled.main`
   padding: 2rem;
+
+  background: var(--background-primary);
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
 `;
 
 export const Form = styled(formikForm)`

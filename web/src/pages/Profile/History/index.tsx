@@ -57,46 +57,60 @@ interface PropsOrderHistoryServer {
 }
 
 const History: React.FC = () => {
-  const { UserApi } = useGlobalState();
+  const {
+    UserApi,
+    modalController: { dispatch: modalDispatch },
+  } = useGlobalState();
   const [orderHistory, setOrderHistory] = useState<PropsOrderHistory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const data = await UserApi.getOrderHistory();
+      try {
+        const data = await UserApi.getOrderHistory();
 
-      const serializedData = data.map(
-        ({
-          raw_price,
-          shipment_price,
-          created_at,
-          products,
-          ...props
-        }: PropsOrderHistoryServer) => {
-          let [createdDate, createdHour] = created_at.split(" ");
+        const serializedData = data.map(
+          ({
+            raw_price,
+            shipment_price,
+            created_at,
+            products,
+            ...props
+          }: PropsOrderHistoryServer) => {
+            let [createdDate, createdHour] = created_at.split(" ");
 
-          const serializedProducts = products.map(({ price, ...props }) => ({
-            ...props,
-            price: priceFormater(price),
-          }));
+            const serializedProducts = products.map(({ price, ...props }) => ({
+              ...props,
+              price: priceFormater(price),
+            }));
 
-          return {
-            ...props,
-            createdDate,
-            createdHour,
-            products: serializedProducts,
-            raw_price: priceFormater(raw_price),
-            shipment_price: priceFormater(shipment_price),
-            total_price: priceFormater(raw_price + shipment_price),
-          };
-        }
-      );
+            return {
+              ...props,
+              createdDate,
+              createdHour,
+              products: serializedProducts,
+              raw_price: priceFormater(raw_price),
+              shipment_price: priceFormater(shipment_price),
+              total_price: priceFormater(raw_price + shipment_price),
+            };
+          }
+        );
+
+        setOrderHistory(serializedData);
+      } catch (err) {
+        const { message } = err.response.data;
+        modalDispatch({
+          type: "error",
+          payload: {
+            title: "Network connection error",
+            message,
+          },
+        });
+      }
 
       setIsLoading(false);
-
-      setOrderHistory(serializedData);
     })();
-  }, [UserApi]);
+  }, [UserApi, modalDispatch]);
 
   return isLoading ? (
     <LoadingBars />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, MouseEvent } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { useGlobalState } from "../../Context";
 import Api from "../../Services/api";
@@ -19,6 +19,8 @@ import { priceFormater } from "../../Utils/formaters";
 
 const Product: React.FC = () => {
   const { name } = useParams();
+  const history = useHistory();
+
   const {
     cartManager: { dispatch },
     modalController: { dispatch: modalDispatch },
@@ -29,17 +31,31 @@ const Product: React.FC = () => {
   const [qntd, setQntd] = useState(1);
 
   useEffect(() => {
-    Api.get(`product/${name}`).then((response) => {
-      if (!response.data) alert("Error");
+    (async () => {
+      try {
+        const response = await Api.get(`product/${name}`);
 
-      const serializedProduct = {
-        ...response.data,
-        convertedPrice: priceFormater(response.data.price),
-      };
+        const serializedProduct = {
+          ...response.data,
+          convertedPrice: priceFormater(response.data.price),
+        };
 
-      setProduct(serializedProduct);
-    });
-  }, [name]);
+        setProduct(serializedProduct);
+      } catch (err) {
+        const { message } = err.response.data;
+        modalDispatch({
+          type: "error",
+          payload: {
+            title: "Network connection error",
+            message,
+          },
+          cb: () => {
+            history.push("/products");
+          },
+        });
+      }
+    })();
+  }, [name, modalDispatch, history]);
 
   function handleMouseMove(event: MouseEvent) {
     if (!imgRef.current) return;

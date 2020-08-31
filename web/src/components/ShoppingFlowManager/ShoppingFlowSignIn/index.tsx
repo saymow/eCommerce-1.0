@@ -18,7 +18,8 @@ const SignIn: React.FC = () => {
   const { next } = useBuyingFlowState();
   const {
     userController: { dispatch },
-    buyingController: { dispatch: FlowDispatcher },
+    buyingController: { dispatch: FlowDispatch },
+    modalController: { dispatch: modalDispatch },
     UserApi,
   } = useGlobalState();
 
@@ -39,13 +40,24 @@ const SignIn: React.FC = () => {
         },
       });
 
-      FlowDispatcher({
+      FlowDispatch({
         type: "set-logged",
       });
 
       next();
     } catch (err) {
-      setErrors(err.response.data);
+      if (err.response.status === 409) {
+        return setErrors(err.response.data);
+      }
+
+      const { message } = err.response.data;
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
     }
   }
 

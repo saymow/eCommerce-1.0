@@ -9,8 +9,9 @@ export const Container = styled.div`
   grid-gap: 1rem;
   height: 42rem;
 
-  @media (max-width: 580px) {
-  }
+  background: var(--background-primary);
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
 `;
 
 export const CartProducts = styled.div`
@@ -45,19 +46,6 @@ export const CartProduct = styled.div`
     height: 8rem;
   }
 
-  @media (max-width: 520px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-
-    width: 70%;
-    margin: 1rem auto;
-
-    div > a > img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
   div:last-child {
     padding: 0.5rem;
 
@@ -73,6 +61,19 @@ export const CartProduct = styled.div`
       position: absolute;
       bottom: 5px;
       right: 5px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    width: 70%;
+    margin: 1rem auto;
+
+    div > a > img {
+      width: 100%;
+      height: 100%;
     }
   }
 `;

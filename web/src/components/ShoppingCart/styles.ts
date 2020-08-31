@@ -13,7 +13,7 @@ export const Container = styled.div<ShoppingProps>`
   &::after {
     display: ${(props) => (props.qntd > 0 ? "inline" : "none")};
     content: "${(props) => props.qntd}";
-   
+
     position: absolute;
     top: 1.2rem;
     left: 2rem;
@@ -21,9 +21,8 @@ export const Container = styled.div<ShoppingProps>`
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
-    
-    
-    padding: .1rem;
+
+    padding: 0.1rem;
     width: 1.2rem;
     height: 1.2rem;
     border-radius: 50%;
@@ -65,7 +64,7 @@ export const Cart = styled.div`
   }
 `;
 
-export const ListItem = styled.div`
+export const ListItem = styled.ul`
   height: 30vh;
   overflow: auto;
 
@@ -81,7 +80,7 @@ export const ListItem = styled.div`
   }
 `;
 
-export const Item = styled.div`
+export const Item = styled.li`
   margin-top: 1rem;
   position: relative;
 
@@ -95,28 +94,29 @@ export const Item = styled.div`
 
   div:last-child {
     padding: 0.5rem;
-  }
 
-  strong {
-    margin-right: 0.3rem;
-  }
-
-  > div {
-    a > img {
-      height: 6rem;
+    strong {
+      margin-right: 0.3rem;
     }
+
     p,
     span {
       font-size: 1.2rem;
     }
-    div > span {
+
+    span {
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 0.2rem;
+      right: 0.2rem;
 
       font-weight: bold;
       color: var(--primary);
-      margin: 0.5rem;
+    }
+  }
+
+  div {
+    a > img {
+      height: 6rem;
     }
   }
 `;

@@ -20,25 +20,42 @@ import {
 const Addresses: React.FC = () => {
   const {
     UserApi,
-    modalController: { dispatch },
+    modalController: { dispatch: modalDispatch },
   } = useGlobalState();
   const [addresses, setAddresses] = useState<AddressType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchAddresses = useCallback(async () => {
-    setIsLoading(true);
-    await UserApi.getAddresses().then((response) => {
+    // setIsLoading(true);
+    // await UserApi.getAddresses().then((response) => {
+    //   setAddresses(response.data);
+    //   setIsLoading(false);
+    // });
+
+    try {
+      const response = await UserApi.getAddresses();
+
       setAddresses(response.data);
-      setIsLoading(false);
-    });
-  }, [UserApi]);
+    } catch (err) {
+      const { message } = err.response.data;
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
+    }
+
+    setIsLoading(false);
+  }, [UserApi, modalDispatch]);
 
   useEffect(() => {
     fetchAddresses();
   }, [fetchAddresses]);
 
   function handleCreateAddress() {
-    dispatch({
+    modalDispatch({
       type: "create-address",
       cb: fetchAddresses,
     });
@@ -54,7 +71,7 @@ const Addresses: React.FC = () => {
       (eachAddress) => eachAddress.id === id
     ) as AddressType;
 
-    dispatch({
+    modalDispatch({
       type: "update-address",
       payload: {
         address,

@@ -43,19 +43,30 @@ const Address: React.FC = () => {
   const [isEmailSigned, setIsEmailSigned] = useState(false);
 
   const fetchUserData = useCallback(async () => {
-    const data = await UserApi.getPersonalInfo();
+    try {
+      const data = await UserApi.getPersonalInfo();
 
-    const serializedData = {
-      ...data,
-      confirmed: data.confirmed === 1 ? true : 0,
-      email_signed: data.email_signed === 1 ? true : 0,
-      sex: genderFormaterNumToStr(data.sex),
-    };
+      const serializedData = {
+        ...data,
+        confirmed: data.confirmed === 1 ? true : 0,
+        email_signed: data.email_signed === 1 ? true : 0,
+        sex: genderFormaterNumToStr(data.sex),
+      };
 
-    setIsEmailSigned(data.email_signed === 1 ? true : false);
+      setIsEmailSigned(data.email_signed === 1 ? true : false);
 
-    setUserInfo(serializedData);
-  }, [UserApi]);
+      setUserInfo(serializedData);
+    } catch (err) {
+      const { message } = err.response.data;
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
+    }
+  }, [UserApi, modalDispatch]);
 
   useEffect(() => {
     fetchUserData();

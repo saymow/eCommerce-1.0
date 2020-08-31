@@ -16,7 +16,10 @@ interface Props {
 }
 
 const CreateAddressModal: React.FC<Props> = ({ closeModal, cb }) => {
-  const { UserApi } = useGlobalState();
+  const {
+    UserApi,
+    modalController: { dispatch: modalDispatch },
+  } = useGlobalState();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,7 +29,14 @@ const CreateAddressModal: React.FC<Props> = ({ closeModal, cb }) => {
       await UserApi.postAddress(data);
       cb();
     } catch (err) {
-      alert("Something went wrong :(");
+      const { message } = err.response.data;
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
     }
 
     setIsLoading(false);

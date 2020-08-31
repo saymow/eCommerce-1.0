@@ -25,7 +25,10 @@ type FormProperties =
   | "street";
 
 const UpdateAddressModal: React.FC<Props> = ({ closeModal, cb, address }) => {
-  const { UserApi } = useGlobalState();
+  const {
+    UserApi,
+    modalController: { dispatch: modalDispatch },
+  } = useGlobalState();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +44,14 @@ const UpdateAddressModal: React.FC<Props> = ({ closeModal, cb, address }) => {
       await UserApi.updateAddress(data);
       cb();
     } catch (err) {
-      alert("Something went wrong :(");
+      const { message } = err.response.data;
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
     }
 
     setIsLoading(false);

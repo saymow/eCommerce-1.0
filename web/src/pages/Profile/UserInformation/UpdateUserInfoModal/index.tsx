@@ -37,7 +37,10 @@ interface Props {
 }
 
 const UpdateUserInfoModal: React.FC<Props> = ({ closeModal, cb, user }) => {
-  const { UserApi } = useGlobalState();
+  const {
+    UserApi,
+    modalController: { dispatch: modalDispatch },
+  } = useGlobalState();
 
   return (
     <ModalMockup closeModal={closeModal}>
@@ -50,7 +53,19 @@ const UpdateUserInfoModal: React.FC<Props> = ({ closeModal, cb, user }) => {
           }}
           validationSchema={DetailedUserSchema}
           onSubmit={async (values) => {
-            await UserApi.updatePersonalInfo(values);
+            try {
+              await UserApi.updatePersonalInfo(values);
+            } catch (err) {
+              const { message } = err.response.data;
+              modalDispatch({
+                type: "error",
+                payload: {
+                  title: "Network connection error",
+                  message,
+                },
+              });
+            }
+
             cb();
             closeModal();
           }}

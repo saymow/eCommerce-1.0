@@ -16,7 +16,10 @@ import {
 } from "./styles";
 
 const ChangePass: React.FC = () => {
-  const { UserApi } = useGlobalState();
+  const {
+    UserApi,
+    modalController: { dispatch: modalDispatch },
+  } = useGlobalState();
 
   return (
     <Container>
@@ -39,9 +42,15 @@ const ChangePass: React.FC = () => {
               await UserApi.changePass(password, newPassword);
 
               alert("password was changed!");
-            } catch (error) {
-              if (error.response.status === 409) setErrors(error.response.data);
-              else console.log(error.response);
+            } catch (err) {
+              const { message } = err.response.data;
+              modalDispatch({
+                type: "error",
+                payload: {
+                  title: "Network connection error",
+                  message,
+                },
+              });
             }
           }}
         >

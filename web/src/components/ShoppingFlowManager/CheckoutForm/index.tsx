@@ -16,6 +16,7 @@ const CheckoutForm: React.FC = () => {
   const {
     buyingController: { address, deliveryMethod, dispatch },
     cartManager: { totalCart, totalCartConverted, cart },
+    modalController: { dispatch: modalDispatch },
     UserApi,
   } = useGlobalState();
 
@@ -59,9 +60,16 @@ const CheckoutForm: React.FC = () => {
       });
 
       next();
-    } catch (error) {
+    } catch (err) {
       setIsLoading(false);
-      alert(error);
+      const message = String(err.message | err.response.data.message);
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
     }
   }
 

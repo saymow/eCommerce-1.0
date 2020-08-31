@@ -32,6 +32,7 @@ const SideBar: React.FC<Props> = ({ listItem, image }) => {
   const location = useLocation();
   const {
     userController: { user },
+    modalController: { dispatch: modalDispatch },
   } = useGlobalState();
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
@@ -54,9 +55,20 @@ const SideBar: React.FC<Props> = ({ listItem, image }) => {
 
     data.append("image", event.target.files[0]);
 
-    const response = await UserApi.postAvatar(data);
+    try {
+      const response = await UserApi.postAvatar(data);
 
-    setAvatarUrl(response.url);
+      setAvatarUrl(response.url);
+    } catch (err) {
+      const { message } = err.response.data;
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
+    }
   }
 
   return (

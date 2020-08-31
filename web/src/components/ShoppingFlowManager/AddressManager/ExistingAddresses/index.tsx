@@ -35,10 +35,25 @@ const ExistingAddresses: React.FC = () => {
   const fetchAddresses = useCallback(async () => {
     setIsLoading(true);
     await UserApi.getAddresses().then((response) => {
-      setAddresses(response.data);
       setIsLoading(false);
     });
-  }, [UserApi]);
+
+    try {
+      const response = await UserApi.getAddresses();
+      setAddresses(response);
+    } catch (err) {
+      const { message } = err.response.data;
+      modalDispatch({
+        type: "error",
+        payload: {
+          title: "Network connection error",
+          message,
+        },
+      });
+    }
+
+    setIsLoading(false);
+  }, [UserApi, modalDispatch]);
 
   useEffect(() => {
     fetchAddresses();
