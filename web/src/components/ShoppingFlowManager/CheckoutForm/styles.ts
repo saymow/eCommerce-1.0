@@ -50,10 +50,8 @@ export const Title = styled.h1`
 
 export const Button = styled(DefaultButton)`
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  right: 0;
+  bottom: 0;
 
-  margin: auto;
-  width: 30%;
-  margin-top: 1rem;
+  max-width: 22rem;
 `;

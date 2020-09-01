@@ -44,16 +44,6 @@ export const Form = styled.form`
   > div:first-child {
     position: relative;
     padding: 1rem;
-
-    span {
-      position: absolute;
-      top: 0;
-      right: 0;
-
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: #f00;
-    } 
   }
 
   > div:last-child {
@@ -116,4 +106,12 @@ export const Continue = styled.div<ShowOptions>`
   transform: scaleY(${(props) => (props.trigger ? 1 : 0)});
 
   transition: transform 200ms ease;
+`;
+
+export const ContinueButton = styled(DefaultButton)`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  max-width: 22rem;
 `;

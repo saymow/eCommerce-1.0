@@ -13,7 +13,7 @@ export {
 } from "@styled-icons/evaicons-outline";
 export { PermIdentity } from "@styled-icons/material-sharp";
 export { SignInAlt, UserAlt } from "@styled-icons/fa-solid";
-export { UserPlus } from "@styled-icons/feather/";
+export { UserPlus, AlertOctagon } from "@styled-icons/feather/";
 export { ShoppingCart } from "styled-icons/evaicons-solid";
 export { ShoppingBag } from "styled-icons/remix-fill";
 export { Streetview } from "@styled-icons/material-sharp";

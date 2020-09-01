@@ -36,13 +36,13 @@ const Main: React.FC = () => {
           <ContentElement>
             <AboutUs>
               <h2>About Us</h2>
-              <p> 
-                &emsp; Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum
-                porro at magni consectetur cumque tenetur dolore quasi esse
-                possimus quos hic qui omnis provident, iure autem laboriosam vel
-                libero animi! Sapiente corrupti distinctio maxime temporibus
-                animi? Officiis exercitationem placeat libero illum iste
-                deleniti tenetur perspiciatis atque delectus cumque. Nisi,
+              <p>
+                &emsp; Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Earum porro at magni consectetur cumque tenetur dolore quasi
+                esse possimus quos hic qui omnis provident, iure autem
+                laboriosam vel libero animi! Sapiente corrupti distinctio maxime
+                temporibus animi? Officiis exercitationem placeat libero illum
+                iste deleniti tenetur perspiciatis atque delectus cumque. Nisi,
                 mollitia dolorem? Saepe a deleniti commodi pariatur id. At, quae
                 alias. Laborum minus voluptates earum doloremque accusantium
                 aliquam. Adipisci officiis consequatur sed, tempora eum maxime

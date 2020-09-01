@@ -4,6 +4,7 @@ import { useGlobalState } from "../../../Context";
 import { useBuyingFlowState } from "../Controller";
 
 import Loading from "../../LoadingCircle";
+import AlertNotification from "../../AlertNotification";
 
 import {
   Container,
@@ -15,6 +16,7 @@ import {
   ShippingSelf,
   ShippingIcon,
   Continue,
+  ContinueButton,
 } from "./styles";
 
 import { DeliveryResponse } from "../../../Types/deliveryRelated_types";
@@ -69,7 +71,6 @@ const CepSearcher: React.FC = () => {
       setshippmentMethods(data);
       setApiLoading(false);
     });
-
   }
 
   async function handleCepChoosed() {
@@ -92,55 +93,61 @@ const CepSearcher: React.FC = () => {
   }
 
   return (
-    <Container>
-      <TitleDiv trigger={shippmentMethods ? true : false}>
-        <h1>We're shipping to the wholly country.</h1>
-      </TitleDiv>
+    <>
+      <AlertNotification message={errorMessage} />
+      <Container>
+        <TitleDiv trigger={shippmentMethods ? true : false}>
+          <h1>We're shipping to the wholly country.</h1>
+        </TitleDiv>
 
-      <Form onSubmit={handleFormSubmit}>
-        <div>
-          <span>{errorMessage}</span>
-          <Input
-            type="text"
-            placeholder="Type your cep here."
-            pattern="(\d{5})(-{1})(\d{3})"
-            maxLength={9}
-            value={cep}
-            onChange={(event) => handleCepUpdate(event.target.value)}
-          />
-        </div>
-        <div>
-          {apiLoading ? (
-            <Loading color={"var(--primary)"} />
-          ) : (
-            <Button>Calculate shipping</Button>
-          )}
-        </div>
-      </Form>
-      {shippmentMethods && (
-        <>
-          <Shipping>
-            {shippmentMethods?.map((item) => (
-              <ShippingSelf
-                key={item.Codigo}
-                onClick={() => setMethodChoosed(item)}
-                selected={item.Codigo === methodChoosed?.Codigo ? true : false}
-              >
-                <ShippingIcon />
-                <h3>{item.Metodo}</h3>
-                <strong>R${item.Valor}</strong>
-                <p>
-                  Prazo: <strong>{item.PrazoEntrega}</strong> dias úteis.
-                </p>
-              </ShippingSelf>
-            ))}
-          </Shipping>
-          <Continue trigger={methodChoosed ? true : false}>
-            <Button onClick={handleCepChoosed}>Continue</Button>
-          </Continue>
-        </>
-      )}
-    </Container>
+        <Form onSubmit={handleFormSubmit}>
+          <div>
+            <Input
+              type="text"
+              placeholder="Postal code"
+              pattern="(\d{5})(-{1})(\d{3})"
+              maxLength={9}
+              value={cep}
+              onChange={(event) => handleCepUpdate(event.target.value)}
+            />
+          </div>
+          <div>
+            {apiLoading ? (
+              <Loading color={"var(--primary)"} />
+            ) : (
+              <Button>Calculate shipping</Button>
+            )}
+          </div>
+        </Form>
+        {shippmentMethods && (
+          <>
+            <Shipping>
+              {shippmentMethods?.map((item) => (
+                <ShippingSelf
+                  key={item.Codigo}
+                  onClick={() => setMethodChoosed(item)}
+                  selected={
+                    item.Codigo === methodChoosed?.Codigo ? true : false
+                  }
+                >
+                  <ShippingIcon />
+                  <h3>{item.Metodo}</h3>
+                  <strong>R${item.Valor}</strong>
+                  <p>
+                    Prazo: <strong>{item.PrazoEntrega}</strong> dias úteis.
+                  </p>
+                </ShippingSelf>
+              ))}
+            </Shipping>
+            <Continue trigger={methodChoosed ? true : false}>
+              <ContinueButton onClick={handleCepChoosed}>
+                Continue
+              </ContinueButton>
+            </Continue>
+          </>
+        )}
+      </Container>
+    </>
   );
 };
 
