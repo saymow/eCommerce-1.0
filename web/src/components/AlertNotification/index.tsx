@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import { Container, AlertIcon } from "./styles";
+import { Container, AlertIcon, SuccessIcon } from "./styles";
 
 interface Props {
-  message?: string;
-  delay?: number;
+  type: "success" | "warning";
+  message: string;
+  delay: number;
 }
 
-const AlertNotification: React.FC<Props> = ({ message, delay }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const timer = delay ? delay : 4;
-
-  useEffect(() => {
-    if (message) {
-      setIsVisible(true);
-      setTimeout(() => setIsVisible(false), timer * 1000);
-    }
-  }, [message, timer]);
-
+const AlertNotification: React.FC<Props> = ({ message, type, delay }) => {
   return (
-    <Container isVisible={isVisible}>
-      <div>
-        <AlertIcon />
-      </div>
+    <Container type={type} delay={delay}>
+      <div>{type === "success" ? <SuccessIcon /> : <AlertIcon />}</div>
 
       <div>
         <p>{message}</p>

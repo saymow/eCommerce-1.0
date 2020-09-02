@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Formik } from "formik";
 
-import { useGlobalState } from "../../../Context";
+import { useGlobalState, useNotificationContext } from "../../../Context";
 import { changePassSchema } from "../../../Helpers/formRelated_helper";
 
 import Input from "../../../Components/Input";
@@ -20,6 +20,7 @@ const ChangePass: React.FC = () => {
     UserApi,
     modalController: { dispatch: modalDispatch },
   } = useGlobalState();
+  const { pushNotification } = useNotificationContext();
 
   return (
     <Container>
@@ -41,7 +42,10 @@ const ChangePass: React.FC = () => {
             try {
               await UserApi.changePass(password, newPassword);
 
-              alert("password was changed!");
+              pushNotification({
+                type: "success",
+                message: "password was changed!",
+              });
             } catch (err) {
               const { message } = err.response.data;
               modalDispatch({

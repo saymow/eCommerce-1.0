@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { useGlobalState } from "../../../Context";
+import { useGlobalState, useNotificationContext } from "../../../Context";
 
 import LoadingBars from "../../../Components/LoadingBars";
 
@@ -22,6 +22,7 @@ const Addresses: React.FC = () => {
     UserApi,
     modalController: { dispatch: modalDispatch },
   } = useGlobalState();
+  const { pushNotification } = useNotificationContext();
   const [addresses, setAddresses] = useState<AddressType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -51,13 +52,23 @@ const Addresses: React.FC = () => {
   function handleCreateAddress() {
     modalDispatch({
       type: "create-address",
-      cb: fetchAddresses,
+      cb: async () => {
+        pushNotification({
+          type: "success",
+          message: "Address created successfuly",
+        });
+        fetchAddresses();
+      },
     });
   }
 
   async function handleDeleteAddress(id: number) {
     await UserApi.deleteAddress(id);
     await fetchAddresses();
+    pushNotification({
+      type: "success",
+      message: "Address deleted successfully",
+    });
   }
 
   function handleUpdateAddress(id: number) {
@@ -71,7 +82,11 @@ const Addresses: React.FC = () => {
         address,
       },
       cb: async () => {
-        await fetchAddresses();
+        pushNotification({
+          type: "success",
+          message: "Address created successfuly",
+        });
+        fetchAddresses();
       },
     });
   }

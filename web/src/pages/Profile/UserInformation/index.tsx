@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-import { useGlobalState } from "../../../Context";
+import { useGlobalState, useNotificationContext } from "../../../Context";
 
 import {
   genderFormaterNumToStr,
@@ -38,6 +38,7 @@ const Address: React.FC = () => {
     userController: { dispatch },
     modalController: { dispatch: modalDispatch },
   } = useGlobalState();
+  const { pushNotification } = useNotificationContext();
 
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
   const [isEmailSigned, setIsEmailSigned] = useState(false);
@@ -94,16 +95,21 @@ const Address: React.FC = () => {
         user: userDetailed,
       },
       cb: async () => {
-        await fetchUserData();
+        pushNotification({
+          type: "success",
+          message: "Profile updated successfuly",
+        });
+        fetchUserData();
       },
     });
   }
 
   async function handleSendConfirmationEmail() {
-    alert(
-      "You haven't confirmed your email yet.\n" +
-        "Thus we're going to send you a confirmation email, okay? "
-    );
+    pushNotification({
+      type: "warning",
+      message:
+        "You haven't confirmed your email yet. Please check your email inbox",
+    });
 
     await UserApi.sendConfirmationEmail();
   }

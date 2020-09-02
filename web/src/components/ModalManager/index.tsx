@@ -22,16 +22,6 @@ const ModalManager: React.FC = () => {
   switch (config.name) {
     case "closed":
       return null;
-    case "error": {
-      return (
-        <NotificationError
-          title={config.payload.title}
-          message={config.payload.message}
-          cb={config.cb as unknown as () => void}
-          closeModal={closeModal}
-        />
-      );
-    }
     case "cart":
       return <CartModal closeModal={closeModal} />;
     case "create-address":
@@ -55,6 +45,16 @@ const ModalManager: React.FC = () => {
           closeModal={closeModal}
           cb={config.cb as () => Promise<void>}
           user={config.payload.user}
+        />
+      );
+    }
+    case "error": {
+      return (
+        <NotificationError
+          title={config.payload.title}
+          message={config.payload.message}
+          cb={(config.cb as unknown) as () => void}
+          closeModal={closeModal}
         />
       );
     }

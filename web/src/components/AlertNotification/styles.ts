@@ -1,12 +1,16 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 import { AlertOctagon } from "../../Styles/icons";
+import { DoneAll } from "../../Styles/icons";
 
-interface AlertProps {
-  isVisible: boolean;
+interface NotificationProps {
+  type: "warning" | "success";
+  delay: number;
 }
 
-export const Container = styled.div<AlertProps>`
+const animation = keyframes``;
+
+export const Container = styled.div<NotificationProps>`
   position: fixed;
   z-index: 100;
   top: 5%;
@@ -18,14 +22,12 @@ export const Container = styled.div<AlertProps>`
   border-radius: 0.5rem;
   box-shadow: var(--box-shadow);
 
-  background: #feb403;
+  background: ${({ type }) => (type === "warning" ? "#feb403" : "#409d4b")};
 
-  display: ${({ isVisible }) => (isVisible ? "grid" : "none")};
+  display: grid;
   grid-template-columns: 1fr 5fr;
-  
-  opacity: ${({ isVisible }) => (isVisible ? "1" : "0")};
 
-  transition: opacity 500ms ease, display 1000ms;
+  animation: ${animation} ${({ delay }) => delay} ease;
 
   div {
     display: flex;
@@ -46,9 +48,17 @@ export const Container = styled.div<AlertProps>`
   }
 `;
 
-export const AlertIcon = styled(AlertOctagon)`
+const IconsCSS = css`
   width: 4.5rem;
   height: 4.5rem;
+`;
 
+export const AlertIcon = styled(AlertOctagon)`
+  ${IconsCSS}
   fill: #fcdf91;
+`;
+
+export const SuccessIcon = styled(DoneAll)`
+  ${IconsCSS}
+  fill: #fff;
 `;

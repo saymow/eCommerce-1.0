@@ -12,8 +12,11 @@ import {
   Separetor,
   AboutUs,
 } from "./styles";
+import { useNotificationContext } from "Context";
 
 const Main: React.FC = () => {
+  const { pushNotification } = useNotificationContext();
+
   return (
     <Container>
       <MainContent>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { useGlobalState } from "Context";
+import { useGlobalState, useNotificationContext } from "Context";
 import { useBuyingFlowState } from "../Controller";
 
 import {
@@ -20,6 +20,7 @@ const AddressManager: React.FC = () => {
     buyingController: { deliveryMethod, dispatch },
     cartManager: { cart },
   } = useGlobalState();
+  const { pushNotification } = useNotificationContext();
   const { DeliveryApi } = useBuyingFlowState();
   const [dragUpperComponent, toggleDragUpperComponent] = useState(true);
 
@@ -53,6 +54,11 @@ const AddressManager: React.FC = () => {
         Valor,
         cep: postalCode,
       },
+    });
+
+    pushNotification({
+      type: "success",
+      message: "Shippment costs updated successfuly.",
     });
   }
 

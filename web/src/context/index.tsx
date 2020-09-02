@@ -108,6 +108,8 @@ const AppContext: React.FC = ({ children }) => {
   );
 };
 
+export { useNotificationContext } from "./notification";
+
 export function useGlobalState() {
   const context = useContext(authContext);
 
