@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Formik, FormikHelpers } from "formik";
+import { ValidationError } from "yup";
 
 import api from "../../Services/api";
+import DeliveryManager from "Helpers/deliveryRelated_helper";
 import {
   AddressSchema,
+  PostalCodelessAddressSchema,
   postalCodeMask,
 } from "../../Helpers/formRelated_helper";
 
@@ -32,6 +35,7 @@ interface CityOption {
 }
 
 interface InitialState {
+  id?: number;
   state?: string;
   city?: string;
   neighborhood?: string;
@@ -64,120 +68,128 @@ const AddressForm: React.FC<Props> = ({
   action,
   disableDefaultButton,
 }) => {
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [selectedState, setSelectedState] = useState<undefined | string>(
-    undefined
-  );
+  const [postalCodeIsInvalid, setPostalCodeIsInvalid] = useState<
+    string | undefined
+  >(undefined);
 
-  useEffect(() => {
-    api
-      .get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
-      .then((response) => {
-        const dataStates = response.data;
-        const siglas = dataStates.map((state: StateOption) => state.sigla);
-        setStates(siglas);
-      });
-  }, []);
-
-  useEffect(() => {
-    const initialValue =
-      initialState && initialState.state ? initialState.state : "RO";
-      
-    api
-      .get(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${
-          selectedState || initialValue
-        }/municipios`
-      )
-      .then((response) => {
-        const dataCities = response.data;
-        const citiesName = dataCities.map((city: CityOption) => city.nome);
-
-        setCities(citiesName);
-      });
-  }, [selectedState, initialState]);
+  const deliveryApi = new DeliveryManager();
 
   return (
     <Formik
+      key={"test"}
       initialValues={{
         state: "",
         city: "",
         neighborhood: "",
+        postalCode: "",
         street: "",
         number: "",
-        postalCode: "",
         ...initialState,
       }}
-      validationSchema={AddressSchema}
+      validate={async (data: any) => {
+        try {
+          // When the postalCode is not find on correios api i set an error, altought the field manage to pass
+          // yup validation, so, by doing this i can bypass yup validation and keep that error, considering that
+          // the postalCode MUST be valid and the whole form hinges upon it, the approach isn't that bad.
+          if (postalCodeIsInvalid) {
+            return { postalCode: postalCodeIsInvalid };
+          } else
+            await AddressSchema.validate(data, {
+              abortEarly: false,
+            });
+        } catch (error) {
+          if (error instanceof ValidationError) {
+            let errors: {
+              [key: string]: string;
+            } = {};
+
+            error.inner.forEach((error) => {
+              errors[error.path as string] = error.message;
+            });
+
+            return errors;
+          }
+        }
+      }}
       onSubmit={submitHandler}
     >
-      <Form id={disableDefaultButton ? "AddressForm" : ""}>
-        <TwoInputsDiv>
-          <InputDiv>
-            <Select
-              name="state"
-              Icon={StateIcon}
-              stateWatcher={setSelectedState}
-            >
-              {states.map((sigla) => (
-                <option key={sigla} value={sigla}>
-                  {sigla}
-                </option>
-              ))}
-            </Select>
-          </InputDiv>
-          <InputDiv>
-            <Select name="city" Icon={CityIcon}>
-              {cities.map((city) => (
-                <option key={city} value={city}>
-                  {city}
-                </option>
-              ))}
-            </Select>
-          </InputDiv>
-        </TwoInputsDiv>
-
-        <InputDiv>
-          <Input
-            type="text"
-            placeholder="Neighborhood"
-            name="neighborhood"
-            Icon={NeighborhoodIcon}
-          />
-        </InputDiv>
-
-        <InputDiv>
-          <Input
-            type="text"
-            placeholder="Postal Code"
-            name="postalCode"
-            Icon={CepIcon}
-            mask={postalCodeMask}
-          />
-        </InputDiv>
-
-        <TwoInputsDiv className="inversed">
+      {(formik) => (
+        <Form id={disableDefaultButton ? "AddressForm" : ""}>
           <InputDiv>
             <Input
               type="text"
-              placeholder="Street"
-              name="street"
-              Icon={StreetIcon}
+              placeholder="Postal Code"
+              name="postalCode"
+              Icon={CepIcon}
+              mask={postalCodeMask}
+              onBlur={async function handleFetchDataByPostalCode(
+                e: React.FocusEvent<HTMLInputElement>,
+                hasError
+              ) {
+                if (hasError && hasError !== "Invalid postal code.") return;
+
+                const postalCode = e.target.value;
+
+                deliveryApi
+                  .searchLocationByCep(postalCode)
+                  .then(async (data) => {
+                    setPostalCodeIsInvalid(undefined);
+
+                    for (let [key, value] of Object.entries(data)) {
+                      formik.setFieldValue(key, value);
+                    }
+                  })
+                  .catch((err: Error) => {
+                    setPostalCodeIsInvalid(err.message);
+                    formik.setFieldError("postalCode", "Invalid postal code.");
+                    // shouldValidate did'nt worked
+                    // formik.setFieldValue("postalCode", postalCode, false);
+                  });
+              }}
             />
           </InputDiv>
+
+          <TwoInputsDiv>
+            <InputDiv>
+              <Input disabled name="state" Icon={StateIcon}></Input>
+            </InputDiv>
+            <InputDiv>
+              <Input disabled name="city" Icon={CityIcon} />
+            </InputDiv>
+          </TwoInputsDiv>
+
           <InputDiv>
             <Input
-              type="number"
-              placeholder="House number"
-              name="number"
-              max={9999}
-              Icon={HouseNumberIcon}
+              disabled
+              type="text"
+              placeholder="Neighborhood"
+              name="neighborhood"
+              Icon={NeighborhoodIcon}
             />
           </InputDiv>
-        </TwoInputsDiv>
-        {!disableDefaultButton && <Button type="submit">{action}</Button>}
-      </Form>
+
+          <TwoInputsDiv className="inversed">
+            <InputDiv>
+              <Input
+                type="text"
+                placeholder="Street"
+                name="street"
+                Icon={StreetIcon}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Input
+                type="number"
+                placeholder="House number"
+                name="number"
+                max={9999}
+                Icon={HouseNumberIcon}
+              />
+            </InputDiv>
+          </TwoInputsDiv>
+          {!disableDefaultButton && <Button type="submit">{action}</Button>}
+        </Form>
+      )}
     </Formik>
   );
 };

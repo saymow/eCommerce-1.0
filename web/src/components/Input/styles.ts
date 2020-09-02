@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import MaskedInput from "react-text-mask";
+import styled, { css } from "styled-components";
+import TextMaskInput from "react-text-mask";
 
 export const Container = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Input = styled(MaskedInput)`
+const InputStyles = css`
   background: var(--background-secondary);
   font-size: 2.4rem;
   padding: 0.5rem 1rem 0.5rem 4.7rem;
@@ -39,6 +39,18 @@ export const Input = styled(MaskedInput)`
   &.haveError:hover ~ span {
     opacity: 1;
   }
+
+  &:disabled {
+    filter: brightness(90%);
+  }
+`;
+
+export const Input = styled.input`
+  ${InputStyles}
+`;
+
+export const MaskedInput = styled(TextMaskInput)`
+  ${InputStyles}
 `;
 
 export const ErrorSpan = styled.span`

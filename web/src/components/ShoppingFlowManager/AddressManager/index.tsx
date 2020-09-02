@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+import { useGlobalState } from "Context";
+import { useBuyingFlowState } from "../Controller";
+
 import {
   Container,
   UpperComponent,
@@ -13,7 +16,16 @@ import CreateAdressForm from "./CreateAddressForm";
 import ExistingAddresses from "./ExistingAddresses";
 
 const AddressManager: React.FC = () => {
+  const {
+    buyingController: { address },
+  } = useGlobalState();
   const [dragUpperComponent, toggleDragUpperComponent] = useState(true);
+
+  // async function updateCepCostsWheenNeeded(postalCode: string) {
+  //   const currentPostalCode = address?.postalCode as string;
+
+  //   if (postalCode === currentPostalCode) return;
+  // }
 
   return (
     <Container>

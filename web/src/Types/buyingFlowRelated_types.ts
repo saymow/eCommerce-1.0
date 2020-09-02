@@ -15,7 +15,7 @@ export interface DeliveryState {
 }
 
 export interface Address {
-  id?: number; 
+  id?: number;
   state: string;
   city: string;
   postalCode: string;
@@ -38,7 +38,8 @@ export interface BuyingFlow extends BuyingFlowState {
 
 export type Action =
   | { type: "set-delivery"; payload: DeliveryMethods }
-  | { type: "set-logged" }
   | { type: "set-address"; payload: Address }
-  | { type: "set-finished-buy"}
+  | { type: "update-postalCode"; payload: { postalCode: string } }
+  | { type: "set-logged" }
+  | { type: "set-finished-buy" }
   | { type: "set-reset-flow" };

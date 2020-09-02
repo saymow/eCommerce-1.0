@@ -11,6 +11,14 @@ interface LocationByCep {
   cep: string;
 }
 
+interface formatedLocationByCep {
+  state: string;
+  city: string;
+  neighborhood: string;
+  street: string;
+  postalCode: string;
+}
+
 interface Error {
   message: string;
 }
@@ -21,20 +29,14 @@ type cb = (
 ) => void;
 
 export default class DeliveryManager {
-  locationByCep: {
-    uf: string;
-    city: string;
-    neighborhood: string;
-    street: string;
-    cep: string;
-  };
+  formatedLocationByCep: formatedLocationByCep;
   constructor() {
-    this.locationByCep = {
-      uf: "",
+    this.formatedLocationByCep = {
+      state: "",
       city: "",
       neighborhood: "",
       street: "",
-      cep: "",
+      postalCode: "",
     };
   }
 
@@ -96,30 +98,32 @@ export default class DeliveryManager {
     }
   }
 
-  async searchLocationByCep(cep: string) {
-    await consultarCep(cep)
+  searchLocationByCep(cep: string): Promise<formatedLocationByCep> {
+    return consultarCep(cep)
       .then((data: LocationByCep) => {
-        this._setLocationByCep({
-          uf: data.uf,
+        this.setLocationByCep({
+          state: data.uf,
           city: data.localidade,
           neighborhood: data.bairro,
           street: data.logradouro,
-          cep: data.cep,
+          postalCode: data.cep,
         });
+
+        return {
+          state: data.uf,
+          city: data.localidade,
+          neighborhood: data.bairro,
+          street: data.logradouro,
+          postalCode: data.cep,
+        };
       })
       .catch((error: any) => {
         throw new Error("Invalid postal code.");
       });
   }
 
-  _setLocationByCep(data: {
-    uf: string;
-    city: string;
-    neighborhood: string;
-    street: string;
-    cep: string;
-  }) {
-    this.locationByCep = {
+  private setLocationByCep(data: formatedLocationByCep) {
+    this.formatedLocationByCep = {
       ...data,
     };
   }

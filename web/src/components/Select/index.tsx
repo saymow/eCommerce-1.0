@@ -8,8 +8,10 @@ import { Container, Select, ErrorSpan } from "./styles";
 
 interface Props {
   name: string;
+  id?: string;
   stateWatcher?: Dispatch<SetStateAction<undefined | string>>;
   placeholder?: string;
+  disabled?: boolean;
   Icon: StyledComponent<StyledIcon, any, {}, never>;
 }
 

@@ -31,22 +31,8 @@ const CreateAddressForm: React.FC = () => {
   >(undefined);
 
   useEffect(() => {
-    const {
-      city,
-      neighborhood,
-      street,
-      uf: state,
-      cep,
-    } = DeliveryApi.locationByCep;
-
-    setInitialState({
-      city,
-      neighborhood,
-      street,
-      state,
-      postalCode: cep,
-    });
-  }, [DeliveryApi.locationByCep]);
+    setInitialState(DeliveryApi.formatedLocationByCep);
+  }, [DeliveryApi.formatedLocationByCep]);
 
   async function submitHandler(values: FormProps) {
     const { state, city, neighborhood, street, number, postalCode } = values;
