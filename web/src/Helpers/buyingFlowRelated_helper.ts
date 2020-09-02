@@ -10,7 +10,7 @@ function flowAction(state: BuyingFlowState, action: Action): BuyingFlowState {
   let step = (state.step + 1) as Steps;
 
   switch (action.type) {
-    case "set-delivery":
+    case "set-delivery": {
       const { cep, Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
 
       return {
@@ -24,7 +24,21 @@ function flowAction(state: BuyingFlowState, action: Action): BuyingFlowState {
           type: Metodo,
         },
       };
+    }
+    case "update-delivery": {
+      const { cep, Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
 
+      return {
+        ...state,
+        deliveryMethod: {
+          cep,
+          code: Codigo,
+          deadline: PrazoEntrega,
+          price: Valor,
+          type: Metodo,
+        },
+      };
+    }
     case "set-address":
       const {
         state: Lstate,

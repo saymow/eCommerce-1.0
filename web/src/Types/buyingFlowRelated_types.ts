@@ -38,8 +38,8 @@ export interface BuyingFlow extends BuyingFlowState {
 
 export type Action =
   | { type: "set-delivery"; payload: DeliveryMethods }
+  | { type: "update-delivery"; payload: DeliveryMethods }
   | { type: "set-address"; payload: Address }
-  | { type: "update-postalCode"; payload: { postalCode: string } }
   | { type: "set-logged" }
   | { type: "set-finished-buy" }
   | { type: "set-reset-flow" };

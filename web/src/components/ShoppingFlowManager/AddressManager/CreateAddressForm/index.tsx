@@ -4,6 +4,7 @@ import { useGlobalState } from "../../../../Context";
 import { useBuyingFlowState } from "../../Controller";
 
 import AddressForm from "../../../AddressForm";
+import LoadingBars from "../../../LoadingBars";
 
 import { Container } from "./styles";
 
@@ -20,7 +21,13 @@ interface FormProps extends InitialStateFromApi {
   postalCode: string;
 }
 
-const CreateAddressForm: React.FC = () => {
+interface Props {
+  updateShippmentCostsWheenNeeded: (postalCode: string) => Promise<void>;
+}
+
+const CreateAddressForm: React.FC<Props> = ({
+  updateShippmentCostsWheenNeeded,
+}) => {
   const {
     buyingController: { dispatch },
   } = useGlobalState();
@@ -29,6 +36,7 @@ const CreateAddressForm: React.FC = () => {
   const [initialState, setInitialState] = useState<
     InitialStateFromApi | undefined
   >(undefined);
+  const [isLoaading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setInitialState(DeliveryApi.formatedLocationByCep);
@@ -36,6 +44,10 @@ const CreateAddressForm: React.FC = () => {
 
   async function submitHandler(values: FormProps) {
     const { state, city, neighborhood, street, number, postalCode } = values;
+
+    setIsLoading(true);
+
+    await updateShippmentCostsWheenNeeded(postalCode);
 
     dispatch({
       type: "set-address",
@@ -49,12 +61,16 @@ const CreateAddressForm: React.FC = () => {
       },
     });
 
+    setIsLoading(false);
+
     next();
   }
 
   if (!initialState) return null;
 
-  return (
+  return isLoaading ? (
+    <LoadingBars />
+  ) : (
     <Container>
       <AddressForm
         initialState={initialState}

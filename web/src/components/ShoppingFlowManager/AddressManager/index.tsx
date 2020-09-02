@@ -17,20 +17,51 @@ import ExistingAddresses from "./ExistingAddresses";
 
 const AddressManager: React.FC = () => {
   const {
-    buyingController: { address },
+    buyingController: { deliveryMethod, dispatch },
+    cartManager: { cart },
   } = useGlobalState();
+  const { DeliveryApi } = useBuyingFlowState();
   const [dragUpperComponent, toggleDragUpperComponent] = useState(true);
 
-  // async function updateCepCostsWheenNeeded(postalCode: string) {
-  //   const currentPostalCode = address?.postalCode as string;
+  async function updateShippmentCostsWheenNeeded(postalCode: string) {
+    const currentPostalCode = deliveryMethod?.cep as string;
 
-  //   if (postalCode === currentPostalCode) return;
-  // }
+    if (postalCode === currentPostalCode) return;
+
+    console.log(postalCode, currentPostalCode);
+
+    const data = await DeliveryApi.calcDelivery(postalCode, cart.length);
+
+    if (!deliveryMethod)
+      throw new Error("Shopping flow has failed, try once again later");
+
+    const selectedService = data.find(
+      (service) => service.Metodo === (deliveryMethod.type as string)
+    );
+
+    if (!selectedService)
+      throw new Error("Shopping flow has failed, try once again later");
+
+    const { Codigo, Metodo, PrazoEntrega, Valor } = selectedService;
+
+    dispatch({
+      type: "update-delivery",
+      payload: {
+        Codigo,
+        Metodo,
+        PrazoEntrega,
+        Valor,
+        cep: postalCode,
+      },
+    });
+  }
 
   return (
     <Container>
       <UpperComponent className={dragUpperComponent ? "draggedDown" : ""}>
-        <CreateAdressForm />
+        <CreateAdressForm
+          updateShippmentCostsWheenNeeded={updateShippmentCostsWheenNeeded}
+        />
         <Button
           type="submit"
           form="AddressForm"
@@ -51,7 +82,9 @@ const AddressManager: React.FC = () => {
         </BringDownElement>
       </UpperComponent>
       <LowerComponent className={dragUpperComponent ? "hidden" : ""}>
-        <ExistingAddresses />
+        <ExistingAddresses
+          updateShippmentCostsWheenNeeded={updateShippmentCostsWheenNeeded}
+        />
       </LowerComponent>
     </Container>
   );

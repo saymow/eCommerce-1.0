@@ -30,7 +30,7 @@ const CepSearcher: React.FC = () => {
   } = useGlobalState();
   const [cep, setCep] = useState("");
   const [lastCepSearched, setlastCepSearched] = useState("");
-  const [shippmentMethods, setshippmentMethods] = useState<
+  const [shippmentMethods, setShippmentMethods] = useState<
     DeliveryResponse[] | undefined
   >(undefined);
   const [methodChoosed, setMethodChoosed] = useState<
@@ -64,11 +64,11 @@ const CepSearcher: React.FC = () => {
       0
     );
 
-    DeliveryApi.calcDelivery(cep, qntdProducts, (err, data) => {
+    DeliveryApi.calcAndValidateDelivery(cep, qntdProducts, (err, data) => {
       if (err || !data) {
         setErrorMessage(err ? err.message : "Unexpected error");
       }
-      setshippmentMethods(data);
+      setShippmentMethods(data);
       setApiLoading(false);
     });
   }
