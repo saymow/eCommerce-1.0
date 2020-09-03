@@ -24,6 +24,7 @@ const ShoppingCart: React.FC = () => {
   } = useGlobalState();
   const [show, setShow] = useState<boolean | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const cartRef = useRef<HTMLDivElement>(null);
 
   const qntdItems = useMemo(() => {
     return cart.reduce((accumulator, item) => {
@@ -41,9 +42,10 @@ const ShoppingCart: React.FC = () => {
   }
 
   function manageListener(event: any) {
-    if (!containerRef.current) return;
-
-    if (containerRef && !containerRef.current.contains(event.target)) {
+    if (
+      !containerRef.current?.contains(event.target) &&
+      !cartRef.current?.contains(event.target)
+    ) {
       setShow(false);
       document.removeEventListener("click", manageListener);
     }
@@ -63,10 +65,10 @@ const ShoppingCart: React.FC = () => {
     <Container qntd={qntdItems} ref={containerRef}>
       <ShoppingIcon onClick={handleToggleCart} />
 
-      <Cart className={show ? "show" : ""}>
+      <Cart className={show ? "show" : ""} ref={cartRef}>
         {cart.length === 0 ? (
           <EmptyBag>
-            <h5>Your bag is empty</h5>
+            <h5>Your cart is empty</h5>
             <p>You havent added any products to card yet.</p>
             <EmptyBagIcon />
           </EmptyBag>

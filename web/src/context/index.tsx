@@ -38,7 +38,6 @@ const AppContext: React.FC = ({ children }) => {
 
   const [user, userDispatch] = useReducer(userAction, undefined);
 
-  // const loggedWhenMounted = useRef(Boolean(user)).current;
   const UserApi = useMemo(() => new UserApiManager(), []);
   const loggedIn = useMemo(() => (user === undefined || user ? true : false), [
     user,

@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Formik, FormikHelpers } from "formik";
 import { ValidationError } from "yup";
 
-import api from "../../Services/api";
 import DeliveryManager from "Helpers/deliveryRelated_helper";
 import {
   AddressSchema,
-  PostalCodelessAddressSchema,
   postalCodeMask,
 } from "../../Helpers/formRelated_helper";
 
 import Input from "../Input";
-import Select from "../Select";
 
 import {
   Form,

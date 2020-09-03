@@ -26,7 +26,6 @@ const CepSearcher: React.FC = () => {
   const {
     buyingController: { dispatch },
     cartManager: { cart },
-    modalController: { dispatch: ModalDispatch },
   } = useGlobalState();
   const { pushNotification } = useNotificationContext();
   const [cep, setCep] = useState("");

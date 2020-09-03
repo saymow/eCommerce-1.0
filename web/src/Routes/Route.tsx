@@ -12,6 +12,7 @@ import Product from "../Pages/Product";
 import SignIn from "../Pages/SignIn";
 import SignUp from "../Pages/SignUp";
 import Profile from "../Pages/Profile";
+import NotFoundPage from "../Pages/NotFoundPage";
 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -58,6 +59,7 @@ const Routes: React.FC = () => {
             ]}
             component={Checkout}
           />
+          <Route path="*" component={NotFoundPage} />
         </Switch>
         <ModalManager />
         <Footer />

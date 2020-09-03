@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Grid from "../../Components/Grid";
 
@@ -6,17 +7,15 @@ import {
   Container,
   MainContent,
   Content,
+  CommandButtons,
   AditionalContent,
   ContentElement,
   ContentWrapper,
   Separetor,
   AboutUs,
 } from "./styles";
-import { useNotificationContext } from "Context";
 
 const Main: React.FC = () => {
-  const { pushNotification } = useNotificationContext();
-
   return (
     <Container>
       <MainContent>
@@ -26,6 +25,10 @@ const Main: React.FC = () => {
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe
             reiciendis doloribus.
           </p>
+          <CommandButtons>
+            <Link to="/products">Start shopping</Link>
+            <a href="#about">About us</a>
+          </CommandButtons>
         </Content>
       </MainContent>
       <AditionalContent>
@@ -35,7 +38,7 @@ const Main: React.FC = () => {
           </ContentElement>
         </ContentWrapper>
         <Separetor />
-        <ContentWrapper>
+        <ContentWrapper id="about">
           <ContentElement>
             <AboutUs>
               <h2>About Us</h2>

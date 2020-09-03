@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
+import NotFoundPage from "Pages/NotFoundPage";
+
 import SideBar from "./SideBar";
 import UserInformation from "./UserInformation";
 import History from "./History";
@@ -60,6 +62,7 @@ const Profile: React.FC = () => {
             <Route path="/profile/history" component={History} />
             <Route path="/profile/address" component={Addresses} />
             <Route path="/profile/change_password" component={ChangePass} />
+            <Route path="*" component={NotFoundPage} />
           </Switch>
         </ContentWrapper>
       </ProfileWrapper>

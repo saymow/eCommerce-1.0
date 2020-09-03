@@ -47,7 +47,7 @@ export const Cart = styled.div`
   display: none;
   position: absolute;
   z-index: 3;
-  top: 4.8rem;
+  top: 4.4rem;
   right: 0;
 
   width: min(32rem, 80vw);

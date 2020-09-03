@@ -84,7 +84,7 @@ const Addresses: React.FC = () => {
       cb: async () => {
         pushNotification({
           type: "success",
-          message: "Address created successfuly",
+          message: "Address updated successfuly",
         });
         fetchAddresses();
       },

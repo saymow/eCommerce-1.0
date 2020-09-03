@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-import backgroundImage from "../../Assets/background.jpeg";
+import backgroundImage from "../../Assets/background.jpg";
 
 export const Container = styled.div`
   z-index: -1;
   background-image: url(${backgroundImage});
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: top;
 `;
 
 export const MainContent = styled.div`
@@ -20,8 +20,8 @@ export const MainContent = styled.div`
   margin: auto;
 `;
 
-export const Content = styled.div`
-  max-width: 46rem;
+export const Content = styled.main`
+  max-width: 56rem;
 
   h1,
   p {
@@ -47,6 +47,35 @@ export const Content = styled.div`
     p {
       font-size: 2rem;
     }
+  }
+`;
+
+export const CommandButtons = styled.div`
+  margin-top: 3.5rem;
+  display: flex;
+  align-items: center;
+
+  a {
+    font: 3rem bold;
+    text-decoration: unset;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    transition: filter 400ms ease;
+
+    &:hover {
+      filter: brightness(80%);
+    }
+  }
+
+  a:first-child {
+    color: var(--background-primary);
+    background: var(--brand);
+  }
+
+  a:last-child {
+    margin-left: 2rem;
+    color: var(--background-primary);
+    border: 1px solid var(--background-primary);
   }
 `;
 

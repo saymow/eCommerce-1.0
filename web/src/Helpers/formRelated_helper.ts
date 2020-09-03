@@ -83,7 +83,7 @@ const DetailedUserSchema = Yup.object({
     ),
 });
 
-const addressWithoutPostalCode = {
+const AddressSchema = Yup.object().shape({
   state: Yup.string().required("State is required."),
   city: Yup.string().required("City is required."),
   neighborhood: Yup.string().required("Neighborhood is required."),
@@ -93,18 +93,10 @@ const addressWithoutPostalCode = {
     .integer("Number must be integer.")
     .min(1, "Invalid format.")
     .max(9999, "Invalid format."),
-};
-
-const AddressSchema = Yup.object().shape({
-  ...addressWithoutPostalCode,
   postalCode: Yup.string()
     .required("Postal code is required")
     .matches(/(\d{5})(-{1})(\d{3})/, "Invalid format"),
 });
-
-const PostalCodelessAddressSchema = Yup.object().shape(
-  addressWithoutPostalCode
-);
 
 const cpfMask = [
   /\d/,
@@ -150,7 +142,6 @@ export {
   RegisterSchema,
   changePassSchema,
   AddressSchema,
-  PostalCodelessAddressSchema,
   cpfMask,
   dateMask,
   postalCodeMask,
