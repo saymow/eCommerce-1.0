@@ -8,7 +8,11 @@ import AppError from "./errors/AppError";
 
 const PORT = process.env.PORT || 3333;
 const App = express();
-App.use(cors());
+App.use(
+  cors({
+    origin: "https://e-commerce1.netlify.app",
+  })
+);
 App.use(express.json());
 App.use(Routes);
 
@@ -16,8 +20,6 @@ App.use("/images", express.static(path.resolve(__dirname, "..", "images")));
 
 App.use((error: Error, _: Request, res: Response, __: NextFunction) => {
   if (error instanceof AppError) {
-    console.log(error);
-
     return res.status(error.statusCode).send({
       message: error.message,
     });

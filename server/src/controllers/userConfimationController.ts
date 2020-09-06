@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 import emailController from "../services/mailer";
 import AppError from "../errors/AppError";
+import { urlFormater } from "../utils/formaters";
 
 class UserConfirmationController {
   async toggleSignNewsletter(req: Request, res: Response) {
@@ -45,9 +46,9 @@ class UserConfirmationController {
       subject: "Confirmation email",
       body:
         "<h1>Here is the confirmation email link you're looking for ;D <h1>" +
-        `<a href=${
-          "http://localhost:3333/users/confirmation/" + token
-        }>Click here</a>`,
+        `<a href=${urlFormater(
+          "users/confirmation/" + token
+        )}>Click here</a>`,
     });
 
     return res.send();
@@ -68,7 +69,7 @@ class UserConfirmationController {
           .update({ confirmed: true, email_signed: true })
           .where({ email });
 
-        return res.redirect("http://localhost:3000/profile/me");
+        return res.redirect("e-commerce1.netlify.app/profile/me");
       }
     );
   }

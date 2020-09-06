@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const Api = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://ecommerce1-api.herokuapp.com",
 });
 
 export default Api;

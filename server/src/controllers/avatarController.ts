@@ -1,6 +1,8 @@
 import { Response, Request } from "express";
 import knex from "../database/connection";
 
+import { urlFormater } from "../utils/formaters";
+
 class AvatarController {
   async store(req: Request, res: Response) {
     const { id } = req.user;
@@ -13,7 +15,7 @@ class AvatarController {
       .where({ id });
 
     res.send({
-      url: "http://localhost:3333/images/user/" + avatar,
+      url: urlFormater(`/images/user/${avatar}`),
     });
   }
 
@@ -25,7 +27,7 @@ class AvatarController {
     if (!user || !user.avatar) return res.send();
 
     const serializedResponse = {
-      url: "http://localhost:3333/images/user/" + user.avatar,
+      url: urlFormater(`/images/user/${user.avatar}`),
     };
 
     return res.send(serializedResponse);

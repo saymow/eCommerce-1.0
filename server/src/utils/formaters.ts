@@ -10,4 +10,13 @@ const dateFormater = {
     }-${date.getFullYear()}`,
 };
 
-export { dateFormater };
+const urlFormater = (route: string) => {
+  const options = {
+    dev: `http://localhost:${process.env.PORT}/`,
+    production: ``,
+  };
+
+  return options[process.env.ENVIRONMENT as "dev" | "production"] + route;
+};
+
+export { dateFormater, urlFormater };

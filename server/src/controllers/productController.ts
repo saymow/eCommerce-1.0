@@ -3,6 +3,7 @@ import connection from "../database/connection";
 import AppError from "../errors/AppError";
 
 import { cachefy } from "../services/cache";
+import { urlFormater } from "../utils/formaters";
 
 interface QueryList {
   page?: number;
@@ -35,13 +36,13 @@ class productManager {
 
     const serializedProducts = products.map((product) => ({
       ...product,
-      image: `http://localhost:3333/images/products/${product.image}.jpg`,
+      image: urlFormater(`images/products/${product.image}.jpg`),
     }));
 
     if (page == 1) {
       const [{ count }] = await connection("products").count();
       console.log(count);
-      res.setHeader("X-Total-Count", count["count(*)"]);
+      res.setHeader("X-Total-Count", count);
     }
 
     cachefy("products", serializedProducts);
@@ -60,7 +61,7 @@ class productManager {
 
     const serializedProduct = {
       ...product,
-      image: `http://localhost:3333/images/products/${product.image}.jpg`,
+      image: urlFormater(`images/products/${product.image}.jpg`),
     };
 
     cachefy(`product ${name}`, serializedProduct);

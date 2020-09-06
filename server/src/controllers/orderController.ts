@@ -3,6 +3,7 @@ import knex from "../database/connection";
 
 import postCharge from "../services/payment";
 import AppError from "../errors/AppError";
+import { urlFormater } from "../utils/formaters";
 
 interface IProduct {
   id: number;
@@ -154,7 +155,7 @@ class OrderController {
             return {
               name,
               price,
-              image: `http://localhost:3333/images/products/${image}.jpg`,
+              image: urlFormater(`images/products/${image}.jpg`),
             };
           });
 
