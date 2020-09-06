@@ -5,10 +5,24 @@ const redisPort = process.env.REDIS_PORT;
 
 const cacheClient = redis.createClient({
   port: Number(redisPort),
+  retry_strategy(options) {
+    if (options.error && options.error.code === "ECONNREFUSED") {
+      console.log(options.error.code);
+      return undefined;
+    }
+  },
 });
 
-const cachefy = (name: string, value: any) =>
+cacheClient.on("error", (err) => {
+  console.error("Error connecting to redis");
+});
+
+const cachefy = (name: string, value: any) => {
+  if (!cacheClient.connected) {
+    return;
+  }
   cacheClient.setex(name, 86400, JSON.stringify(value));
+};
 
 const productSpecializedCache = (
   req: Request,
