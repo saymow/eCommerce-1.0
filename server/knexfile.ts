@@ -1,18 +1,16 @@
 import path from "path";
 
 module.exports = {
-  client: "sqlite3",
+  client: "pg",
 
-  connection: {
-    filename: path.resolve(__dirname, "src", "database", "database.sqlite"),
-  },
+  connection: process.env.PG_CONNECTION,
 
   migrations: {
     directory: path.resolve(__dirname, "src", "database", "migrations"),
   },
 
   seeds: {
-    directory: path.resolve(__dirname, "src", "database", "seeds")
+    directory: path.resolve(__dirname, "src", "database", "seeds"),
   },
 
   useNullAsDefault: true,

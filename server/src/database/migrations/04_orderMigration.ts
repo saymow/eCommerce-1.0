@@ -13,7 +13,7 @@ export function up(knex: Knex) {
       .integer("address_id")
       .notNullable()
       .references("id")
-      .inTable("address");
+      .inTable("order_address");
 
     table
       .timestamp("created_at")

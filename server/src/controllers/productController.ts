@@ -31,7 +31,7 @@ class productManager {
     const products = await connection("products")
       .select("id", "name", "price", "qntd", "image")
       .limit(limit)
-      .offset((page - 1) * limit);
+      .offset(page >= 2 ? (page - 1) * limit : 0);
 
     const serializedProducts = products.map((product) => ({
       ...product,
@@ -39,7 +39,8 @@ class productManager {
     }));
 
     if (page == 1) {
-      const [count] = await connection("products").count();
+      const [{ count }] = await connection("products").count();
+      console.log(count);
       res.setHeader("X-Total-Count", count["count(*)"]);
     }
 
@@ -53,7 +54,7 @@ class productManager {
 
     if (!name) throw new AppError("No product name provided.", 400);
 
-    const product = await connection("products").where("name", name).first();
+    const [product] = await connection("products").where("name", name);
 
     if (!product) throw new AppError("Invalid product name.", 400);
 

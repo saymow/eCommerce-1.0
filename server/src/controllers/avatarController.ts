@@ -20,7 +20,7 @@ class AvatarController {
   async show(req: Request, res: Response) {
     const { id } = req.user;
 
-    const user = await knex("users").select("avatar").where({ id }).first();
+    const [user] = await knex("users").select("avatar").where({ id });
 
     if (!user || !user.avatar) return res.send();
 

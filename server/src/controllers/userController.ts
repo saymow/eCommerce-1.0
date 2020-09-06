@@ -5,6 +5,8 @@ import connection from "../database/connection";
 import jwt from "jsonwebtoken";
 import AppError from "../errors/AppError";
 
+import { dateFormater } from "../utils/formaters";
+
 interface userData {
   id: Number;
   name: string;
@@ -28,16 +30,17 @@ class UserController {
 
     try {
       bcrypt.hash(password, 8, async (err, hash) => {
-        const [id] = await connection("users").insert({
-          name,
-          email,
-          password: hash,
-          cpf,
-          birth_date: birthDate,
-          sex: 0,
-        });
+        const [id] = await connection("users")
+          .insert({
+            name,
+            email,
+            password: hash,
+            cpf,
+            birth_date: dateFormater.apiToDb(birthDate),
+            sex: 0,
+          })
+          .returning("id");
 
-        // Confirmation email to be done.
         return res.json({
           token: generateToken(
             { id },
@@ -51,6 +54,7 @@ class UserController {
         });
       });
     } catch (err) {
+      console.log(err);
       throw new AppError("Internal server error.", 500);
     }
   }
@@ -94,7 +98,7 @@ class UserController {
   }
 
   async update(req: Request, res: Response) {
-    const { name, sex, birthDate, cpf, telephone } = req.body;
+    const { name, sex, birth_date, cpf, telephone } = req.body;
     const { id } = req.user;
 
     await knex("users")
@@ -103,7 +107,7 @@ class UserController {
         sex,
         cpf,
         telephone,
-        birth_date: birthDate,
+        birth_date: dateFormater.apiToDb(birth_date),
       })
       .where({ id });
 
@@ -113,9 +117,14 @@ class UserController {
   async index(req: Request, res: Response) {
     const { id } = req.user;
 
-    const data = await knex("users").where({ id }).first();
+    const [data] = await knex("users").where({ id });
 
-    res.send(data);
+    const serializedData = {
+      ...data,
+      birth_date: dateFormater.dbToApi(data.birth_date),
+    };
+
+    res.send(serializedData);
   }
 
   async changePassword(req: Request, res: Response) {
@@ -123,9 +132,7 @@ class UserController {
     const { password, newPassword } = req.body;
 
     try {
-      const { password: hashedPass } = await knex("users")
-        .where({ id })
-        .first();
+      const [{ password: hashedPass }] = await knex("users").where({ id });
 
       if (!(await bcrypt.compare(password, hashedPass)))
         return res.status(409).send({
@@ -152,7 +159,7 @@ class UserController {
   async validifyToken(req: Request, res: Response) {
     const { id } = req.user;
 
-    const data = await knex("users").where({ id }).first();
+    const [data] = await knex("users").where({ id });
 
     const { email, name } = data;
 

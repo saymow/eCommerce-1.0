@@ -8,9 +8,9 @@ export const up = (knex: Knex) => {
     table.string("avatar");
     table.date("birth_date").notNullable();
     table.enum("sex", [0, 1, 2, 9]).notNullable();
-    table.string("password", 32).notNullable();
-    table.specificType("telephone", "cha(14)"); //031 99999-9999
-    table.specificType("cpf", "char(11)").notNullable(); //99999999 99 format
+    table.string("password", 60).notNullable();
+    table.specificType("telephone", "char(14)"); //031 99999-9999
+    table.specificType("cpf", "char(14)").notNullable(); //999.999.999-99
     table.boolean("confirmed").defaultTo(false).notNullable();
     table.boolean("email_signed").defaultTo(false).notNullable();
     table.boolean("adminPermission").defaultTo(false).notNullable();

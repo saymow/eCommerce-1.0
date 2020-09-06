@@ -34,11 +34,11 @@ class OrderController {
     const trx = await knex.transaction();
 
     try {
-      const { name } = await trx("users").where({ id }).first();
+      const [{ name }] = await trx("users").where({ id });
 
       const products = cartData.cart as IProduct[];
       const raw_price = cartData.totalCart;
-      const shipment_price = Number(shippment.price) * 100;
+      const shipment_price = Math.floor(Number(shippment.price) * 100);
 
       const amount = Math.round(raw_price + shipment_price);
 
@@ -49,19 +49,34 @@ class OrderController {
         });
       }
 
-      let [address_id] = await trx("order_address").insert({
-        ...address,
-      });
+      let [address_id] = await trx("order_address")
+        .insert({
+          state: address.state,
+          city: address.city,
+          neighborhood: address.neighborhood,
+          street: address.street,
+          number: address.number,
+          postalCode: address.postalCode,
+        })
+        .returning("id");
 
-      address_id = address_id;
-
-      const [order_id] = await trx("orders").insert({
+      console.log({
         address_id,
         user_id: id,
         status: "Processing",
         raw_price,
         shipment_price,
       });
+
+      const [order_id] = await trx("orders")
+        .insert({
+          address_id,
+          user_id: id,
+          status: "Processing",
+          raw_price,
+          shipment_price,
+        })
+        .returning("id");
 
       const serializedPurchase_products = products.map((product) => ({
         order_id,
@@ -111,14 +126,14 @@ class OrderController {
         "order_address.street",
         "order_address.number",
         knex.raw(
-          "GROUP_CONCAT(products.name||';'||products.price||';'||products.image) as products"
+          "array_to_string(array_agg(products.name ||';'|| products.price ||';'|| products.image), ',') as products"
         )
       )
       .join("order_address", "orders.address_id", "order_address.id")
       .join("order_products", "order_products.order_id", "orders.id")
       .join("products", "products.id", "order_products.product_id")
       .where("orders.user_id", id)
-      .groupBy("orders.id");
+      .groupBy("orders.id", "order_address.id");
 
     const serializedData = data.map(
       ({

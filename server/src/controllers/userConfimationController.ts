@@ -9,10 +9,9 @@ class UserConfirmationController {
   async toggleSignNewsletter(req: Request, res: Response) {
     const { id } = req.user;
 
-    const { email_signed, confirmed } = await knex("users")
+    const [{ email_signed, confirmed }] = await knex("users")
       .select("email_signed", "confirmed")
-      .where({ id })
-      .first();
+      .where({ id });
 
     if (!confirmed) throw new AppError("User has to confirm email first", 400);
 
@@ -24,10 +23,9 @@ class UserConfirmationController {
   async sendConfirmationEmail(req: Request, res: Response) {
     const { id } = req.user;
 
-    const { email, name, confirmed } = await knex("users")
+    const [{ email, name, confirmed }] = await knex("users")
       .select("email", "confirmed")
-      .where({ id })
-      .first();
+      .where({ id });
 
     if (confirmed) throw new AppError("User already has confirmed email", 400);
 
