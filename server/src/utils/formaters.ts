@@ -13,7 +13,7 @@ const dateFormater = {
 const urlFormater = (route: string) => {
   const options = {
     dev: `http://localhost:${process.env.PORT}/`,
-    production: ``,
+    production: `https://ecommerce1-api.herokuapp.com/`,
   };
 
   return options[process.env.ENVIRONMENT as "dev" | "production"] + route;
