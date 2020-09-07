@@ -15,7 +15,7 @@ class AvatarController {
       .where({ id });
 
     res.send({
-      url: urlFormater(`/images/user/${avatar}`),
+      url: urlFormater(`images/user/${avatar}`),
     });
   }
 
@@ -27,7 +27,7 @@ class AvatarController {
     if (!user || !user.avatar) return res.send();
 
     const serializedResponse = {
-      url: urlFormater(`/images/user/${user.avatar}`),
+      url: urlFormater(`images/user/${user.avatar}`),
     };
 
     return res.send(serializedResponse);

@@ -9,9 +9,13 @@ import AppError from "./errors/AppError";
 const PORT = process.env.PORT || 3333;
 const App = express();
 App.use(
-  cors({
-    origin: "https://e-commerce1.netlify.app",
-  })
+  cors(
+    process.env.ENVIRONMENT === "dev"
+      ? undefined
+      : {
+          origin: "https://e-commerce1.netlify.app",
+        }
+  )
 );
 App.use(express.json());
 App.use(Routes);
