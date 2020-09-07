@@ -23,14 +23,14 @@ export type Action =
       cb?: () => void;
     }
   | { type: "cart" }
-  | { type: "create-address"; cb: (succeed: boolean) => Promise<void> }
+  | { type: "create-address"; cb: (succeed: boolean) => Promise<void> | void }
   | {
       type: "update-address";
       payload: { address: Address };
-      cb: (succeed: boolean) => Promise<void>;
+      cb: (succeed: boolean) => Promise<void> | void;
     }
   | {
       type: "update-user";
       payload: { user: UserDetailed };
-      cb: (succeed: boolean) => Promise<void>;
+      cb: (succeed: boolean) => Promise<void> | void;
     };

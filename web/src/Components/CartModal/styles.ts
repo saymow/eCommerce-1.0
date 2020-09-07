@@ -8,6 +8,7 @@ export const Container = styled.div`
   grid-template-columns: 3fr 2fr;
   grid-gap: 1rem;
   height: 42rem;
+  padding: 1.5rem;
 
   background: var(--background-primary);
   border-radius: 1rem;

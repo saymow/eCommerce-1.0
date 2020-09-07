@@ -32,6 +32,8 @@ const Signin: React.FC = () => {
     values: FormProps,
     { setErrors }: FormikHelpers<FormProps>
   ) {
+    console.log("Form was submited");
+
     try {
       const { email, password } = values;
       const response = await UserApi.signIn(email, password);

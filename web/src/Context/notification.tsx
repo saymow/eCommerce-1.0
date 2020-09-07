@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 
 import AlertNotification from "../Components/AlertNotification";
 
@@ -13,12 +13,21 @@ interface INotification {
 
 const delay = 4000;
 
-const Context: React.FC = ({ children }) => {
-  const [notifications, setNotifications] = useState<INotification[]>([]);
+const notifications: INotification[] = [];
 
+const Context: React.FC = ({ children }) => {
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  // Since react state is asynchronously i've been through some notification state issues, thus
+  // it resolved the probleem.
   const pushNotification = (notification: INotification) => {
-    setNotifications([...notifications, notification]);
-    return setTimeout(() => setNotifications((prev) => prev.slice(1)), delay);
+    notifications.push(notification);
+    forceUpdate();
+
+    return setTimeout(() => {
+      notifications.shift();
+      forceUpdate();
+    }, delay);
   };
 
   return (

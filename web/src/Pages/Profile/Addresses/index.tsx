@@ -52,7 +52,7 @@ const Addresses: React.FC = () => {
   function handleCreateAddress() {
     modalDispatch({
       type: "create-address",
-      cb: async () => {
+      cb: () => {
         pushNotification({
           type: "success",
           message: "Address created successfuly",
@@ -81,7 +81,7 @@ const Addresses: React.FC = () => {
       payload: {
         address,
       },
-      cb: async () => {
+      cb: () => {
         pushNotification({
           type: "success",
           message: "Address updated successfuly",
