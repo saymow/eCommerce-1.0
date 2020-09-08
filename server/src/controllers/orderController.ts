@@ -61,14 +61,6 @@ class OrderController {
         })
         .returning("id");
 
-      console.log({
-        address_id,
-        user_id: id,
-        status: "Processing",
-        raw_price,
-        shipment_price,
-      });
-
       const [order_id] = await trx("orders")
         .insert({
           address_id,
@@ -103,7 +95,6 @@ class OrderController {
         charge,
       });
     } catch (err) {
-      console.log(err);
       await trx.rollback();
       throw new AppError("Order error, please retry later.", 400);
     }

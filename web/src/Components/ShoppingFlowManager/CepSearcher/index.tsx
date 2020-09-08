@@ -128,7 +128,7 @@ const CepSearcher: React.FC = () => {
                 <h3>{item.Metodo}</h3>
                 <strong>R${item.Valor}</strong>
                 <p>
-                  Prazo: <strong>{item.PrazoEntrega}</strong> dias úteis.
+                  Deadline: <strong>{item.PrazoEntrega}</strong> Working days.
                 </p>
               </ShippingSelf>
             ))}

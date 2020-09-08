@@ -1,7 +1,7 @@
-import { calcularPrecoPrazo, consultarCep } from "correios-brasil";
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Services, DeliveryResponse } from "../Types/deliveryRelated_types";
+
+import { Proxy } from "Services/api";
 
 interface LocationByCep {
   logradouro: string;
@@ -80,7 +80,9 @@ export default class DeliveryManager {
     }));
 
     const data: DeliveryResponse[] = await Promise.all(
-      args.map((arg) => calcularPrecoPrazo(arg))
+      args.map((arg) =>
+        Proxy.post("/calcultePrice", arg).then((response) => response.data)
+      )
     );
 
     if (
@@ -102,8 +104,9 @@ export default class DeliveryManager {
   }
 
   searchLocationByCep(cep: string): Promise<formatedLocationByCep> {
-    return consultarCep(cep)
-      .then((data: LocationByCep) => {
+    return Proxy.get(`/checkPostalCode/${cep}`)
+      .then((response) => {
+        const data = response.data as LocationByCep;
         this.setLocationByCep({
           state: data.uf,
           city: data.localidade,

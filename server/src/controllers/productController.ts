@@ -41,7 +41,6 @@ class productManager {
 
     if (page == 1) {
       const [{ count }] = await connection("products").count();
-      console.log(count);
       res.setHeader("X-Total-Count", count);
     }
 

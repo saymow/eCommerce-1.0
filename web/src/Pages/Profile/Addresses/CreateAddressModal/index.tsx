@@ -45,13 +45,13 @@ const CreateAddressModal: React.FC<Props> = ({ closeModal, cb }) => {
 
   return (
     <ModalMockup closeModal={closeModal}>
-      <Container>
-        {isLoading ? (
-          <LoadingBars />
-        ) : (
+      {isLoading ? (
+        <LoadingBars height={"10rem"} width={"30%"} />
+      ) : (
+        <Container>
           <AddressForm submitHandler={submitHandler} action="Create" />
-        )}
-      </Container>
+        </Container>
+      )}
     </ModalMockup>
   );
 };

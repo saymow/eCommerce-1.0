@@ -29,8 +29,6 @@ const AddressManager: React.FC = () => {
 
     if (postalCode === currentPostalCode) return;
 
-    console.log(postalCode, currentPostalCode);
-
     const data = await DeliveryApi.calcDelivery(postalCode, cart.length);
 
     if (!deliveryMethod)

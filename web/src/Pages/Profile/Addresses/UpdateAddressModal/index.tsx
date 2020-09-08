@@ -60,17 +60,17 @@ const UpdateAddressModal: React.FC<Props> = ({ closeModal, cb, address }) => {
 
   return (
     <ModalMockup closeModal={closeModal}>
-      <Container>
-        {isLoading ? (
-          <LoadingBars />
-        ) : (
+      {isLoading ? (
+        <LoadingBars height={"10rem"} width={"30%"} />
+      ) : (
+        <Container>
           <AddressForm
             initialState={address}
             submitHandler={submitHandler}
             action="Update"
           />
-        )}
-      </Container>
+        </Container>
+      )}
     </ModalMockup>
   );
 };

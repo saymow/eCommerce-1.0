@@ -54,7 +54,6 @@ class UserController {
         });
       });
     } catch (err) {
-      console.log(err);
       throw new AppError("Internal server error.", 500);
     }
   }
@@ -151,7 +150,6 @@ class UserController {
         res.sendStatus(200);
       });
     } catch (err) {
-      console.log(err);
       throw new AppError("Internal server error.", 500);
     }
   }

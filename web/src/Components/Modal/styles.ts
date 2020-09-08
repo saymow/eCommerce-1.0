@@ -28,6 +28,8 @@ export const ModalBox = styled.div`
   overflow-y: auto;
   z-index: 101;
 
+  transition: width 200ms ease;
+
   width: 90%;
   max-width: 66rem;
 `;

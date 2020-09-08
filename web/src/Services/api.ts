@@ -1,10 +1,18 @@
 import axios, { AxiosInstance } from "axios";
 
+const baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3333/"
+    : "https://ecommerce1-api.herokuapp.com/";
+
 const Api = axios.create({
-  baseURL: process.env.NODE_ENV
-    ? "http://localhost:3333"
-    : "https://ecommerce1-api.herokuapp.com",
+  baseURL: baseURL + "api",
+});
+
+const Proxy = axios.create({
+  baseURL: baseURL + "proxy",
 });
 
 export default Api;
+export { Proxy };
 export type ApiType = AxiosInstance;

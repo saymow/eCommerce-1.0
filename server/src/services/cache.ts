@@ -7,7 +7,6 @@ const cacheClient = redis.createClient({
   port: Number(redisPort),
   retry_strategy(options) {
     if (options.error && options.error.code === "ECONNREFUSED") {
-      console.log(options.error.code);
       return undefined;
     }
   },
