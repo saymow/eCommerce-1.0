@@ -1,35 +1,32 @@
 import express from "express";
 
 import { consultarCep, calcularPrecoPrazo } from "correios-brasil";
+import AppError from "../errors/AppError";
 
 const routes = express.Router();
 
-routes.get("/checkPostalCode/:postalCode", (req, res) => {
+routes.get("/checkPostalCode/:postalCode", async (req, res) => {
   const { postalCode } = req.params;
 
-  consultarCep(postalCode)
-    .then((response: any) => {
-      res.send(response);
-    })
-    .catch((error: Error) => {
-      res.send({
-        MsgErro: "Unable to find postal code.",
-      });
-    });
+  const response = await consultarCep(postalCode);
+
+  if (response instanceof Error) {
+    throw new AppError("Third party api error", 500);
+  }
+
+  res.send(response);
 });
 
-routes.post("/calcultePrice", (req, res) => {
+routes.post("/calcultePrice", async (req, res) => {
   const { body } = req;
 
-  calcularPrecoPrazo(body)
-    .then((response: any) => {
-      res.send(response);
-    })
-    .catch((error: any) => {
-      res.send({
-        MsgErro: "Failed to fetch data.",
-      });
-    });
+  const response = await calcularPrecoPrazo(body);
+
+  if (response instanceof Error) {
+    throw new AppError("Third party api error", 500);
+  }
+
+  res.send(response);
 });
 
 export default routes;
