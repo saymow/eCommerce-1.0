@@ -107,7 +107,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = response.data.map(({ name }: { name: string }) => ({
     params: {
-      name: name.replace(/ /g, "%20"),
+      name: encodeURI(name),
     },
   }));
 
