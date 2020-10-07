@@ -6,11 +6,15 @@ import NotificationContext from "context/notification";
 import GlobalStyles from "styles/globalStyles";
 
 function MyApp({ Component, pageProps }) {
+  const Layout = Component.Layout ? Component.Layout : React.Fragment;
+
   return (
     <Context>
       <NotificationContext>
         <GlobalStyles />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </NotificationContext>
     </Context>
   );
