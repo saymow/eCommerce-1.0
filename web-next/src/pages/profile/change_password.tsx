@@ -5,6 +5,7 @@ import { useGlobalState, useNotificationContext } from "context";
 import { changePassSchema } from "helpers/formRelated_helper";
 
 import withProfileLayout from "utils/withProfileLayout";
+import withUserCheck from "utils/withUserCheck";
 
 import Input from "components/Input";
 
@@ -93,4 +94,4 @@ const ChangePass: React.FC = () => {
   );
 };
 
-export default withProfileLayout(ChangePass);
+export default withUserCheck(withProfileLayout(ChangePass));

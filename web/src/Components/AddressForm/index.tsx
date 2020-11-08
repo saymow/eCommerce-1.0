@@ -136,9 +136,9 @@ const AddressForm: React.FC<Props> = ({
                       formik.setFieldValue(key, value);
                     }
                   })
-                  .catch((err: Error) => {
-                    setPostalCodeIsInvalid(err.message);
-                    formik.setFieldError("postalCode", "Invalid postal code.");
+                  .catch(({ message = "Invalid postal code" }: Error) => {
+                    setPostalCodeIsInvalid(message);
+                    formik.setFieldError("postalCode", message);
                     // shouldValidate did'nt worked
                     // formik.setFieldValue("postalCode", postalCode, false);
                   });

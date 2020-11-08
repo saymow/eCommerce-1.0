@@ -1,6 +1,6 @@
 import React from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FormikHelpers } from "formik";
 
 import { useGlobalState } from "context";
@@ -24,13 +24,19 @@ interface DataProps {
   cpf: string;
 }
 
-const SignUp: React.FC = () => {
-  const history = useRouter();
-
+const SignUp: React.FC<{ redirected?: boolean }> = ({ redirected }) => {
   const {
     UserApi,
     userController: { dispatch },
   } = useGlobalState();
+  const history = useRouter();
+
+  // PROVISORY
+  (async function () {
+    if (redirected) {
+      await history.replace("/signup");
+    }
+  })();
 
   async function handleSubmit(
     values: DataProps,

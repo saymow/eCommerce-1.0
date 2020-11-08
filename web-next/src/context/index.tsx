@@ -80,7 +80,7 @@ const AppContext: React.FC = ({ children }) => {
       value={{
         userController: {
           loggedIn,
-          user: user ? user : undefined,
+          user,
           dispatch: userDispatch,
         },
         UserApi,

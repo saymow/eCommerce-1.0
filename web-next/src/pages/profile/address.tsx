@@ -5,6 +5,7 @@ import { useGlobalState, useNotificationContext } from "context";
 import LoadingBars from "components/LoadingBars";
 
 import withProfileLayout from "utils/withProfileLayout";
+import withUserCheck from "utils/withUserCheck";
 
 import { Address as AddressType } from "types/buyingFlowRelated_types";
 
@@ -147,4 +148,4 @@ const Addresses: React.FC = () => {
   );
 };
 
-export default withProfileLayout(Addresses);
+export default withUserCheck(withProfileLayout(Addresses));

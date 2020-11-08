@@ -39,7 +39,7 @@ const genderFormaterNumToStr = (num: string) =>
   genderOptions.find(({ value }) => value === Number(num))?.name;
 
 const genderFormaterStrToNum = (value: string) =>
-  genderOptions.find(({ name }) => name === value)?.name;
+  genderOptions.find(({ name }) => name === value)?.value;
 
 export {
   priceFormater,

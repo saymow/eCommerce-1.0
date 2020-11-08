@@ -5,6 +5,7 @@ import backgroundImage from "../../Assets/background.jpg";
 export const Container = styled.div`
   z-index: -1;
   background-image: url(${backgroundImage});
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;

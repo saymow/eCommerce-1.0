@@ -8,6 +8,7 @@ import {
 } from "utils/formaters";
 
 import withProfileLayout from "utils/withProfileLayout";
+import withUserCheck from "utils/withUserCheck";
 
 import LoadingBars from "components/LoadingBars";
 
@@ -183,4 +184,4 @@ const Address: React.FC = () => {
   );
 };
 
-export default withProfileLayout(Address);
+export default withUserCheck(withProfileLayout(Address));

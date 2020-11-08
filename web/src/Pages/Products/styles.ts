@@ -113,7 +113,7 @@ export const ProductList = styled.section`
 `;
 
 export const ProductSelf = styled.div`
-  flex-grow: 1;
+  flex-grow: 0;
   margin: 3%;
   flex-basis: 27.33%;
 

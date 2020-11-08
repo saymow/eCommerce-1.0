@@ -1,6 +1,6 @@
 import { User, Action } from "../types/userRelated_types";
 
-export function userAction(state: User | false | undefined, action: Action) {
+export function userAction(state: User | undefined, action: Action) {
   switch (action.type) {
     case "set-loggedIn": {
       const { email, name } = action.payload;
@@ -8,7 +8,7 @@ export function userAction(state: User | false | undefined, action: Action) {
       return { email, name };
     }
     case "unset-loggedIn": {
-      return false;
+      return undefined;
     }
 
     default: {

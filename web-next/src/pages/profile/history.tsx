@@ -5,7 +5,9 @@ import { useGlobalState } from "context";
 import LoadingBars from "components/LoadingBars";
 
 import { priceFormater } from "utils/formaters";
+
 import withProfileLayout from "utils/withProfileLayout";
+import withUserCheck from "utils/withUserCheck";
 
 import { Address } from "types/buyingFlowRelated_types";
 
@@ -233,4 +235,4 @@ const History: React.FC = () => {
   );
 };
 
-export default withProfileLayout(History);
+export default withUserCheck(withProfileLayout(History));

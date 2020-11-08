@@ -118,7 +118,12 @@ const Products: React.FC<{ data: Product[] }> = ({ data: products }) => {
                   />
                   <strong>{product.name}</strong>
                   <Options>
-                    <Link href={`product/${product.name}`}>Details</Link>
+                    <Link
+                      href={`/product/[name]`}
+                      as={`/product/${encodeURIComponent(product.name)}`}
+                    >
+                      Details
+                    </Link>
                     <button onClick={() => handleInsertIntoCart(product.id)}>
                       Add to cart
                     </button>
