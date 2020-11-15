@@ -2,12 +2,12 @@
 <br>
 <h2 align="center">Profile</h2>
 <p align="center">
-   <img src=""></img>
+   <img src="https://github.com/saymow/eCommerce-1.0/blob/master/.github/profile.gif"></img>
 </p>
 <br/>
-<h2 align="center">Shopping flow</h2>
+<h2 align="center">Shop flux</h2>
 <p align="center">
-   <img src=""></img>
+   <img src="https://github.com/saymow/eCommerce-1.0/blob/master/.github/shopflux.gif"></img>
 </p>
 
 <br>
@@ -50,11 +50,6 @@
 </table>
 
 <br>
-
-<p align="center">
-  <img src="https://github.com/saymow/NLW-Edition-1/blob/master/.github/Web.gif"><img>
-  <img src="https://github.com/saymow/NLW-Edition-1/blob/master/.github/Mobile.gif" width="520px"><img>
-</p>
 
 ## :rocket: Tecnologias:
 
