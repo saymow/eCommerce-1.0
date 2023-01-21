@@ -12,7 +12,7 @@
 
 <br>
 
-## 📋 Sobre:
+## 📋 About:
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;My first ecommerce project. <a href="https://e-commerce1.netlify.app/">Check it out.</a></p>
 
@@ -51,7 +51,7 @@
 
 <br>
 
-## :rocket: Tecnologias:
+## :rocket: Technologies:
 
 ### Frontend
 
