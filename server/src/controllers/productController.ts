@@ -3,7 +3,7 @@ import connection from "../database/connection";
 import AppError from "../errors/AppError";
 
 import { cachefy } from "../services/cache";
-import { urlFormater } from "../utils/formaters";
+import { urlFormatter } from "../utils/formaters";
 
 interface QueryList {
   page?: number;
@@ -36,7 +36,7 @@ class productManager {
 
     const serializedProducts = products.map((product) => ({
       ...product,
-      image: urlFormater(`images/products/${product.image}.jpg`),
+      image: urlFormatter(`images/products/${product.image}.jpg`),
     }));
 
     if (page == 1) {
@@ -60,7 +60,7 @@ class productManager {
 
     const serializedProduct = {
       ...product,
-      image: urlFormater(`images/products/${product.image}.jpg`),
+      image: urlFormatter(`images/products/${product.image}.jpg`),
     };
 
     cachefy(`product ${name}`, serializedProduct);

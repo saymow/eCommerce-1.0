@@ -1,12 +1,12 @@
 import api, { ApiType } from "./api";
 
-import { Address, DeliveryState } from "../Types/buyingFlowRelated_types";
+import { Address, Delivery } from "../Types/buyingFlowRelated_types";
 import { CartData } from "../Types/cartRelated_types";
 
 interface CheckoutProp {
   token: any;
   address: Address;
-  shippment: DeliveryState;
+  shippment: Delivery;
   cartData: CartData;
 }
 

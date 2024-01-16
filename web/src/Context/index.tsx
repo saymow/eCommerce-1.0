@@ -35,9 +35,7 @@ const AppContext: React.FC = ({ children }) => {
     modalAction,
     modalInitialState
   );
-
   const [user, userDispatch] = useReducer(userAction, undefined);
-
   const UserApi = useMemo(() => new UserApiManager(), []);
   const loggedIn = useMemo(() => (user === undefined || user ? true : false), [
     user,

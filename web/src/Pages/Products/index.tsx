@@ -92,7 +92,7 @@ const Products: React.FC = () => {
 
   return products.length === 0 ? (
     <LoadingContainer>
-      <Loading barQntd={5} delay={200} height={"35%"} width={"25%"} />
+      <Loading barQntd={5} delay={200} height={"10%"} width={"10%"} />
     </LoadingContainer>
   ) : (
     <Container>

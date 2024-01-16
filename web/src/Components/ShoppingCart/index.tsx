@@ -69,7 +69,7 @@ const ShoppingCart: React.FC = () => {
         {cart.length === 0 ? (
           <EmptyBag>
             <h5>Your cart is empty</h5>
-            <p>You havent added any products to card yet.</p>
+            <p>You havent added any products to the cart yet.</p>
             <EmptyBagIcon />
           </EmptyBag>
         ) : (

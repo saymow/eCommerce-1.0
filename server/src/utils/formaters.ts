@@ -10,7 +10,7 @@ const dateFormater = {
     }-${date.getFullYear()}`,
 };
 
-const urlFormater = (route: string) => {
+const urlFormatter = (route: string) => {
   const options = {
     dev: `http://localhost:${process.env.PORT}/`,
     production: `https://ecommerce1-api.herokuapp.com/`,
@@ -19,4 +19,13 @@ const urlFormater = (route: string) => {
   return options[process.env.ENVIRONMENT as "dev" | "production"] + route;
 };
 
-export { dateFormater, urlFormater };
+const frontendUrlFormatter = (route: string) => {
+  const options = {
+    dev: `http://localhost:${process.env.FE_PORT ?? 3000}/`,
+    production: `??`,
+  };
+
+  return options[process.env.ENVIRONMENT as "dev" | "production"] + route;
+};
+
+export { dateFormater, urlFormatter, frontendUrlFormatter };

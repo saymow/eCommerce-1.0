@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
+console.log(process.env)
+
 const baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3333/"

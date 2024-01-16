@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useCallback } from "react";
 
 import { useGlobalState, useNotificationContext } from "../../../Context";
 import { useBuyingFlowState } from "../Controller";
@@ -18,30 +18,54 @@ import {
   ContinueButton,
 } from "./styles";
 
-import { DeliveryResponse } from "../../../Types/deliveryRelated_types";
+import { Delivery, DeliveryType } from "../../../Types/buyingFlowRelated_types";
+
+interface ShippingMethods {
+  type: DeliveryType;
+  deadline: string;
+  price: string;
+}
+
+const randomInt = (min: number, max: number) => {
+  return min + Math.round(Math.random() * (max - min));
+};
+
+const makeShippinMethods = (): ShippingMethods[] => {
+  return [
+    {
+      type: DeliveryType.Standard,
+      deadline: randomInt(3, 7).toString(),
+      price: "15.00",
+    },
+    {
+      type: DeliveryType.Express,
+      deadline: randomInt(7, 12).toString(),
+      price: "20.00",
+    },
+  ];
+};
 
 const CepSearcher: React.FC = () => {
-  const { next, DeliveryApi } = useBuyingFlowState();
-
+  const { next } = useBuyingFlowState();
   const {
     buyingController: { dispatch },
     cartManager: { cart },
   } = useGlobalState();
-  const { pushNotification } = useNotificationContext();
-  const [cep, setCep] = useState("");
-  const [lastCepSearched, setlastCepSearched] = useState("");
+
+  const [postalCode, setPostalCode] = useState("");
+  const [lastPostalCode, setLastPostalCode] = useState("");
   const [shippmentMethods, setShippmentMethods] = useState<
-    DeliveryResponse[] | undefined
+    ShippingMethods[] | undefined
   >(undefined);
   const [methodChoosed, setMethodChoosed] = useState<
-    DeliveryResponse | undefined
+    ShippingMethods | undefined
   >(undefined);
-  const [apiLoading, setApiLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleCepUpdate(value: string) {
     let text = value.replace(/^(\d{5})(\d{1,3})/, "$1-$2");
 
-    setCep(text);
+    setPostalCode(text);
   }
 
   function handleFormSubmit(event: FormEvent) {
@@ -49,41 +73,29 @@ const CepSearcher: React.FC = () => {
     handleApiSearch();
   }
 
-  async function handleApiSearch() {
-    if (cep === lastCepSearched) return;
-    setApiLoading(true);
-    setlastCepSearched(cep);
+  const handleApiSearch = useCallback(() => {
+    if (postalCode === lastPostalCode) return;
 
-    let qntdProducts = cart.reduce(
-      (accumulator, item) => accumulator + item.qntd,
-      0
-    );
+    setIsLoading(true);
+    const timeoutId = setTimeout(() => {
+      setShippmentMethods(makeShippinMethods());
+      setLastPostalCode(postalCode);
+      setIsLoading(false);
+    }, 1000);
 
-    DeliveryApi.calcAndValidateDelivery(cep, qntdProducts, (err, data) => {
-      if (err || !data) {
-        pushNotification({
-          type: "warning",
-          message: err ? err.message : "Unexpected error",
-        });
-      }
-      setShippmentMethods(data);
-      setApiLoading(false);
-    });
-  }
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [lastPostalCode, postalCode]);
 
   async function handleCepChoosed() {
     if (!methodChoosed) return;
 
-    const { Codigo, Metodo, PrazoEntrega, Valor } = methodChoosed;
-
     dispatch({
       type: "set-delivery",
       payload: {
-        cep,
-        Codigo,
-        Metodo,
-        PrazoEntrega,
-        Valor,
+        code: postalCode,
+        ...methodChoosed,
       },
     });
 
@@ -103,12 +115,12 @@ const CepSearcher: React.FC = () => {
             placeholder="Postal code"
             pattern="(\d{5})(-{1})(\d{3})"
             maxLength={9}
-            value={cep}
+            value={postalCode}
             onChange={(event) => handleCepUpdate(event.target.value)}
           />
         </div>
         <div>
-          {apiLoading ? (
+          {isLoading ? (
             <Loading color={"var(--primary)"} />
           ) : (
             <Button>Calculate shipping</Button>
@@ -120,15 +132,15 @@ const CepSearcher: React.FC = () => {
           <Shipping>
             {shippmentMethods?.map((item) => (
               <ShippingSelf
-                key={item.Codigo}
+                key={item.type}
                 onClick={() => setMethodChoosed(item)}
-                selected={item.Codigo === methodChoosed?.Codigo ? true : false}
+                selected={item.type === methodChoosed?.type ? true : false}
               >
                 <ShippingIcon />
-                <h3>{item.Metodo}</h3>
-                <strong>R${item.Valor}</strong>
+                <h3>{item.type}</h3>
+                <strong>R${item.price.replace(".", ",")}</strong>
                 <p>
-                  Deadline: <strong>{item.PrazoEntrega}</strong> Working days.
+                  Deadline: <strong>{item.deadline}</strong> Working days.
                 </p>
               </ShippingSelf>
             ))}

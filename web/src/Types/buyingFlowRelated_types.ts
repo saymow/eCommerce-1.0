@@ -1,17 +1,13 @@
-export interface DeliveryMethods {
-  cep: string;
-  Codigo: string;
-  PrazoEntrega: string;
-  Valor: string;
-  Metodo: string | undefined;
+export enum DeliveryType  {
+  Standard = "Standard",
+  Express = "Express"
 }
 
-export interface DeliveryState {
-  cep: string;
+export interface Delivery {
   code: string;
+  type: DeliveryType;
   deadline: string;
   price: string;
-  type?: string;
 }
 
 export interface Address {
@@ -26,19 +22,19 @@ export interface Address {
 
 export type Steps = 1 | 2 | 3 | 4 | 5;
 
-export interface BuyingFlowState {
+export interface Cart {
   step: Steps;
-  deliveryMethod?: DeliveryState;
+  deliveryMethod?: Delivery;
   address?: Address;
 }
 
-export interface BuyingFlow extends BuyingFlowState {
+export interface CartState extends Cart {
   dispatch: (arg0: Action) => void;
 }
 
 export type Action =
-  | { type: "set-delivery"; payload: DeliveryMethods }
-  | { type: "update-delivery"; payload: DeliveryMethods }
+  | { type: "set-delivery"; payload: Delivery }
+  | { type: "update-delivery"; payload: Delivery }
   | { type: "set-address"; payload: Address }
   | { type: "set-logged" }
   | { type: "set-finished-buy" }

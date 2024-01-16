@@ -3,7 +3,7 @@ import knex from "../database/connection";
 
 import postCharge from "../services/payment";
 import AppError from "../errors/AppError";
-import { urlFormater } from "../utils/formaters";
+import { urlFormatter } from "../utils/formaters";
 
 interface IProduct {
   id: number;
@@ -40,7 +40,6 @@ class OrderController {
       const products = cartData.cart as IProduct[];
       const raw_price = cartData.totalCart;
       const shipment_price = Math.floor(Number(shippment.price) * 100);
-
       const amount = Math.round(raw_price + shipment_price);
 
       if (!address.id) {
@@ -95,6 +94,7 @@ class OrderController {
         charge,
       });
     } catch (err) {
+      console.error(err);
       await trx.rollback();
       throw new AppError("Order error, please retry later.", 400);
     }
@@ -146,7 +146,7 @@ class OrderController {
             return {
               name,
               price,
-              image: urlFormater(`images/products/${image}.jpg`),
+              image: urlFormatter(`images/products/${image}.jpg`),
             };
           });
 

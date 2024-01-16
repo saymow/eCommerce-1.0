@@ -56,6 +56,29 @@ interface PropsOrderHistoryServer {
   }>;
 }
 
+const formatOrderDate = (dateStr: string) => {
+  const now = new Date();
+  const date = new Date(dateStr);
+
+  const timeDiff = now.getTime() - date.getTime();
+  const minutes = Math.floor(timeDiff / (1000 * 60));
+
+  if (minutes < 1) {
+    return "Just now";
+  } else if (minutes < 60) {
+    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+  } else if (minutes < 60 * 24) {
+    const hours = Math.floor(minutes / 60);
+    return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+  }
+
+  return date.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  });
+};
+
 const History: React.FC = () => {
   const {
     UserApi,
@@ -68,8 +91,8 @@ const History: React.FC = () => {
     (async () => {
       try {
         const data = await UserApi.getOrderHistory();
-        
-        const serializedData = data.map(
+
+        const serializedData = (data ?? []).map(
           ({
             raw_price,
             shipment_price,
@@ -77,8 +100,6 @@ const History: React.FC = () => {
             products,
             ...props
           }: PropsOrderHistoryServer) => {
-            let [createdDate, createdHour] = created_at.split(" ");
-
             const serializedProducts = products.map(({ price, ...props }) => ({
               ...props,
               price: priceFormater(price),
@@ -86,8 +107,7 @@ const History: React.FC = () => {
 
             return {
               ...props,
-              createdDate,
-              createdHour,
+              createdDate: formatOrderDate(created_at),
               products: serializedProducts,
               raw_price: priceFormater(raw_price),
               shipment_price: priceFormater(shipment_price),
@@ -132,7 +152,6 @@ const History: React.FC = () => {
                 shipment_price,
                 total_price,
                 createdDate,
-                createdHour,
                 delivered_at,
                 status,
                 address: {
@@ -156,16 +175,13 @@ const History: React.FC = () => {
                     <span>Price</span>: {raw_price}
                   </p>
                   <p>
-                    <span>Shipment_price</span>: {shipment_price}
+                    <span>Shipment price</span>: {shipment_price}
                   </p>
                   <TotalPrice>
                     <span>Total</span>: {total_price}
                   </TotalPrice>
                   <p>
-                    <span>Date</span>: {createdDate}
-                  </p>
-                  <p>
-                    <span>Time</span>: {createdHour}
+                    <span>Placed at</span>: {createdDate}
                   </p>
                   <p>
                     <span>Status</span>: {status}
@@ -199,8 +215,8 @@ const History: React.FC = () => {
                 </AddressInfo>
 
                 <ProductList>
-                  {products.map(({ name, price, image }, i) => (
-                    <Product key={i}>
+                  {products.map(({ name, price, image }) => (
+                    <Product key={name}>
                       <div>
                         <a
                           href={"http://localhost:3000/product/" + name}

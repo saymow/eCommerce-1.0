@@ -85,7 +85,7 @@ export const ShippingSelf = styled.div<ShippingSelf>`
   transform: translateY(${(props) => (props.selected ? "-3px" : "0px")});
   transform: scale(${(props) => (props.selected ? 1.02 : 1)});
 
-  strong {
+  strong, h3 {
     color: ${(props) => (props.selected ? "#57a873" : "inherit")};
   }
 

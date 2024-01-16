@@ -19,13 +19,7 @@ import {
   SadIcon,
 } from "./styles";
 
-interface Props {
-  updateShippmentCostsWheenNeeded: (postalCode: string) => Promise<void>;
-}
-
-const ExistingAddresses: React.FC<Props> = ({
-  updateShippmentCostsWheenNeeded,
-}) => {
+const ExistingAddresses: React.FC = () => {
   const {
     UserApi,
     modalController: { dispatch: modalDispatch },
@@ -96,10 +90,6 @@ const ExistingAddresses: React.FC<Props> = ({
 
   async function handleSelectedAddress() {
     setIsLoading(true);
-
-    await updateShippmentCostsWheenNeeded(
-      selectedAddress?.postalCode as string
-    );
 
     dispatch({
       type: "set-address",

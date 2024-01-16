@@ -17,16 +17,4 @@ routes.get("/checkPostalCode/:postalCode", async (req, res) => {
   res.send(response);
 });
 
-routes.post("/calcultePrice", async (req, res) => {
-  const { body } = req;
-
-  const response = await calcularPrecoPrazo(body);
-
-  if (response instanceof Error) {
-    throw new AppError("Third party api error", 500);
-  }
-
-  res.send(response);
-});
-
 export default routes;

@@ -19,7 +19,7 @@ function priceFormater(number: number): string {
 const genderOptions = [
   {
     value: 0,
-    name: "No known",
+    name: "Unknown",
   },
   {
     value: 1,

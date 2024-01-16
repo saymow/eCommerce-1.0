@@ -2,7 +2,7 @@ import UserApiManager from "../Services/userApi";
 
 import { CartManager } from "./cartRelated_types";
 import { UserController } from "./userRelated_types";
-import { BuyingFlow } from "./buyingFlowRelated_types";
+import { CartState } from "./buyingFlowRelated_types";
 import { Data, Action } from "./modalRelated_types";
 
 export interface ContextData {
@@ -13,5 +13,5 @@ export interface ContextData {
     config: Data;
     dispatch: (action: Action) => void;
   };
-  buyingController: BuyingFlow;
+  buyingController: CartState;
 }

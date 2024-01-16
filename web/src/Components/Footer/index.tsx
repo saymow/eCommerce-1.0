@@ -28,7 +28,6 @@ const Footer: React.FC = () => {
 
   function handleSubmitForm(event: React.FormEvent) {
     event.preventDefault();
-    alert(email + ", to-do.");
   }
 
   return (

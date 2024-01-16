@@ -40,69 +40,6 @@ export default class DeliveryManager {
     };
   }
 
-  async calcAndValidateDelivery(cep: string, qntd: number, cb: cb) {
-    try {
-      const data = await this.calcDelivery(cep, qntd);
-
-      await this.searchLocationByCep(cep);
-
-      return cb(undefined, data);
-    } catch (err) {
-      return cb(
-        {
-          message: err.message,
-        },
-        undefined
-      );
-    }
-  }
-
-  async calcDelivery(cep: string, qntd: number) {
-    let Services = {
-      Sedex: "04014",
-      Pac: "04510",
-    };
-
-    let arg = {
-      sCepOrigem: "02513010",
-      sCepDestino: cep,
-      nVlPeso: (0.2 * qntd).toString(),
-      nCdFormato: "3",
-      nVlComprimento: "20",
-      nVlAltura: "3",
-      nVlLargura: "10",
-      nVlDiametro: "0",
-    };
-
-    let args = Object.keys(Services).map((service) => ({
-      ...arg,
-      nCdServico: Services[service as Services],
-    }));
-
-    const data: DeliveryResponse[] = await Promise.all(
-      args.map((arg) =>
-        Proxy.post("/calcultePrice", arg).then((response) => response.data)
-      )
-    );
-
-    if (
-      data.find(
-        (option) => option.MsgErro || option?.message === "Failed to fetch"
-      )
-    )
-      throw Error("Failed to connect with correios api");
-
-    const serializedData = data.map((option) => ({
-      ...option,
-      Metodo: Object.keys(Services).find(
-        (service) => Services[service as Services] === option.Codigo
-      ),
-      Valor: option.Valor.replace(",", "."),
-    }));
-
-    return serializedData;
-  }
-
   searchLocationByCep(cep: string): Promise<formatedLocationByCep> {
     return Proxy.get(`/checkPostalCode/${cep}`)
       .then((response) => {

@@ -1,42 +1,26 @@
 import {
-  BuyingFlowState,
+  Cart,
   Action,
   Steps,
 } from "../Types/buyingFlowRelated_types";
 
-function flowAction(state: BuyingFlowState, action: Action): BuyingFlowState {
+function flowAction(state: Cart, action: Action): Cart {
   if (state.step > 5 || state.step < 1) return state;
 
   let step = (state.step + 1) as Steps;
 
   switch (action.type) {
     case "set-delivery": {
-      const { cep, Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
-
       return {
         ...state,
         step,
-        deliveryMethod: {
-          cep,
-          code: Codigo,
-          deadline: PrazoEntrega,
-          price: Valor,
-          type: Metodo,
-        },
+        deliveryMethod: { ...action.payload },
       };
     }
     case "update-delivery": {
-      const { cep, Codigo, Metodo, PrazoEntrega, Valor } = action.payload;
-
       return {
         ...state,
-        deliveryMethod: {
-          cep,
-          code: Codigo,
-          deadline: PrazoEntrega,
-          price: Valor,
-          type: Metodo,
-        },
+        deliveryMethod: { ...action.payload },
       };
     }
     case "set-address":

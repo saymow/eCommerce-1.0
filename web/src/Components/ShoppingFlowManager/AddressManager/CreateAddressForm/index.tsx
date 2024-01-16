@@ -21,13 +21,7 @@ interface FormProps extends InitialStateFromApi {
   postalCode: string;
 }
 
-interface Props {
-  updateShippmentCostsWheenNeeded: (postalCode: string) => Promise<void>;
-}
-
-const CreateAddressForm: React.FC<Props> = ({
-  updateShippmentCostsWheenNeeded,
-}) => {
+const CreateAddressForm: React.FC = () => {
   const {
     buyingController: { dispatch },
   } = useGlobalState();
@@ -46,8 +40,6 @@ const CreateAddressForm: React.FC<Props> = ({
     const { state, city, neighborhood, street, number, postalCode } = values;
 
     setIsLoading(true);
-
-    await updateShippmentCostsWheenNeeded(postalCode);
 
     dispatch({
       type: "set-address",

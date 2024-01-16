@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import knex from "../database/connection";
 
-import { urlFormater } from "../utils/formaters";
+import { urlFormatter } from "../utils/formaters";
 
 class AvatarController {
   async store(req: Request, res: Response) {
@@ -15,7 +15,7 @@ class AvatarController {
       .where({ id });
 
     res.send({
-      url: urlFormater(`images/user/${avatar}`),
+      url: urlFormatter(`images/user/${avatar}`),
     });
   }
 
@@ -27,7 +27,7 @@ class AvatarController {
     if (!user || !user.avatar) return res.send();
 
     const serializedResponse = {
-      url: urlFormater(`images/user/${user.avatar}`),
+      url: urlFormatter(`images/user/${user.avatar}`),
     };
 
     return res.send(serializedResponse);
