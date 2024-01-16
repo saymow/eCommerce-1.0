@@ -23,14 +23,6 @@ import {
   Button,
 } from "./styles";
 
-interface StateOption {
-  sigla: string;
-}
-
-interface CityOption {
-  nome: string;
-}
-
 interface InitialState {
   id?: number;
   state?: string;

@@ -1,20 +1,28 @@
 <h1 align="center">:fire: eCommerce-1.0 :fire:</h1>
-<br>
-<h2 align="center">Profile</h2>
-<p align="center">
-   <img src="https://github.com/saymow/eCommerce-1.0/blob/master/.github/profile.gif"></img>
-</p>
-<br/>
-<h2 align="center">Shop flux</h2>
-<p align="center">
-   <img src="https://github.com/saymow/eCommerce-1.0/blob/master/.github/shopflux.gif"></img>
-</p>
-
-<br>
 
 ## 📋 About:
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;My first ecommerce project. <a href="https://e-commerce1.netlify.app/">Check it out.</a></p>
+
+<br>
+
+<h2 align="center">Profile flow</h2>
+<p align="center">
+   <img src="https://github.com/saymow/eCommerce-1.0/blob/master/.github/profile.gif"></img>
+</p>
+<br/>
+
+<h2 align="center">Shop flow</h2>
+<p align="center">
+   <img src="https://github.com/saymow/eCommerce-1.0/blob/master/.github/shopflux.gif"></img>
+</p>
+
+<h2 align="center">Payment receipt</h2>
+<p align="center">
+   <img src="https://github.com/saymow/eCommerce-1.0/blob/master/.github/receipt.png"></img>
+</p>
+
+<br>
 
 ### Here there are some testing credit cards provided by <a href="https://stripe.com/docs/testing">stripe</a>.
 
@@ -71,6 +79,11 @@
 - [Knex](http://knexjs.org/)
 - [Stripe](https://stripe.com)
 - [Celebrate](https://www.npmjs.com/package/celebrate)
+
+### Integrations 
+
+- [Stripe](https://stripe.com/en-br)
+- [Correios](https://www.correios.com.br/atendimento/developers)
 
 ### Database
 
